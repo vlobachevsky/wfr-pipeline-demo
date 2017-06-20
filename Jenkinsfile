@@ -1,8 +1,8 @@
 stage('Build') {
-  compileApp
-  runJUnitTests
-  buildJS
-  packageZip
+  compileApp()
+  runJUnitTests()
+  buildJS()
+  packageZip()
 }
 
 private void compileApp() {
