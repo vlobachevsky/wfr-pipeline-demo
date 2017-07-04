@@ -1,9 +1,11 @@
-stage('Build') {
-  syncRepo()
-  compileApp()
-  runJUnitTests()
-  buildJS()
-  packageZip()
+node {
+  stage('Build') {
+    syncRepo()
+    compileApp()
+    runJUnitTests()
+    buildJS()
+    packageZip()
+  }
 }
 
 private void syncRepo() {
