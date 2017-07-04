@@ -10,11 +10,7 @@ node {
 
 private void syncRepo() {
   echo '0. Sync repo'
-  checkout([
-    $class: 'SubversionSCM',
-    remote: 'svn://kap-wfr-svn.int.kronos.com/zeyt',
-    credentialsId: 'vlobachevsky-github'
-  ]]])
+  checkout([$class: 'SubversionSCM', remote: 'svn://kap-wfr-svn.int.kronos.com/zeyt', credentialsId: 'vlobachevsky-github']]])
 }
 
 private void compileApp() {
