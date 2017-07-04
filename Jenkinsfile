@@ -1,8 +1,13 @@
 stage('Build') {
+  syncRepo()
   compileApp()
   runJUnitTests()
   buildJS()
   packageZip()
+}
+
+private void syncRepo() {
+  echo '0. Sync repo'
 }
 
 private void compileApp() {
