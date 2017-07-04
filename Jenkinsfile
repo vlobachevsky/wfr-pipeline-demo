@@ -11,14 +11,6 @@ node {
 private void syncRepo() {
   //echo '0. Sync repo'
   checkout([$class: 'SubversionSCM',
-    additionalCredentials: [],
-    excludedCommitMessages: '',
-    excludedRegions: '',
-    excludedRevprop: '',
-    excludedUsers: '',
-    filterChangelog: false,
-    ignoreDirPropChanges: false,
-    includedRegions: '',
     locations: [[credentialsId: 'vital.lobachevskij-wrf-svn', depthOption: 'infinity', ignoreExternalsOption: true, local: '.', remote: 'svn://kap-wfr-svn.int.kronos.com/zeyt']],
     workspaceUpdater: [$class: 'UpdateWithRevertUpdater']
   ])
