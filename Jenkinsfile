@@ -1,16 +1,22 @@
+#!/usr/bin/env groovy
+
 node {
     env.PATH = "${tool 'Ant-1.9.6'}\\bin;${env.PATH}"
 
     parallel buildJava: {
         stage('Build: Java') {
             //syncRepo()
-            compileApp()
+            node {
+                compileApp()
+            }
         }
     }, buildJS: {
         stage('Build: JS') {
-            buildJS()
+            node {
+                buildJS()
+            }
         }
-    }
+//    }
 
     stage('Test: Java') {
         runJUnitTests()
