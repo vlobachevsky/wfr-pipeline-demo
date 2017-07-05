@@ -1,7 +1,10 @@
 node {
   stage('Build') {
     syncRepo()
+
+    env.PATH = "${tool 'Ant-Default'}\\bin;${env.PATH}"
     compileApp()
+
     runJUnitTests()
     buildJS()
     packageZip()
@@ -26,7 +29,6 @@ private void syncRepo() {
 
 private void compileApp() {
   //echo '1. Compile application'
-  env.PATH = "${tool 'Ant-Default'}\\bin;${env.PATH}"
   bat 'ant -verion'
 }
 
