@@ -1,11 +1,20 @@
 node {
   env.PATH = "${tool 'Ant-1.9.6'}\\bin;${env.PATH}"
 
-  stage('Build') {
+  stage('Build: Java') {
     //syncRepo()
-    //compileApp()
-    //runJUnitTests()
+    compileApp()
+  }
+
+  stage('Test: Java') {
+    runJUnitTests()
+  }
+
+  stage('Build: JS') {
     buildJS()
+  }
+
+  stage('Package') {
     packageZip()
   }
 }
