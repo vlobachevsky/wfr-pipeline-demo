@@ -29,7 +29,7 @@ private void syncRepo() {
 
 private void compileApp() {
   //echo '1. Compile application'
-  bat 'ant -verion'
+  bat 'ant -version'
 }
 
 private void runJUnitTests() {
