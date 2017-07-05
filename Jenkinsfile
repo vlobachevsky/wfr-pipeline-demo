@@ -28,7 +28,7 @@ node {
     }
 */
 
-    stage('Test: Java') {
+    stage('Test') {
         runJUnitTests()
         // TODO: Try use splitTest to automatically split your test suite into
         // equal running parts that it can run concurrently.
