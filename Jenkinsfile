@@ -1,10 +1,9 @@
+env.PATH = "${tool 'Ant-Default'}\\bin;${env.PATH}"
+
 node {
   stage('Build') {
     syncRepo()
-
-    env.PATH = "${tool 'Ant-Default'}\\bin;${env.PATH}"
     compileApp()
-
     runJUnitTests()
     buildJS()
     packageZip()
