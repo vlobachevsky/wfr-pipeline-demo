@@ -27,14 +27,12 @@ private void syncRepo() {
 }
 
 private void compileApp() {
-  //echo '1. Compile application'
-  //bat 'ant -version'
-  //bat 'ant -Dpackage.destination=D:\\Temp\\wfr-artifactory BuildEclipseCompiler JUnit BuildJS PackageWeb'
-  bat 'ant -Dpackage.destination=D:\\Temp\\wfr-artifactory BuildEclipseCompiler JUnit'
+  //bat 'ant -Dpackage.destination=D:\\Temp\\wfr-artifactory BuildEclipseCompiler JUnit'
+  bat 'ant BuildEclipseCompiler'
 }
 
 private void runJUnitTests() {
-  echo '2. Run JUnit tests'
+  bat 'ant JUnit'
 }
 
 private void buildJS() {
