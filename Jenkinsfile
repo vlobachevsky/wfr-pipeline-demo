@@ -1,19 +1,21 @@
 node {
     env.PATH = "${tool 'Ant-1.9.6'}\\bin;${env.PATH}"
 
-//    parallel buildJava: {
+    parallel buildJava: {
         stage('Build: Java') {
             //syncRepo()
             compileApp()
         }
-//    }, buildJS: {
+    }, buildJS: {
         stage('Build: JS') {
             buildJS()
         }
-//    }
+    }
 
     stage('Test: Java') {
         runJUnitTests()
+        // TODO: Try use splitTest to automatically split your test suite into
+        // equal running parts that it can run concurrently.
     }
 
     stage('Package') {
