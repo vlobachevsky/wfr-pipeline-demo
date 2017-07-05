@@ -16,7 +16,7 @@ private void syncRepo() {
       credentialsId: 'vital.lobachevskij-wrf-svn',
       depthOption: 'infinity',
       ignoreExternalsOption: true,
-      local: '.', 
+      local: '.',
       remote: 'svn://kap-wfr-svn.int.kronos.com/zeyt'
     ]],
     workspaceUpdater: [$class: 'UpdateWithRevertUpdater']
@@ -25,7 +25,9 @@ private void syncRepo() {
 }
 
 private void compileApp() {
-  echo '1. Compile application'
+  //echo '1. Compile application'
+  env.PATH = "${tool 'Ant-Default'}\\bin;${env.PATH}"
+  bat 'ant --verion'
 }
 
 private void runJUnitTests() {
