@@ -3,8 +3,8 @@ node {
 
   stage('Build') {
     //syncRepo()
-    compileApp()
-    runJUnitTests()
+    //compileApp()
+    //runJUnitTests()
     buildJS()
     packageZip()
   }
@@ -36,7 +36,7 @@ private void runJUnitTests() {
 }
 
 private void buildJS() {
-  echo '3. Build JS'
+  bat 'ant BuildJS'
 }
 
 private void packageZip() {
