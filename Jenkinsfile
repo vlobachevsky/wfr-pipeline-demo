@@ -6,13 +6,13 @@ node {
     stage('Build') {
         parallel (
             "build-java" : {
-                node {
+                node('master') {
                     compileApp()
                 }
             },
             "build-js" : {
-                node {
-                    buildJS()    
+                node('master') {
+                    buildJS()
                 }
             }
         )
