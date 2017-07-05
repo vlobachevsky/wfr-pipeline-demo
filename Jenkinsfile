@@ -1,5 +1,5 @@
 node {
-  env.PATH = "${tool 'Ant-Default'}\\bin;${env.PATH}"
+  env.PATH = "${tool 'Ant-1.6.5'}\\bin;${env.PATH}"
 
   stage('Build') {
     //syncRepo()
