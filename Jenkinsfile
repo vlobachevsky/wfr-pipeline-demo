@@ -29,7 +29,8 @@ private void syncRepo() {
 private void compileApp() {
   //echo '1. Compile application'
   //bat 'ant -version'
-  bat 'ant -f zeyt/build.xml -Dpackage.destination=D:\\Temp\\wfr-artifactory BuildEclipseCompiler JUnit BuildJS PackageWeb'
+  //bat 'ant -Dpackage.destination=D:\\Temp\\wfr-artifactory BuildEclipseCompiler JUnit BuildJS PackageWeb'
+  bat 'ant -Dpackage.destination=D:\\Temp\\wfr-artifactory BuildEclipseCompiler'
 }
 
 private void runJUnitTests() {
