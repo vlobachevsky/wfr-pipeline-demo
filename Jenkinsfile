@@ -1,17 +1,19 @@
 node {
-  env.PATH = "${tool 'Ant-1.9.6'}\\bin;${env.PATH}"
+    env.PATH = "${tool 'Ant-1.9.6'}\\bin;${env.PATH}"
 
-  stage('Build: Java') {
-    //syncRepo()
-    compileApp()
-  }
+    parallel firstBranch: {
+        stage('Build: Java') {
+            //syncRepo()
+            compileApp()
+        }
+    }, secondBranch: {
+        stage('Build: JS') {
+            buildJS()
+        }
+    }
 
   stage('Test: Java') {
     runJUnitTests()
-  }
-
-  stage('Build: JS') {
-    buildJS()
   }
 
   stage('Package') {
