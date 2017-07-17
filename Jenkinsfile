@@ -76,5 +76,5 @@ private void buildJS() {
 }
 
 private void packageZip() {
-  echo 'ant -Dpackage.destination=D:\\Temp\\wfr-artifactory PackageWeb'
+  bat 'ant -Dpackage.destination=D:\\Temp\\wfr-artifactory PackageWeb'
 }
