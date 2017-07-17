@@ -18,8 +18,8 @@ node {
             "build-js" : {
                 buildJS()
             }
-*/
         )
+*/
     }
 
 /*
