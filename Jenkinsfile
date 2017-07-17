@@ -1,17 +1,24 @@
 #!/usr/bin/env groovy
 
+// Prerequisites:
+// 1. Tomcat 7.0.65 installed at D:\Tomcat
+// 2. Eclipse Compliler jar (ecj-4.4) in ANT_HOME/lib
+
+// XXX: Verify usage Java 1.8 by the build
+
 node {
     env.PATH = "${tool 'Ant-1.9.6'}\\bin;${env.PATH}"
 
     stage('Build') {
         syncRepo()
-        parallel (
+/*        parallel (
             "build-java" : {
                 compileApp()
             },
             "build-js" : {
                 buildJS()
             }
+*/
         )
     }
 
@@ -29,7 +36,7 @@ node {
 */
 
     stage('Test') {
-        runJUnitTests()
+        //runJUnitTests()
         // TODO: Try use splitTest to automatically split your test suite into
         // equal running parts that it can run concurrently.
     }
@@ -69,5 +76,5 @@ private void buildJS() {
 }
 
 private void packageZip() {
-  echo '4. PackageZip'
+  echo 'ant -Dpackage.destination=D:\\Temp\\wfr-artifactory PackageWeb'
 }
