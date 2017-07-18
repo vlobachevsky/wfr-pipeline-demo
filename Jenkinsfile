@@ -55,6 +55,7 @@ node {
 */
         deployPackage('node1')
     }
+}
 
 private void syncRepo() {
   //echo '0. Sync repo'
