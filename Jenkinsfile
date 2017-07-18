@@ -44,7 +44,17 @@ node {
     stage('Package') {
         packageZip()
     }
-}
+
+    stage('Deploy') {
+/*        node(nodeName = 'node1') {
+            deployPackage(nodeName)
+        }
+        node(nodeName = 'node2') {
+            deployPackage(nodeName)
+        }
+*/
+        deployPackage('node1')
+    }
 
 private void syncRepo() {
   //echo '0. Sync repo'
@@ -77,4 +87,8 @@ private void buildJS() {
 
 private void packageZip() {
   bat 'ant -Dpackage.destination=D:\\Temp\\wfr-artifactory PackageWeb'
+}
+
+private void deployPackage(nodeName) {
+    echo 'Deployed package on $nodeName'
 }
