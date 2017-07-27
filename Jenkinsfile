@@ -55,7 +55,6 @@ node {
             deployPackage(nodeName)
         }
 */
-        deployPackage('node1')
     }
 }
 
