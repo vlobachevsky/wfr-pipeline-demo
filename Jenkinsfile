@@ -5,12 +5,14 @@
 // 2. Eclipse Compliler jar (ecj-4.4) in ANT_HOME/lib
 
 // XXX: Verify usage Java 1.8 by the build
+// TODO: Send notification before the build
 
 node('master') {
     env.PATH = "${tool 'Ant-1.9.6'}\\bin;${env.PATH}"
 
     stage('Build') {
         syncRepo()
+        bat 'java -version'
         parallel (
             "build-java" : {
                 compileApp()
@@ -44,6 +46,10 @@ node('master') {
     stage('Package') {
         //packageZip()
         stash name: "zeyt-web", includes: "/reports/*,/sql/*,/web/*,/config/*,/quizzes/*,/tutorials/*"
+    }
+
+    stage('Update DB') {
+        updateDB()
     }
 
     stage('Deploy') {
@@ -101,6 +107,13 @@ private void runJUnitTests() {
 
 private void buildJS() {
     bat 'ant BuildJS'
+}
+
+pritave void updateDB() {
+    dir('zeyt') {
+        bat 'updateDB_Sprint.bat kdb-wfr-01 sa silver1i' //TODO: move to global vars
+        bat 'updateDB.bat zeyt sa silver1i'
+    }
 }
 
 private void packageZip() {
