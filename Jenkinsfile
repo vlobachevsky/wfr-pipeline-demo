@@ -42,14 +42,16 @@ node('master') {
     }
 
     stage('Package') {
-        packageZip()
+        //packageZip()
+        stash name: "zeyt-web", includes: "reports,sql,web,config,quizzes,tutorials"
     }
 
     stage('Deploy') {
         //node(nodeName = 'win-node-1') {
         node('win-node-1') {
             syncBuildScript()
-            deployPackage('win-node-1')
+            //deployPackage('win-node-1')
+            unstash "zeyt-web"
         }
 
 /*
