@@ -46,8 +46,9 @@ node {
     }
 
     stage('Deploy') {
-        node(nodeName = 'win-node-1') {
-            deployPackage(nodeName)
+        //node(nodeName = 'win-node-1') {
+        node('win-node-1') {
+            deployPackage('win-node-1')
         }
 
 /*
@@ -93,5 +94,5 @@ private void packageZip() {
 
 private void deployPackage(nodeName) {
     //echo 'Deployed package on $nodeName'
-    bat 'ant -Dpackage.destination=\\\10.0.2.2\\wfr-artifactory -Dpackage.deploy.path=. DeployWeb'
+    bat 'ant -Dpackage.destination=\\\\10.0.2.2\\wfr-artifactory -Dpackage.deploy.path=. DeployWeb'
 }
