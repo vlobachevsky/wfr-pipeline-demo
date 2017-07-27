@@ -48,6 +48,7 @@ node('master') {
     stage('Deploy') {
         //node(nodeName = 'win-node-1') {
         node('win-node-1') {
+            syncBuildScript()
             deployPackage('win-node-1')
         }
 
@@ -60,7 +61,6 @@ node('master') {
 }
 
 private void syncRepo() {
-  //echo '0. Sync repo'
   checkout([
     $class: 'SubversionSCM',
     locations: [[
@@ -72,7 +72,20 @@ private void syncRepo() {
     ]],
     workspaceUpdater: [$class: 'UpdateWithRevertUpdater']
   ])
+}
 
+private void syncRepo() {
+  checkout([
+    $class: 'SubversionSCM',
+    locations: [[
+      credentialsId: 'vital.lobachevskij-wrf-svn',
+      depthOption: 'files',
+      ignoreExternalsOption: true,
+      local: '.',
+      remote: 'svn://kap-wfr-svn.int.kronos.com/zeyt'
+    ]],
+    workspaceUpdater: [$class: 'UpdateWithRevertUpdater']
+  ])
 }
 
 private void compileApp() {
