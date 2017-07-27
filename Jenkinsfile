@@ -74,7 +74,7 @@ private void syncRepo() {
   ])
 }
 
-private void syncRepo() {
+private void syncBuildScript() {
   checkout([
     $class: 'SubversionSCM',
     locations: [[
