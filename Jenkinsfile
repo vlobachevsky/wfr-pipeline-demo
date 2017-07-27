@@ -94,5 +94,5 @@ private void packageZip() {
 
 private void deployPackage(nodeName) {
     //echo 'Deployed package on $nodeName'
-    bat 'ant -Dpackage.destination=\\10.0.2.2\wfr-artifactory -Dpackage.deploy.path=. DeployWeb'
+    bat 'ant -Dpackage.destination=\\\10.0.2.2\\wfr-artifactory -Dpackage.deploy.path=. DeployWeb'
 }
