@@ -43,7 +43,7 @@ node('master') {
 
     stage('Package') {
         //packageZip()
-        stash name: "zeyt-web", includes: "reports,sql,web,config,quizzes,tutorials"
+        stash name: "zeyt-web", includes: "/reports/*,/sql/*,/web/*,/config/*,/quizzes/*,/tutorials/*"
     }
 
     stage('Deploy') {
