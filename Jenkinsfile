@@ -76,22 +76,23 @@ private void syncRepo() {
 }
 
 private void compileApp() {
-  //bat 'ant -Dpackage.destination=D:\\Temp\\wfr-artifactory BuildEclipseCompiler JUnit'
-  bat 'ant BuildEclipseCompiler'
+    //bat 'ant -Dpackage.destination=D:\\Temp\\wfr-artifactory BuildEclipseCompiler JUnit'
+    bat 'ant BuildEclipseCompiler'
 }
 
 private void runJUnitTests() {
-  bat 'ant JUnit'
+    bat 'ant JUnit'
 }
 
 private void buildJS() {
-  bat 'ant BuildJS'
+    bat 'ant BuildJS'
 }
 
 private void packageZip() {
-  bat 'ant -Dpackage.destination=D:\\Temp\\wfr-artifactory PackageWeb'
+    bat 'ant -Dpackage.destination=D:\\Temp\\wfr-artifactory PackageWeb'
 }
 
 private void deployPackage(nodeName) {
-    echo 'Deployed package on $nodeName'
+    //echo 'Deployed package on $nodeName'
+    bat 'ant -Dpackage.destination=\\10.0.2.2\wfr-artifactory -Dpackage.deploy.path=. DeployWeb'
 }
