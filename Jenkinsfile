@@ -11,7 +11,7 @@ node('master') {
 
     stage('Build') {
         syncRepo()
-/*        parallel (
+        parallel (
             "build-java" : {
                 compileApp()
             },
@@ -19,7 +19,7 @@ node('master') {
                 buildJS()
             }
         )
-*/
+
     }
 
 /*
@@ -36,7 +36,7 @@ node('master') {
 */
 
     stage('Test') {
-        //runJUnitTests()
+        runJUnitTests()
         // TODO: Try use splitTest to automatically split your test suite into
         // equal running parts that it can run concurrently.
     }
