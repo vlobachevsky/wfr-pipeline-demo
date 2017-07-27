@@ -81,7 +81,7 @@ private void syncBuildScript() {
       credentialsId: 'vital.lobachevskij-wrf-svn',
       depthOption: 'files',
       ignoreExternalsOption: true,
-      local: '.',
+      local: 'zeyt',
       remote: 'svn://kap-wfr-svn.int.kronos.com/zeyt'
     ]],
     workspaceUpdater: [$class: 'UpdateWithRevertUpdater']
@@ -107,5 +107,5 @@ private void packageZip() {
 
 private void deployPackage(nodeName) {
     //echo 'Deployed package on $nodeName'
-    bat 'ant -Dpackage.destination=\\\\10.0.2.2\\wfr-artifactory -Dpackage.deploy.path=. DeployWeb'
+    bat 'ant -f zeyt/build.xml -Dpackage.destination=\\\\10.0.2.2\\wfr-artifactory -Dpackage.deploy.path=. DeployWeb'
 }
