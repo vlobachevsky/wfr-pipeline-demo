@@ -46,9 +46,11 @@ node {
     }
 
     stage('Deploy') {
-/*        node(nodeName = 'node1') {
+        node(nodeName = 'win-node-1') {
             deployPackage(nodeName)
         }
+
+/*
         node(nodeName = 'node2') {
             deployPackage(nodeName)
         }
