@@ -6,7 +6,7 @@
 
 // XXX: Verify usage Java 1.8 by the build
 
-node {
+node('master') {
     env.PATH = "${tool 'Ant-1.9.6'}\\bin;${env.PATH}"
 
     stage('Build') {
