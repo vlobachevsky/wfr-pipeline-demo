@@ -11,6 +11,10 @@
 node('master') {
     env.PATH = "${tool 'Ant-1.9.6'}\\bin;${tool 'NodeJS v6'};${env.PATH}"
 
+    def dbServerName = env.DB_SERVER_NAME
+    def dbServerPort = env.DB_SERVER_PORT
+    def dbName = env.DB_NAME
+
     stage('Build') {
 //        syncRepo()
 /*        parallel (
@@ -112,13 +116,10 @@ private  void buildJS() {
 }
 
 private void updateDB() {
-    def dbServerName = env.DB_SERVER_NAME
-    def dbServerPort = env.DB_SERVER_PORT
-    def dbName = env.DB_NAME
     //bat './updateDB_Sprint.bat localhost sa Admin1234' //TODO: move to global vars
     //bat './updateDB.bat zeyt sa silver1i'
     //bat './runZeytSQL.bat localhost sa Admin1234 sql\\DBUpdateCurrentSprint.txt'
-    bat "java -showversion -Xms512m -Xmx1024m -Xss1m -classpath \".\\web\\WEB-INF\\classes;.\\web\\WEB-INF\\lib\\*; \" RunSQL delay=0 output.result=0 output.sql=0 error.handling=EXIT output.verbose=1 uri=jdbc:sqlserver://${dbServerName}:${dbServerPort};DatabaseName=${dbName};encrypt=false user=sa password=Admin1234 input.file=sql\\DBUpdateCurrentSprint.txt  jdbc.driver=com.microsoft.sqlserver.jdbc.SQLServerDriver"
+    bat "java -showversion -Xms512m -Xmx1024m -Xss1m -classpath \".\\web\\WEB-INF\\classes;.\\web\\WEB-INF\\lib\\*; \" RunSQL delay=0 output.result=0 output.sql=0 error.handling=EXIT output.verbose=1 uri=jdbc:sqlserver://${dbServerName}:${dbServerPort};DatabaseName=%DB_NAME%;encrypt=false user=sa password=Admin1234 input.file=sql\\DBUpdateCurrentSprint.txt  jdbc.driver=com.microsoft.sqlserver.jdbc.SQLServerDriver"
     bat 'java -showversion -Xms512m -Xmx1024m -Xss1m -classpath ".\\web\\WEB-INF\\classes;.\\web\\WEB-INF\\lib\\*; " RunSQL delay=0 output.result=0 output.sql=0 error.handling=EXIT output.verbose=1 uri=jdbc:sqlserver://%DB_SERVER_NAME%:1433;DatabaseName=%DB_NAME%;encrypt=false user=sa password=Admin1234 input.file=sql\\DBUpdate.txt  jdbc.driver=com.microsoft.sqlserver.jdbc.SQLServerDriver'
 }
 
