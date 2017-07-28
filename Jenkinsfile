@@ -13,8 +13,7 @@ dbServerName = env.DB_SERVER_NAME ?: 'localhost'
 dbServerPort = env.DB_SERVER_PORT ?: '1433'
 dbName = env.DB_NAME ?: 'zeyt'
 dbUserName = env.DB_USER_NAME ?: 'sa'
-//dbUserPass = env.DB_USER_PASS ?: 'Admin1234'
-dbUserPass = env.DB_USER_PASS ?: 'c61baf0b2828776509c9915b670a03b8'
+dbUserPass = env.DB_USER_PASS ?: 'Admin1234'
 
 node('master') {
     env.PATH = "${tool 'Ant-1.9.6'}\\bin;${tool 'NodeJS v6'};${env.PATH}"
