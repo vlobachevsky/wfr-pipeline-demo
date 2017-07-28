@@ -9,11 +9,11 @@
 // TODO: Find a way to skip Update DB if there are no updates in db scripts
 
 node('master') {
-    env.PATH = "${tool 'Ant-1.9.6'}\\bin;${env.PATH}"
+    env.PATH = "${tool 'Ant-1.9.6'}\\bin;${tool 'NodeJS v6'};${env.PATH}"
 
     stage('Build') {
         syncRepo()
-        parallel (
+/*        parallel (
             "build-java" : {
                 compileApp()
             },
@@ -21,6 +21,7 @@ node('master') {
                 buildJS()
             }
         )
+*/
 
     }
 
@@ -38,14 +39,14 @@ node('master') {
 */
 
     stage('Test') {
-        runJUnitTests()
+//        runJUnitTests()
         // TODO: Try use splitTest to automatically split your test suite into
         // equal running parts that it can run concurrently.
     }
 
     stage('Package') {
         //packageZip()
-        stash name: "zeyt-web", includes: "/reports/*,/sql/*,/web/*,/config/*,/quizzes/*,/tutorials/*"
+//        stash name: "zeyt-web", includes: "/reports/*,/sql/*,/web/*,/config/*,/quizzes/*,/tutorials/*"
     }
 
     stage('Update DB') {
@@ -54,11 +55,12 @@ node('master') {
 
     stage('Deploy') {
         //node(nodeName = 'win-node-1') {
-        node('win-node-1') {
+/*        node('win-node-1') {
             syncBuildScript()
             //deployPackage('win-node-1')
             unstash "zeyt-web"
         }
+*/
 
 /*
         node(nodeName = 'node2') {
@@ -111,8 +113,8 @@ private void buildJS() {
 
 private void updateDB() {
     dir('zeyt') {
-        bat 'updateDB_Sprint.bat kdb-wfr-01 sa silver1i' //TODO: move to global vars
-        bat 'updateDB.bat zeyt sa silver1i'
+        bat './updateDB_Sprint.bat kdb-wfr-01 sa silver1i' //TODO: move to global vars
+        bat './updateDB.bat zeyt sa silver1i'
     }
 }
 
