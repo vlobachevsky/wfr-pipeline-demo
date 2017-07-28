@@ -4,7 +4,7 @@
 // 1. Tomcat 7.0.65 installed at D:\Tomcat
 // 2. Eclipse Compliler jar (ecj-4.4) in ANT_HOME/lib
 
-// XXX: Verify usage Java 1.8 by the build
+// Resolve issue with coping properties files. Should be build parameters for this.
 // TODO: Send notification before the build
 // TODO: Find a way to skip Update DB if there are no updates in db scripts
 
@@ -113,7 +113,7 @@ private  void buildJS() {
 
 private void updateDB() {
 
-    bat './updateDB_Sprint.bat kdb-wfr-01 sa silver1i' //TODO: move to global vars
+    bat './updateDB_Sprint.bat localhost sa silver1i' //TODO: move to global vars
     bat './updateDB.bat zeyt sa silver1i'
 }
 
