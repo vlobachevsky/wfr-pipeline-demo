@@ -112,9 +112,9 @@ private  void buildJS() {
 }
 
 private void updateDB() {
-
-    bat './updateDB_Sprint.bat localhost sa Admin1234' //TODO: move to global vars
-    bat './updateDB.bat zeyt sa silver1i'
+    //bat './updateDB_Sprint.bat localhost sa Admin1234' //TODO: move to global vars
+    //bat './updateDB.bat zeyt sa silver1i'
+    bat './runSQL.bat localhost sa Admin1234 sql\DBUpdateCurrentSprint.txt'
 }
 
 private void packageZip() {
