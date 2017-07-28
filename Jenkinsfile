@@ -6,13 +6,13 @@
 
 // XXX: Verify usage Java 1.8 by the build
 // TODO: Send notification before the build
+// TODO: Find a way to skip Update DB if there are no updates in db scripts
 
 node('master') {
     env.PATH = "${tool 'Ant-1.9.6'}\\bin;${env.PATH}"
 
     stage('Build') {
         syncRepo()
-        bat 'java -version'
         parallel (
             "build-java" : {
                 compileApp()
@@ -109,7 +109,7 @@ private void buildJS() {
     bat 'ant BuildJS'
 }
 
-pritave void updateDB() {
+private void updateDB() {
     dir('zeyt') {
         bat 'updateDB_Sprint.bat kdb-wfr-01 sa silver1i' //TODO: move to global vars
         bat 'updateDB.bat zeyt sa silver1i'
