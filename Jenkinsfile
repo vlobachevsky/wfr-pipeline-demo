@@ -8,12 +8,12 @@
 // TODO: Send notification before the build
 // TODO: Find a way to skip Update DB if there are no updates in db scripts
 
+dbServerName = env.DB_SERVER_NAME
+dbServerPort = env.DB_SERVER_PORT
+dbName = env.DB_NAME
+
 node('master') {
     env.PATH = "${tool 'Ant-1.9.6'}\\bin;${tool 'NodeJS v6'};${env.PATH}"
-
-    def dbServerName = env.DB_SERVER_NAME
-    def dbServerPort = env.DB_SERVER_PORT
-    def dbName = env.DB_NAME
 
     stage('Build') {
 //        syncRepo()
