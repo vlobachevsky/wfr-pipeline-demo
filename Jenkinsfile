@@ -115,7 +115,7 @@ private void updateDB() {
     //bat './updateDB_Sprint.bat localhost sa Admin1234' //TODO: move to global vars
     //bat './updateDB.bat zeyt sa silver1i'
     //bat './runZeytSQL.bat localhost sa Admin1234 sql\\DBUpdateCurrentSprint.txt'
-    bat 'echo env.DB_SERVER_NAME'
+    bat 'echo $env.DB_SERVER_NAME'
     //bat 'java -showversion -Xms512m -Xmx1024m -Xss1m -classpath ".\\web\\WEB-INF\\classes;.\\web\\WEB-INF\\lib\\*; " RunSQL delay=0 output.result=0 output.sql=0 error.handling=EXIT output.verbose=1 uri=jdbc:sqlserver://env.DB_SERVER_NAME:1433;DatabaseNameP=Zeyt;encrypt=false user=sa password=Admin1234 input.file=sql\\DBUpdateCurrentSprint.txt  jdbc.driver=com.microsoft.sqlserver.jdbc.SQLServerDriver'
     //bat 'java -showversion -Xms512m -Xmx1024m -Xss1m -classpath ".\\web\\WEB-INF\\classes;.\\web\\WEB-INF\\lib\\*; " RunSQL delay=0 output.result=0 output.sql=0 error.handling=EXIT output.verbose=1 uri=jdbc:sqlserver://env.DB_SERVER_NAME:1433;DatabaseNameP=Zeyt;encrypt=false user=sa password=Admin1234 input.file=sql\\DBUpdate.txt  jdbc.driver=com.microsoft.sqlserver.jdbc.SQLServerDriver'
 }
