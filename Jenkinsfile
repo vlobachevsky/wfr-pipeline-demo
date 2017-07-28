@@ -112,6 +112,8 @@ private  void buildJS() {
 }
 
 private void updateDB() {
+    def dbServerName = env.$DB_SERVER_NAME
+    print dbServerName
     //bat './updateDB_Sprint.bat localhost sa Admin1234' //TODO: move to global vars
     //bat './updateDB.bat zeyt sa silver1i'
     //bat './runZeytSQL.bat localhost sa Admin1234 sql\\DBUpdateCurrentSprint.txt'
