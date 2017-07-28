@@ -13,6 +13,7 @@ dbServerName = env.DB_SERVER_NAME ?: 'localhost'
 dbServerPort = env.DB_SERVER_PORT ?: '1433'
 dbName = env.DB_NAME ?: 'zeyt'
 dbUserName = env.DB_USER_NAME ?: 'sa'
+
 dbUserPass = env.DB_USER_PASS ?: 'Admin1234'
 
 node('master') {
