@@ -10,7 +10,7 @@
 
 dbServerName = env.DB_SERVER_NAME
 dbServerPort = env.DB_SERVER_PORT
-dbName = env.DB_NAME
+dbName = env.DB_NAME == 'zeyt'
 
 node('master') {
     env.PATH = "${tool 'Ant-1.9.6'}\\bin;${tool 'NodeJS v6'};${env.PATH}"
