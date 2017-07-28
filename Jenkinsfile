@@ -107,11 +107,12 @@ private void runJUnitTests() {
     bat 'ant JUnit'
 }
 
-private void buildJS() {
+private  void buildJS() {
     bat 'ant BuildJS'
 }
 
 private void updateDB() {
+    
     bat './updateDB_Sprint.bat kdb-wfr-01 sa silver1i' //TODO: move to global vars
     bat './updateDB.bat zeyt sa silver1i'
 }
