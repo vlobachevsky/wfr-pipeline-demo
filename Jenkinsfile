@@ -8,7 +8,8 @@
 // TODO: Send notification before the build
 // TODO: Find a way to skip Update DB if there are no updates in db scripts
 
-dbServerName = env.DB_SERVER_NAME == 'localhost'
+//dbServerName = env.DB_SERVER_NAME == 'localhost'
+dbServerName = env.DB_SERVER_NAME ?: 'localhost'
 dbServerPort = env.DB_SERVER_PORT == '1433'
 dbName = env.DB_NAME == 'zeyt'
 
