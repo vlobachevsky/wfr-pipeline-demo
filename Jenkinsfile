@@ -65,7 +65,7 @@ node('master') {
     stage('Deploy') {
         //node(nodeName = 'win-node-1') {
         node('win-node-1') {
-            ws('C:\\TA') {
+            ws('C:\\TA\\zeyt') {
                 syncBuildScript()
                 //deployPackage('win-node-1')
                 unstash "zeyt-web"
