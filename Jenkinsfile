@@ -101,7 +101,7 @@ private void syncBuildScript() {
       credentialsId: 'vital.lobachevskij-wrf-svn',
       depthOption: 'files',
       ignoreExternalsOption: true,
-      local: 'zeyt',
+      local: '.',
       remote: 'svn://kap-wfr-svn.int.kronos.com/zeyt'
     ]],
     workspaceUpdater: [$class: 'UpdateWithRevertUpdater']
