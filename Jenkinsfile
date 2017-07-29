@@ -1,14 +1,16 @@
 #!/usr/bin/env groovy
 
 // Prerequisites:
-// 1. Tomcat 7.0.65 installed at D:\Tomcat
+// 1. Tomcat 7.0.7 installed at C:\Tomcat\apache-tomcat
 // 2. Eclipse Compliler jar (ecj-4.4) in ANT_HOME/lib
 
-// Resolve issue with coping properties files. Should be build parameters for this.
-// TODO: Send notification before the build
-// TODO: Find a way to skip Update DB if there are no updates in db scripts
+// TODO:
+// * Use custom workspace
+// * Resolve issue with coping properties files. Should be build parameters for this.
+// * Send notification before the build
+// * Parametrize build: Skip Db Update; Select servers for deploy
+// * Find a way to skip Update DB if there are no updates in db scripts
 
-//dbServerName = env.DB_SERVER_NAME == 'localhost'
 dbServerName = env.DB_SERVER_NAME ?: 'localhost'
 dbServerPort = env.DB_SERVER_PORT ?: '1433'
 dbName = env.DB_NAME ?: 'zeyt'
@@ -19,7 +21,8 @@ node('master') {
     env.PATH = "${tool 'Ant-1.9.6'}\\bin;${tool 'NodeJS v6'};${env.PATH}"
 
     stage('Build') {
-        syncRepo()
+//        syncRepo()
+/*
         parallel (
             "build-java" : {
                 compileApp()
@@ -28,6 +31,7 @@ node('master') {
                 buildJS()
             }
         )
+*/
     }
 
 /*
@@ -44,28 +48,28 @@ node('master') {
 */
 
     stage('Test') {
-        runJUnitTests()
+//        runJUnitTests()
         // TODO: Try use splitTest to automatically split your test suite into
         // equal running parts that it can run concurrently.
     }
 
     stage('Package') {
         //packageZip()
-//        stash name: "zeyt-web", includes: "/reports/*,/sql/*,/web/*,/config/*,/quizzes/*,/tutorials/*"
+        stash name: "zeyt-web", includes: "/reports/*,/sql/*,/web/*,/config/*,/quizzes/*,/tutorials/*"
     }
 
     stage('Update DB') {
-        updateDB()
+//        updateDB()
     }
 
     stage('Deploy') {
         //node(nodeName = 'win-node-1') {
-/*        node('win-node-1') {
+        node('win-node-1') {
+            ws "C:\\TA"
             syncBuildScript()
             //deployPackage('win-node-1')
             unstash "zeyt-web"
         }
-*/
 
 /*
         node(nodeName = 'node2') {
@@ -132,3 +136,11 @@ private void deployPackage(nodeName) {
     //echo 'Deployed package on $nodeName'
     bat 'ant -f zeyt/build.xml -Dpackage.destination=\\\\10.0.2.2\\wfr-artifactory -Dpackage.deploy.path=. DeployWeb'
 }
+
+
+/*
+if( $VALUE1 == $VALUE2 ) {
+   currentBuild.result = 'SUCCESS'
+   return
+}
+*/
