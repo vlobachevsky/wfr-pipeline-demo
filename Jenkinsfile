@@ -67,6 +67,7 @@ node('master') {
         node('win-node-1') {
             ws('C:\\TA\\zeyt') {
                 syncBuildScript()
+                syncPsScripts()
                 //deployPackage('win-node-1')
                 unstash "zeyt-web"
             }
@@ -106,6 +107,10 @@ private void syncBuildScript() {
     ]],
     workspaceUpdater: [$class: 'UpdateWithRevertUpdater']
   ])
+}
+
+private void syncPsScripts() {
+    git url: 'https://github.com/vlobachevsky/wfr-devops-scripts.git', credentialsId: 'vlobachevsky-github'
 }
 
 private void compileApp() {
