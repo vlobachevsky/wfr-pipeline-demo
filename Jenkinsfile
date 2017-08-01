@@ -5,6 +5,7 @@
 // 2. Eclipse Compliler jar (ecj-4.4) in ANT_HOME/lib
 
 // TODO:
+// * Fix "Could not make new DB connection" on vagrant-node-1
 // * Use custom workspace
 // * Resolve issue with coping properties files. Should be build parameters for this.
 // * Send notification before the build
@@ -72,6 +73,21 @@ node('master') {
                 powerShell(". '.\\scripts\\stop-tomcat.ps1'")
                 syncBuildScript()
                 unstash "zeyt-web"
+                // Override System.properties
+                writeFile file: 'System.properties', text: '''
+DBPool.ReadOnly.url=jdbc:sqlserver://10.0.2.2:1433;DatabaseName=ZEYT;encrypt=false
+DBPool.ReadOnly.username=ReadOnly
+DBPool.System.url=jdbc:sqlserver://10.0.2.2:1433;DatabaseName=ZEYT;encrypt=false
+DBPool.System.username=sa
+DBPool.Main.url=jdbc:sqlserver://10.0.2.2:1433;DatabaseName=ZEYT;encrypt=false
+DBPool.Main.username=sa
+DBPool.Main.supportQueryTimeout=false
+DBPool.Reports.url=jdbc:sqlserver://10.0.2.2:1433;DatabaseName=ZEYT;encrypt=false
+DBPool.Reports.username=sa
+DBPool.ScheduledReports.url=jdbc:sqlserver://10.0.2.2:1433;DatabaseName=ZEYT;encrypt=false
+DBPool.ScheduledReports.username=sa
+pswd.path=./config/Connections.properties
+'''
                 // Start Tomcat
                 powerShell(". '.\\scripts\\start-tomcat.ps1'")
             }
