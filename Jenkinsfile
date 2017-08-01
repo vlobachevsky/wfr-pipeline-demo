@@ -77,7 +77,7 @@ node('master') {
                 unstash "zeyt-web"
                 // Override the property files
                 writeFile file: 'System.properties', text: '''
-DBPool.ReadOnly.url=jdbc:sqlserver://10.0.2.2:1433;DatabaseName=ZEYT;encrypt=false
+DBPool.ReadOnly.url=jdbc:sqlserver://{0}:1433;DatabaseName=ZEYT;encrypt=false
 DBPool.ReadOnly.username=sa
 DBPool.System.url=jdbc:sqlserver://10.0.2.2:1433;DatabaseName=ZEYT;encrypt=false
 DBPool.System.username=sa
@@ -97,7 +97,13 @@ DBPool.Main.password=c61baf0b2828776509c9915b670a03b8
 DBPool.Reports.password=c61baf0b2828776509c9915b670a03b8
 DBPool.ScheduledReports.password=c61baf0b2828776509c9915b670a03b8
 '''
-                def output = MessageFormat.format("Test {1}", "XXX")
+                def props = new Properties()
+                File propsFile = new File('System.properties')
+                propsFile.withInputStream {
+                    props.load(it)
+                }
+                def output = MessageFormat.format((String) props.get("DBPool.ReadOnly.url"), "XXX")
+                echo "Output: $output"
 
                 // Start Tomcat
                 powerShell(". '.\\scripts\\start-tomcat.ps1'")
