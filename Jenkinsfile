@@ -67,9 +67,11 @@ node('master') {
         node('win-node-1') {
             ws('C:\\TA\\zeyt') {
                 syncBuildScript()
- //              syncPsScripts()
-                //deployPackage('win-node-1')
                 unstash "zeyt-web"
+                dir('scripts') {
+                    syncPsScripts()
+                }
+                //deployPackage('win-node-1')
             }
         }
 
