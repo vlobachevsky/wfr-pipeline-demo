@@ -1,5 +1,7 @@
 #!/usr/bin/env groovy
 
+import java.text.MessageFormat
+
 // Prerequisites:
 // 1. Tomcat 7.0.7 installed at C:\Tomcat\apache-tomcat
 // 2. Eclipse Compliler jar (ecj-4.4) in ANT_HOME/lib
