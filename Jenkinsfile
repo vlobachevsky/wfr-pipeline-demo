@@ -106,7 +106,7 @@ DBPool.ScheduledReports.password=c61baf0b2828776509c9915b670a03b8
 */
                 def props = new Properties()
                 //File propsFile = new File('System.properties')
-                new File('.\\System.properties').withInputStream {
+                new File('System.properties').withInputStream {
                     props.load(it)
                 }
                 def output = MessageFormat.format((String) props.get("DBPool.ReadOnly.url"), "XXX")
