@@ -58,7 +58,7 @@ node('master') {
 
     stage('Package') {
         //packageZip()
-        stash name: "zeyt-web", includes: "/reports/**,/sql/**,/web/**,/config/**,/quizzes/**,/tutorials/**"
+//        stash name: "zeyt-web", includes: "/reports/**,/sql/**,/web/**,/config/**,/quizzes/**,/tutorials/**"
     }
 
     stage('Update DB') {
@@ -69,12 +69,12 @@ node('master') {
         node('win-node-1') {
             ws('C:\\TA\\zeyt') {
                 dir('scripts') {
-                    syncPsScripts()
+//                    syncPsScripts()
                 }
                 // Stop Tomcat
-                powerShell(". '.\\scripts\\stop-tomcat.ps1'")
-                syncBuildScript()
-                unstash "zeyt-web"
+//                powerShell(". '.\\scripts\\stop-tomcat.ps1'")
+//                syncBuildScript()
+ //               unstash "zeyt-web"
 
                 // Override the property files
                 //setProperty('System.properties', '*.username', 'sa')
@@ -113,7 +113,7 @@ DBPool.ScheduledReports.password=c61baf0b2828776509c9915b670a03b8
                 echo "Output: $output"
 
                 // Start Tomcat
-                powerShell(". '.\\scripts\\start-tomcat.ps1'")
+//                powerShell(". '.\\scripts\\start-tomcat.ps1'")
             }
         }
 
