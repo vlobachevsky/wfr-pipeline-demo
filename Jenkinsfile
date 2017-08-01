@@ -104,6 +104,7 @@ DBPool.Reports.password=c61baf0b2828776509c9915b670a03b8
 DBPool.ScheduledReports.password=c61baf0b2828776509c9915b670a03b8
 '''
 */
+                echo "${pwd()}"
                 def props = new Properties()
                 //File propsFile = new File('System.properties')
                 new File('System.properties').withInputStream {
