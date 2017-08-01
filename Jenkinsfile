@@ -55,7 +55,7 @@ node('master') {
 
     stage('Package') {
         //packageZip()
-        stash name: "zeyt-web", includes: "/reports/**,/sql/**,/web/**,/config/**,/quizzes/**,/tutorials/**"
+//        stash name: "zeyt-web", includes: "/reports/**,/sql/**,/web/**,/config/**,/quizzes/**,/tutorials/**"
     }
 
     stage('Update DB') {
@@ -67,9 +67,9 @@ node('master') {
         node('win-node-1') {
             ws('C:\\TA\\zeyt') {
                 syncBuildScript()
-                syncPsScripts()
+ //              syncPsScripts()
                 //deployPackage('win-node-1')
-                unstash "zeyt-web"
+ //               unstash "zeyt-web"
             }
         }
 
