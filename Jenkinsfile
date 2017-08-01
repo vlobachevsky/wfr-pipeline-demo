@@ -115,7 +115,7 @@ private void syncPsScripts() {
 }
 
 private void stopTomcat() {
-    powerShell(". '.\\scripts\\stop-tomcat.ps1'")
+    powerShell(". '.\\scripts\\stop-tomcat.ps1'; du -Verbose")
 }
 
 private def powerShell(psCmd) {
