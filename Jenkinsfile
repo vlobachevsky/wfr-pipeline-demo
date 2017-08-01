@@ -68,9 +68,12 @@ node('master') {
                 dir('scripts') {
                     syncPsScripts()
                 }
-                stopTomcat()
+                // Stop Tomcat
+                powerShell(". '.\\scripts\\stop-tomcat.ps1'")
                 syncBuildScript()
                 unstash "zeyt-web"
+                // Start Tomcat
+                powerShell(". '.\\scripts\\start-tomcat.ps1'")
             }
         }
 
