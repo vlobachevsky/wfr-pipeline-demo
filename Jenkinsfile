@@ -104,7 +104,7 @@ DBPool.ScheduledReports.password=c61baf0b2828776509c9915b670a03b8
 '''
                 def props = new Properties()
                 //File propsFile = new File('System.properties')
-                File propsFile = readFile 'System.properties'
+                File propsFile = new File('System.properties')
                 propsFile.withInputStream {
                     props.load(it)
                 }
