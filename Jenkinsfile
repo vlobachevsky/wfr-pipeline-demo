@@ -75,7 +75,12 @@ node('master') {
                 powerShell(". '.\\scripts\\stop-tomcat.ps1'")
                 syncBuildScript()
                 unstash "zeyt-web"
+
                 // Override the property files
+                setProperty('System.properties', '*.username', 'sa')
+                setProperty('System.properties', '*.url', '10.0.2.2')
+                setProperty('.\\config\\Connections.properties', '*.password', 'c61baf0b2828776509c9915b670a03b8')
+
                 writeFile file: 'System.properties', text: '''
 DBPool.ReadOnly.url=jdbc:sqlserver://{0}:1433;DatabaseName=ZEYT;encrypt=false
 DBPool.ReadOnly.username=sa
@@ -98,7 +103,8 @@ DBPool.Reports.password=c61baf0b2828776509c9915b670a03b8
 DBPool.ScheduledReports.password=c61baf0b2828776509c9915b670a03b8
 '''
                 def props = new Properties()
-                File propsFile = new File('System.properties')
+                //File propsFile = new File('System.properties')
+                File propsFile = readFile 'System.properties'
                 propsFile.withInputStream {
                     props.load(it)
                 }
