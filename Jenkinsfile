@@ -104,12 +104,14 @@ DBPool.Reports.password=c61baf0b2828776509c9915b670a03b8
 DBPool.ScheduledReports.password=c61baf0b2828776509c9915b670a03b8
 '''
 */
-                echo "${pwd()}"
-                def props = new Properties()
                 //File propsFile = new File('System.properties')
-                new File("${WORKSPACE}\\System.properties").withInputStream {
-                    props.load(it)
-                }
+                def content = readFile 'System.properties'
+                InputStream is = new ByteArrayInputStream(content.getBytes());
+                def props = new Properties()
+                props.load(is)
+                // new File("${WORKSPACE}\\System.properties").withInputStream {
+                //     props.load(it)
+                // }
                 def output = MessageFormat.format((String) props.get("DBPool.ReadOnly.url"), "XXX")
                 echo "Output: $output"
 
