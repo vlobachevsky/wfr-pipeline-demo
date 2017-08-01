@@ -63,15 +63,14 @@ node('master') {
     }
 
     stage('Deploy') {
-        //node(nodeName = 'win-node-1') {
         node('win-node-1') {
             ws('C:\\TA\\zeyt') {
-                syncBuildScript()
-                unstash "zeyt-web"
                 dir('scripts') {
                     syncPsScripts()
                 }
-                //deployPackage('win-node-1')
+                stopTomcat()
+                syncBuildScript()
+                unstash "zeyt-web"
             }
         }
 
@@ -113,6 +112,14 @@ private void syncBuildScript() {
 
 private void syncPsScripts() {
     git url: 'https://github.com/vlobachevsky/wfr-devops-scripts.git', credentialsId: 'vlobachevsky-github'
+}
+
+private void stopTomcat() {
+    powerShell(". '.\\scripts\\stop-tomcat.ps1'")
+}
+
+private def powerShell(psCmd) {
+    bat "powershell.exe -NonInteractive -ExecutionPolicy Bypass -Command \"\$ErrorActionPreference='Stop';[Console]::OutputEncoding=[System.Text.Encoding]::UTF8;$psCmd;EXIT \$global:LastExitCode\""
 }
 
 private void compileApp() {
