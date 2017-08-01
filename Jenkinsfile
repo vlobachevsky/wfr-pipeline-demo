@@ -95,6 +95,8 @@ DBPool.Main.password=c61baf0b2828776509c9915b670a03b8
 DBPool.Reports.password=c61baf0b2828776509c9915b670a03b8
 DBPool.ScheduledReports.password=c61baf0b2828776509c9915b670a03b8
 '''
+                def output = MessageFormat.format("Test {1}", "XXX")
+
                 // Start Tomcat
                 powerShell(". '.\\scripts\\start-tomcat.ps1'")
             }
