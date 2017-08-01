@@ -76,7 +76,7 @@ node('master') {
                 // Override the property files
                 writeFile file: 'System.properties', text: '''
 DBPool.ReadOnly.url=jdbc:sqlserver://10.0.2.2:1433;DatabaseName=ZEYT;encrypt=false
-DBPool.ReadOnly.username=ReadOnly
+DBPool.ReadOnly.username=sa
 DBPool.System.url=jdbc:sqlserver://10.0.2.2:1433;DatabaseName=ZEYT;encrypt=false
 DBPool.System.username=sa
 DBPool.Main.url=jdbc:sqlserver://10.0.2.2:1433;DatabaseName=ZEYT;encrypt=false
