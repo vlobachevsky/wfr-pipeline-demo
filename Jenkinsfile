@@ -91,10 +91,10 @@ pswd.path=./config/Connections.properties
                 writeFile file: '.\\config\\Connections.properties', text: '''
 DBPool.ReadOnly.password=c61baf0b2828776509c9915b670a03b8
 DBPool.System.password=c61baf0b2828776509c9915b670a03b8
-DBPool.Main.password=2fc8f2e444fee6cff6ff6da67ca142d8
-DBPool.Reports.password=2fc8f2e444fee6cff6ff6da67ca142d8
-DBPool.ScheduledReports.password=2fc8f2e444fee6cff6ff6da67ca142d8
-'''                
+DBPool.Main.password=c61baf0b2828776509c9915b670a03b8
+DBPool.Reports.password=c61baf0b2828776509c9915b670a03b8
+DBPool.ScheduledReports.password=c61baf0b2828776509c9915b670a03b8
+'''
                 // Start Tomcat
                 powerShell(". '.\\scripts\\start-tomcat.ps1'")
             }
