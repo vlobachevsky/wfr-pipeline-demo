@@ -107,7 +107,7 @@ DBPool.ScheduledReports.password=c61baf0b2828776509c9915b670a03b8
                 //File propsFile = new File('System.properties')
                 def content = readFile 'System.properties'
                 def props = new Properties(new ByteArrayInputStream(content.getBytes()))
-                props.load(is)
+                props.load(new ByteArrayInputStream(content.getBytes()))
                 def output = MessageFormat.format((String) props.get("DBPool.ReadOnly.url"), "XXX")
                 echo "Output: $output"
 
