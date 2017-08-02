@@ -78,16 +78,10 @@ node('master') {
 //                    syncPsScripts()
                 }
                 // Stop Tomcat
-//                powerShell(". '.\\scripts\\stop-tomcat.ps1'")
+                powerShell(". '.\\scripts\\stop-tomcat.ps1'")
 //                syncBuildScript()
  //               unstash "zeyt-web"
 
-                // Override the property files
-                setProperty('System.properties', '*.username', 'sa')
-                //setProperty('System.properties', '*.url', '10.0.2.2')
-                //setProperty('.\\config\\Connections.properties', '*.password', 'c61baf0b2828776509c9915b670a03b8')
-
-/*
                 writeFile file: 'System.properties', text: '''
 DBPool.ReadOnly.url=jdbc:sqlserver://{0}:1433;DatabaseName=ZEYT;encrypt=false
 DBPool.ReadOnly.username=sa
@@ -109,10 +103,8 @@ DBPool.Main.password=c61baf0b2828776509c9915b670a03b8
 DBPool.Reports.password=c61baf0b2828776509c9915b670a03b8
 DBPool.ScheduledReports.password=c61baf0b2828776509c9915b670a03b8
 '''
-*/
-
                 // Start Tomcat
-//                powerShell(". '.\\scripts\\start-tomcat.ps1'")
+                powerShell(". '.\\scripts\\start-tomcat.ps1'")
             }
         }
 
@@ -190,17 +182,23 @@ private void deployPackage(nodeName) {
     bat 'ant -f zeyt/build.xml -Dpackage.destination=\\\\10.0.2.2\\wfr-artifactory -Dpackage.deploy.path=. DeployWeb'
 }
 
-private void setProperty(filename, pattern, Object... args) {
-    //echo "DEBUG: file: $file"
-    //echo "DEBUG: pattern: $pattern"
-    //echo "DEBUG: args[0]: ${args[0]}"
-    //echo "DEBUG: args[1]: ${args[1]}"
-    def content = readFile file: filename
+/*
+private void setProperty(propsFile, pattern, Object... args) {
+    // Examples:
+    // setProperty('System.properties', '*.username', 'sa')
+    // setProperty('System.properties', '*.url', '10.0.2.2')
+    // setProperty('.\\config\\Connections.properties', '*.password', 'c61baf0b2828776509c9915b670a03b8')
+
+    def content = readFile file: propsFile
     def props = new Properties()
     props.load(new ByteArrayInputStream(content.getBytes()))
-    def output = MessageFormat.format((String) props.get("DBPool.ReadOnly.url"), "XXX")
-    echo "Output: $output"
+    // 1) Loop throught all props
+    // 2) If it matches the patterns, replace placeholder using code like this
+    //    def output = MessageFormat.format((String) props.get("DBPool.ReadOnly.url"), args)
+    // 3) Append the output
+    // 4) Write all in the file with the same name as $propsFile
 }
+*/
 
 
 /*
