@@ -195,7 +195,7 @@ private void setProperty(filename, pattern, Object... args) {
     //echo "DEBUG: pattern: $pattern"
     //echo "DEBUG: args[0]: ${args[0]}"
     //echo "DEBUG: args[1]: ${args[1]}"
-    def content = readFile file: $filename
+    def content = readFile file: filename
     def props = new Properties()
     props.load(new ByteArrayInputStream(content.getBytes()))
     def output = MessageFormat.format((String) props.get("DBPool.ReadOnly.url"), "XXX")
