@@ -14,6 +14,12 @@ import java.text.MessageFormat
 // * Parametrize build: Skip Db Update; Select servers for deploy
 // * Find a way to skip Update DB if there are no updates in db scripts
 
+// BENEFITS
+// * Don't need to copy System.properties and Connection.properties on server
+
+// REQUIREMENTS
+// * Should be possible to refresh MW02 separatelly without restarting MainDev
+
 dbServerName = env.DB_SERVER_NAME ?: 'localhost'
 dbServerPort = env.DB_SERVER_PORT ?: '1433'
 dbName = env.DB_NAME ?: 'zeyt'
@@ -77,7 +83,7 @@ node('master') {
  //               unstash "zeyt-web"
 
                 // Override the property files
-                //setProperty('System.properties', '*.username', 'sa')
+                setProperty('System.properties', '*.username', 'sa')
                 //setProperty('System.properties', '*.url', '10.0.2.2')
                 //setProperty('.\\config\\Connections.properties', '*.password', 'c61baf0b2828776509c9915b670a03b8')
 
@@ -104,13 +110,14 @@ DBPool.Reports.password=c61baf0b2828776509c9915b670a03b8
 DBPool.ScheduledReports.password=c61baf0b2828776509c9915b670a03b8
 '''
 */
-                //File propsFile = new File('System.properties')
+
+/*
                 def content = readFile 'System.properties'
                 def props = new Properties()
                 props.load(new ByteArrayInputStream(content.getBytes()))
                 def output = MessageFormat.format((String) props.get("DBPool.ReadOnly.url"), "XXX")
                 echo "Output: $output"
-
+*/
                 // Start Tomcat
 //                powerShell(". '.\\scripts\\start-tomcat.ps1'")
             }
@@ -156,10 +163,6 @@ private void syncPsScripts() {
     git url: 'https://github.com/vlobachevsky/wfr-devops-scripts.git', credentialsId: 'vlobachevsky-github'
 }
 
-private void stopTomcat() {
-    powerShell(". '.\\scripts\\stop-tomcat.ps1'")
-}
-
 private def powerShell(psCmd) {
     bat "powershell.exe -NonInteractive -ExecutionPolicy Bypass -Command \"\$ErrorActionPreference='Stop';[Console]::OutputEncoding=[System.Text.Encoding]::UTF8;$psCmd;EXIT \$global:LastExitCode\""
 }
@@ -192,6 +195,12 @@ private void packageZip() {
 private void deployPackage(nodeName) {
     //echo 'Deployed package on $nodeName'
     bat 'ant -f zeyt/build.xml -Dpackage.destination=\\\\10.0.2.2\\wfr-artifactory -Dpackage.deploy.path=. DeployWeb'
+}
+
+private void setProperty(file, pattern, args) {
+    echo "DEBUG: file: $file"
+    echo "DEBUG: pattern: $pattern"
+    echo "DEBUG: args: $args"
 }
 
 
