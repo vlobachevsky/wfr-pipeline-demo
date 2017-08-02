@@ -83,7 +83,7 @@ node('master') {
  //               unstash "zeyt-web"
 
                 // Override the property files
-                setProperty('System.properties', '*.username', 'sa')
+                setProperty('System.properties', '*.username', 'sa', 'bbb')
                 //setProperty('System.properties', '*.url', '10.0.2.2')
                 //setProperty('.\\config\\Connections.properties', '*.password', 'c61baf0b2828776509c9915b670a03b8')
 
@@ -201,6 +201,7 @@ private void setProperty(file, pattern, Object... args) {
     echo "DEBUG: file: $file"
     echo "DEBUG: pattern: $pattern"
     echo "DEBUG: args[0]: ${args[0]}"
+    echo "DEBUG: args[1]: ${args[1]}"
 }
 
 
