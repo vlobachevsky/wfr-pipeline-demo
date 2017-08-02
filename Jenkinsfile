@@ -197,7 +197,7 @@ private void deployPackage(nodeName) {
     bat 'ant -f zeyt/build.xml -Dpackage.destination=\\\\10.0.2.2\\wfr-artifactory -Dpackage.deploy.path=. DeployWeb'
 }
 
-private void setProperty(file, pattern, args) {
+private void setProperty(file, pattern, Object... args) {
     echo "DEBUG: file: $file"
     echo "DEBUG: pattern: $pattern"
     echo "DEBUG: args[0]: ${args[0]}"
