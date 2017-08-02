@@ -82,27 +82,8 @@ node('master') {
 //                syncBuildScript()
  //               unstash "zeyt-web"
 
-                writeFile file: 'System.properties', text: '''
-DBPool.ReadOnly.url=jdbc:sqlserver://{0}:1433;DatabaseName=ZEYT;encrypt=false
-DBPool.ReadOnly.username=sa
-DBPool.System.url=jdbc:sqlserver://10.0.2.2:1433;DatabaseName=ZEYT;encrypt=false
-DBPool.System.username=sa
-DBPool.Main.url=jdbc:sqlserver://10.0.2.2:1433;DatabaseName=ZEYT;encrypt=false
-DBPool.Main.username=sa
-DBPool.Main.supportQueryTimeout=false
-DBPool.Reports.url=jdbc:sqlserver://10.0.2.2:1433;DatabaseName=ZEYT;encrypt=false
-DBPool.Reports.username=sa
-DBPool.ScheduledReports.url=jdbc:sqlserver://10.0.2.2:1433;DatabaseName=ZEYT;encrypt=false
-DBPool.ScheduledReports.username=sa
-pswd.path=./config/Connections.properties
-'''
-                writeFile file: '.\\config\\Connections.properties', text: '''
-DBPool.ReadOnly.password=c61baf0b2828776509c9915b670a03b8
-DBPool.System.password=c61baf0b2828776509c9915b670a03b8
-DBPool.Main.password=c61baf0b2828776509c9915b670a03b8
-DBPool.Reports.password=c61baf0b2828776509c9915b670a03b8
-DBPool.ScheduledReports.password=c61baf0b2828776509c9915b670a03b8
-'''
+                copySystemFiles();
+
                 // Start Tomcat
                 powerShell(". '.\\scripts\\start-tomcat.ps1'")
             }
@@ -150,6 +131,30 @@ private void syncPsScripts() {
 
 private def powerShell(psCmd) {
     bat "powershell.exe -NonInteractive -ExecutionPolicy Bypass -Command \"\$ErrorActionPreference='Stop';[Console]::OutputEncoding=[System.Text.Encoding]::UTF8;$psCmd;EXIT \$global:LastExitCode\""
+}
+
+private def copySystemFiles() {
+    writeFile file: 'System.properties', text: '''
+DBPool.ReadOnly.url=jdbc:sqlserver://{0}:1433;DatabaseName=ZEYT;encrypt=false
+DBPool.ReadOnly.username=sa
+DBPool.System.url=jdbc:sqlserver://10.0.2.2:1433;DatabaseName=ZEYT;encrypt=false
+DBPool.System.username=sa
+DBPool.Main.url=jdbc:sqlserver://10.0.2.2:1433;DatabaseName=ZEYT;encrypt=false
+DBPool.Main.username=sa
+DBPool.Main.supportQueryTimeout=false
+DBPool.Reports.url=jdbc:sqlserver://10.0.2.2:1433;DatabaseName=ZEYT;encrypt=false
+DBPool.Reports.username=sa
+DBPool.ScheduledReports.url=jdbc:sqlserver://10.0.2.2:1433;DatabaseName=ZEYT;encrypt=false
+DBPool.ScheduledReports.username=sa
+pswd.path=./config/Connections.properties
+'''
+    writeFile file: '.\\config\\Connections.properties', text: '''
+DBPool.ReadOnly.password=c61baf0b2828776509c9915b670a03b8
+DBPool.System.password=c61baf0b2828776509c9915b670a03b8
+DBPool.Main.password=c61baf0b2828776509c9915b670a03b8
+DBPool.Reports.password=c61baf0b2828776509c9915b670a03b8
+DBPool.ScheduledReports.password=c61baf0b2828776509c9915b670a03b8
+'''
 }
 
 private void compileApp() {
