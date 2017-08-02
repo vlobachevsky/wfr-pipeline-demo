@@ -200,7 +200,7 @@ private void deployPackage(nodeName) {
 private void setProperty(file, pattern, args) {
     echo "DEBUG: file: $file"
     echo "DEBUG: pattern: $pattern"
-    echo "DEBUG: args: $args"
+    echo "DEBUG: args[0]: ${args[0]}"
 }
 
 
