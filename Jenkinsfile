@@ -190,12 +190,12 @@ private void deployPackage(nodeName) {
     bat 'ant -f zeyt/build.xml -Dpackage.destination=\\\\10.0.2.2\\wfr-artifactory -Dpackage.deploy.path=. DeployWeb'
 }
 
-private void setProperty(file, pattern, Object... args) {
+private void setProperty(filename, pattern, Object... args) {
     //echo "DEBUG: file: $file"
     //echo "DEBUG: pattern: $pattern"
     //echo "DEBUG: args[0]: ${args[0]}"
     //echo "DEBUG: args[1]: ${args[1]}"
-    def content = readFile $file
+    def content = readFile $filename
     def props = new Properties()
     props.load(new ByteArrayInputStream(content.getBytes()))
     def output = MessageFormat.format((String) props.get("DBPool.ReadOnly.url"), "XXX")
