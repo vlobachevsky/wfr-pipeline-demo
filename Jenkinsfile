@@ -83,7 +83,7 @@ node('master') {
  //               unstash "zeyt-web"
 
                 // Override the property files
-                setProperty('System.properties', '*.username', 'sa', 'bbb')
+                setProperty('System.properties', '*.username', 'sa')
                 //setProperty('System.properties', '*.url', '10.0.2.2')
                 //setProperty('.\\config\\Connections.properties', '*.password', 'c61baf0b2828776509c9915b670a03b8')
 
@@ -111,13 +111,6 @@ DBPool.ScheduledReports.password=c61baf0b2828776509c9915b670a03b8
 '''
 */
 
-/*
-                def content = readFile 'System.properties'
-                def props = new Properties()
-                props.load(new ByteArrayInputStream(content.getBytes()))
-                def output = MessageFormat.format((String) props.get("DBPool.ReadOnly.url"), "XXX")
-                echo "Output: $output"
-*/
                 // Start Tomcat
 //                powerShell(". '.\\scripts\\start-tomcat.ps1'")
             }
@@ -198,10 +191,15 @@ private void deployPackage(nodeName) {
 }
 
 private void setProperty(file, pattern, Object... args) {
-    echo "DEBUG: file: $file"
-    echo "DEBUG: pattern: $pattern"
-    echo "DEBUG: args[0]: ${args[0]}"
-    echo "DEBUG: args[1]: ${args[1]}"
+    //echo "DEBUG: file: $file"
+    //echo "DEBUG: pattern: $pattern"
+    //echo "DEBUG: args[0]: ${args[0]}"
+    //echo "DEBUG: args[1]: ${args[1]}"
+    def content = readFile $file
+    def props = new Properties()
+    props.load(new ByteArrayInputStream(content.getBytes()))
+    def output = MessageFormat.format((String) props.get("DBPool.ReadOnly.url"), "XXX")
+    echo "Output: $output"
 }
 
 
