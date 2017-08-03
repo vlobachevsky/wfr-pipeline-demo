@@ -78,7 +78,7 @@ node('master') {
                 // Stop Tomcat
                 powerShell(". '.\\scripts\\stop-tomcat.ps1'")
                 syncBuildScript()
-/               unstash "zeyt-web"
+                unstash "zeyt-web"
 
                 copySystemFiles();
 
