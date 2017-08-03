@@ -31,7 +31,7 @@ node('master') {
 
     stage('Build') {
         echo 'Building...'
-        timeout time: 30 unit: SECONDS
+        timeout time: 30, unit: SECONDS
 /*
         syncRepo()
         parallel (
