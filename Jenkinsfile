@@ -30,6 +30,9 @@ node('master') {
     env.PATH = "${tool 'Ant-1.9.6'}\\bin;${tool 'NodeJS v6'};${env.PATH}"
 
     stage('Build') {
+        echo 'Building...'
+        timeout time: 30 unit: SECONDS
+/*
         syncRepo()
         parallel (
             "build-java" : {
@@ -39,6 +42,7 @@ node('master') {
                 buildJS()
             }
         )
+/*
     }
 
 /*
