@@ -30,8 +30,7 @@ node('master') {
     env.PATH = "${tool 'Ant-1.9.6'}\\bin;${tool 'NodeJS v6'};${env.PATH}"
 
     stage('Build') {
-//        syncRepo()
-/*
+        syncRepo()
         parallel (
             "build-java" : {
                 compileApp()
@@ -40,7 +39,6 @@ node('master') {
                 buildJS()
             }
         )
-*/
     }
 
 /*
@@ -57,30 +55,30 @@ node('master') {
 */
 
     stage('Test') {
-//        runJUnitTests()
+        runJUnitTests()
         // TODO: Try use splitTest to automatically split your test suite into
         // equal running parts that it can run concurrently.
     }
 
     stage('Package') {
         //packageZip()
-//        stash name: "zeyt-web", includes: "/reports/**,/sql/**,/web/**,/config/**,/quizzes/**,/tutorials/**"
+        stash name: "zeyt-web", includes: "/reports/**,/sql/**,/web/**,/config/**,/quizzes/**,/tutorials/**"
     }
 
     stage('Update DB') {
-//        updateDB()
+        updateDB()
     }
 
     stage('Deploy') {
         node('win-node-1') {
             ws('C:\\TA\\zeyt') {
                 dir('scripts') {
-//                    syncPsScripts()
+                    syncPsScripts()
                 }
                 // Stop Tomcat
                 powerShell(". '.\\scripts\\stop-tomcat.ps1'")
-//                syncBuildScript()
- //               unstash "zeyt-web"
+                syncBuildScript()
+/               unstash "zeyt-web"
 
                 copySystemFiles();
 
