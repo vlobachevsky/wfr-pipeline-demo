@@ -30,6 +30,7 @@ node('master') {
     env.PATH = "${tool 'Ant-1.9.6'}\\bin;${tool 'NodeJS v6'};${env.PATH}"
 
     stage('Build') {
+        milestone()
         sleep(time: 90, unit: 'SECONDS')
         echo 'Building...'
 /*
