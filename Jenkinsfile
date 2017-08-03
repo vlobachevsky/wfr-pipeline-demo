@@ -42,7 +42,7 @@ node('master') {
                 buildJS()
             }
         )
-/*
+*/
     }
 
 /*
