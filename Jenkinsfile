@@ -128,16 +128,16 @@ private def powerShell(psCmd) {
 
 private def copySystemFiles(dbHost) {
     writeFile file: 'System.properties', text: '''
-DBPool.ReadOnly.url=jdbc:sqlserver://$dbHost:1433;DatabaseName=ZEYT;encrypt=false
+DBPool.ReadOnly.url=jdbc:sqlserver://${dbHost}:1433;DatabaseName=ZEYT;encrypt=false
 DBPool.ReadOnly.username=sa
-DBPool.System.url=jdbc:sqlserver://$dbHost:1433;DatabaseName=ZEYT;encrypt=false
+DBPool.System.url=jdbc:sqlserver://${dbHost}:1433;DatabaseName=ZEYT;encrypt=false
 DBPool.System.username=sa
-DBPool.Main.url=jdbc:sqlserver://$dbHost:1433;DatabaseName=ZEYT;encrypt=false
+DBPool.Main.url=jdbc:sqlserver://${dbHost}:1433;DatabaseName=ZEYT;encrypt=false
 DBPool.Main.username=sa
 DBPool.Main.supportQueryTimeout=false
-DBPool.Reports.url=jdbc:sqlserver://$dbHost:1433;DatabaseName=ZEYT;encrypt=false
+DBPool.Reports.url=jdbc:sqlserver://${dbHost}:1433;DatabaseName=ZEYT;encrypt=false
 DBPool.Reports.username=sa
-DBPool.ScheduledReports.url=jdbc:sqlserver://$dbHost:1433;DatabaseName=ZEYT;encrypt=false
+DBPool.ScheduledReports.url=jdbc:sqlserver://${dbHost}:1433;DatabaseName=ZEYT;encrypt=false
 DBPool.ScheduledReports.username=sa
 pswd.path=./config/Connections.properties
 '''
