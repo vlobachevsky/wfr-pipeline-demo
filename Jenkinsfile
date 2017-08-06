@@ -76,20 +76,10 @@ node('master') {
 
     stage('Deploy') {
         node('win-node-1') {
-            ws('C:\\TA\\zeyt') {
-                dir('scripts') {
-                    syncPsScripts()
-                }
-                // Stop Tomcat
-                powerShell(". '.\\scripts\\stop-tomcat.ps1'")
-                syncBuildScript()
-                unstash "zeyt-web"
-
-                copySystemFiles();
-
-                // Start Tomcat
-                powerShell(". '.\\scripts\\start-tomcat.ps1'")
-            }
+            deploy('10.0.2.2')
+        }
+        node('master') {
+            deploy('localhost')
         }
 
 /*
@@ -136,18 +126,18 @@ private def powerShell(psCmd) {
     bat "powershell.exe -NonInteractive -ExecutionPolicy Bypass -Command \"\$ErrorActionPreference='Stop';[Console]::OutputEncoding=[System.Text.Encoding]::UTF8;$psCmd;EXIT \$global:LastExitCode\""
 }
 
-private def copySystemFiles() {
+private def copySystemFiles(dbHost) {
     writeFile file: 'System.properties', text: '''
-DBPool.ReadOnly.url=jdbc:sqlserver://{0}:1433;DatabaseName=ZEYT;encrypt=false
+DBPool.ReadOnly.url=jdbc:sqlserver://$dbHost:1433;DatabaseName=ZEYT;encrypt=false
 DBPool.ReadOnly.username=sa
-DBPool.System.url=jdbc:sqlserver://10.0.2.2:1433;DatabaseName=ZEYT;encrypt=false
+DBPool.System.url=jdbc:sqlserver://$dbHost:1433;DatabaseName=ZEYT;encrypt=false
 DBPool.System.username=sa
-DBPool.Main.url=jdbc:sqlserver://10.0.2.2:1433;DatabaseName=ZEYT;encrypt=false
+DBPool.Main.url=jdbc:sqlserver://$dbHost:1433;DatabaseName=ZEYT;encrypt=false
 DBPool.Main.username=sa
 DBPool.Main.supportQueryTimeout=false
-DBPool.Reports.url=jdbc:sqlserver://10.0.2.2:1433;DatabaseName=ZEYT;encrypt=false
+DBPool.Reports.url=jdbc:sqlserver://$dbHost:1433;DatabaseName=ZEYT;encrypt=false
 DBPool.Reports.username=sa
-DBPool.ScheduledReports.url=jdbc:sqlserver://10.0.2.2:1433;DatabaseName=ZEYT;encrypt=false
+DBPool.ScheduledReports.url=jdbc:sqlserver://$dbHost:1433;DatabaseName=ZEYT;encrypt=false
 DBPool.ScheduledReports.username=sa
 pswd.path=./config/Connections.properties
 '''
@@ -188,6 +178,21 @@ private void packageZip() {
 private void deployPackage(nodeName) {
     //echo 'Deployed package on $nodeName'
     bat 'ant -f zeyt/build.xml -Dpackage.destination=\\\\10.0.2.2\\wfr-artifactory -Dpackage.deploy.path=. DeployWeb'
+}
+
+private void deploy(dbHost) {
+    ws('C:\\TA\\zeyt') {
+        dir('scripts') {
+            syncPsScripts()
+        }
+        // Stop Tomcat
+        powerShell(". '.\\scripts\\stop-tomcat.ps1'")
+        syncBuildScript()
+        unstash "zeyt-web"
+        copySystemFiles(dbHost);
+        // Start Tomcat
+        powerShell(". '.\\scripts\\start-tomcat.ps1'")
+    }
 }
 
 /*
