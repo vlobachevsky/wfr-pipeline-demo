@@ -33,7 +33,6 @@ node('master') {
 //        milestone()
 //        sleep(time: 90, unit: 'SECONDS')
 //        echo 'Building...'
-/*
         syncRepo()
         parallel (
             "build-java" : {
@@ -43,7 +42,6 @@ node('master') {
                 buildJS()
             }
         )
-*/
     }
 
 /*
@@ -60,7 +58,7 @@ node('master') {
 */
 
     stage('Test') {
-//        runJUnitTests()
+        runJUnitTests()
         // TODO: Try use splitTest to automatically split your test suite into
         // equal running parts that it can run concurrently.
     }
@@ -71,7 +69,7 @@ node('master') {
     }
 
     stage('Update DB') {
-//        updateDB()
+        updateDB()
     }
 
     stage('Deploy') {
@@ -90,7 +88,7 @@ node('master') {
     }
 }
 
-private void syncRepo() {
+def syncRepo() {
   checkout([
     $class: 'SubversionSCM',
     locations: [[
@@ -104,7 +102,7 @@ private void syncRepo() {
   ])
 }
 
-private void syncBuildScript() {
+def syncBuildScript() {
   checkout([
     $class: 'SubversionSCM',
     locations: [[
@@ -118,15 +116,15 @@ private void syncBuildScript() {
   ])
 }
 
-private void syncPsScripts() {
+def syncPsScripts() {
     git url: 'https://github.com/vlobachevsky/wfr-devops-scripts.git', credentialsId: 'vlobachevsky-github'
 }
 
-private def powerShell(psCmd) {
+def powerShell(psCmd) {
     bat "powershell.exe -NonInteractive -ExecutionPolicy Bypass -Command \"\$ErrorActionPreference='Stop';[Console]::OutputEncoding=[System.Text.Encoding]::UTF8;$psCmd;EXIT \$global:LastExitCode\""
 }
 
-private def copySystemFiles(dbHost) {
+def copySystemFiles(dbHost) {
     writeFile file: 'System.properties', text: """
 DBPool.ReadOnly.url=jdbc:sqlserver://${dbHost}:1433;DatabaseName=ZEYT;encrypt=false
 DBPool.ReadOnly.username=sa
@@ -150,20 +148,20 @@ DBPool.ScheduledReports.password=c61baf0b2828776509c9915b670a03b8
 """
 }
 
-private void compileApp() {
+def compileApp() {
     //bat 'ant -Dpackage.destination=D:\\Temp\\wfr-artifactory BuildEclipseCompiler JUnit'
     bat 'ant BuildEclipseCompiler'
 }
 
-private void runJUnitTests() {
+def runJUnitTests() {
     bat 'ant JUnit'
 }
 
-private  void buildJS() {
+def buildJS() {
     bat 'ant BuildJS'
 }
 
-private void updateDB() {
+def updateDB() {
     //bat './updateDB_Sprint.bat localhost sa Admin1234' //TODO: move to global vars
     //bat './updateDB.bat zeyt sa silver1i'
     //bat './runZeytSQL.bat localhost sa Admin1234 sql\\DBUpdateCurrentSprint.txt'
@@ -171,16 +169,16 @@ private void updateDB() {
     bat "java -showversion -Xms512m -Xmx1024m -Xss1m -classpath \".\\web\\WEB-INF\\classes;.\\web\\WEB-INF\\lib\\*; \" RunSQL delay=0 output.result=0 output.sql=0 error.handling=EXIT output.verbose=1 uri=jdbc:sqlserver://$dbServerName:$dbServerPort;DatabaseName=$dbName;encrypt=false user=$dbUserName password=$dbUserPass input.file=sql\\DBUpdate.txt  jdbc.driver=com.microsoft.sqlserver.jdbc.SQLServerDriver"
 }
 
-private void packageZip() {
+def packageZip() {
     bat 'ant -Dpackage.destination=D:\\Temp\\wfr-artifactory PackageWeb'
 }
 
-private void deployPackage(nodeName) {
+def deployPackage(nodeName) {
     //echo 'Deployed package on $nodeName'
     bat 'ant -f zeyt/build.xml -Dpackage.destination=\\\\10.0.2.2\\wfr-artifactory -Dpackage.deploy.path=. DeployWeb'
 }
 
-private void deploy(dbHost) {
+def deploy(dbHost) {
     ws('C:\\TA\\zeyt') {
         dir('scripts') {
             syncPsScripts()
