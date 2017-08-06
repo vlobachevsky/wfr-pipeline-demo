@@ -30,9 +30,9 @@ node('master') {
     env.PATH = "${tool 'Ant-1.9.6'}\\bin;${tool 'NodeJS v6'};${env.PATH}"
 
     stage('Build') {
-        milestone()
-        sleep(time: 90, unit: 'SECONDS')
-        echo 'Building...'
+//        milestone()
+//        sleep(time: 90, unit: 'SECONDS')
+//        echo 'Building...'
 /*
         syncRepo()
         parallel (
@@ -60,7 +60,7 @@ node('master') {
 */
 
     stage('Test') {
-        runJUnitTests()
+//        runJUnitTests()
         // TODO: Try use splitTest to automatically split your test suite into
         // equal running parts that it can run concurrently.
     }
@@ -71,7 +71,7 @@ node('master') {
     }
 
     stage('Update DB') {
-        updateDB()
+//        updateDB()
     }
 
     stage('Deploy') {
