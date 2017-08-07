@@ -26,7 +26,7 @@ dbName = env.DB_NAME ?: 'zeyt'
 dbUserName = env.DB_USER_NAME ?: 'sa'
 dbUserPass = env.DB_USER_PASS ?: 'Admin1234'
 
-node('master') {
+//node('master') {
     env.PATH = "${tool 'Ant-1.9.6'}\\bin;${tool 'NodeJS v6'};${env.PATH}"
 
     stage('Build') {
@@ -86,7 +86,7 @@ node('master') {
         }
 */
     }
-}
+//}
 
 def syncRepo() {
   checkout([
