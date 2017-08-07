@@ -32,7 +32,7 @@ stage('Build') {
 //        milestone()
 //        sleep(time: 90, unit: 'SECONDS')
 //        echo 'Building...'
-    node() {
+    node {
         syncRepo()
         parallel (
             "build-java" : {
