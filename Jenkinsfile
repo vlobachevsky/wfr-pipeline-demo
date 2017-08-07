@@ -26,13 +26,13 @@ dbName = env.DB_NAME ?: 'zeyt'
 dbUserName = env.DB_USER_NAME ?: 'sa'
 dbUserPass = env.DB_USER_PASS ?: 'Admin1234'
 
-node('master') {
-    env.PATH = "${tool 'Ant-1.9.6'}\\bin;${tool 'NodeJS v6'};${env.PATH}"
+env.PATH = "${tool 'Ant-1.9.6'}\\bin;${tool 'NodeJS v6'};${env.PATH}"
 
-    stage('Build') {
+stage('Build') {
 //        milestone()
 //        sleep(time: 90, unit: 'SECONDS')
 //        echo 'Building...'
+    node('master') {
         syncRepo()
         parallel (
             "build-java" : {
@@ -43,6 +43,7 @@ node('master') {
             }
         )
     }
+}
 
 /*
     parallel buildJava: {
@@ -57,35 +58,41 @@ node('master') {
     }
 */
 
-    stage('Test') {
+stage('Test') {
+    node('master') {
         runJUnitTests()
         // TODO: Try use splitTest to automatically split your test suite into
         // equal running parts that it can run concurrently.
     }
+}
 
-    stage('Package') {
+stage('Package') {
+    node('master') {
         //packageZip()
         stash name: "zeyt-web", includes: "/reports/**,/sql/**,/web/**,/config/**,/quizzes/**,/tutorials/**"
     }
+}
 
-    stage('Update DB') {
+stage('Update DB') {
+    node('master') {
         updateDB()
-    }
 
-    stage('Deploy') {
-        node('win-node-1') {
-            deploy('10.0.2.2')
-        }
-        node('master') {
-            deploy('localhost')
-        }
+    }
+}
+
+stage('Deploy') {
+    node('win-node-1') {
+        deploy('10.0.2.2')
+    }
+    node('master') {
+        deploy('localhost')
+    }
 
 /*
         node(nodeName = 'node2') {
             deployPackage(nodeName)
         }
 */
-    }
 }
 
 def syncRepo() {
