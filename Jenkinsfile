@@ -58,6 +58,7 @@ stage('Build') {
     }
 */
 
+/*
 stage('Test') {
     node('master') {
         runJUnitTests()
@@ -65,21 +66,27 @@ stage('Test') {
         // equal running parts that it can run concurrently.
     }
 }
+*/
 
+/*
 stage('Package') {
     node('master') {
         //packageZip()
         stash name: "zeyt-web", includes: "/reports/**,/sql/**,/web/**,/config/**,/quizzes/**,/tutorials/**"
     }
 }
+*/
 
+/*
 stage('Update DB') {
     node('master') {
         updateDB()
 
     }
 }
+*/
 
+/*
 stage('Deploy') {
     node('win-node-1') {
         deploy('10.0.2.2')
@@ -87,13 +94,15 @@ stage('Deploy') {
     node('master') {
         deploy('localhost')
     }
+}
+*/
 
 /*
         node(nodeName = 'node2') {
             deployPackage(nodeName)
         }
 */
-}
+
 
 def syncRepo() {
   checkout([
