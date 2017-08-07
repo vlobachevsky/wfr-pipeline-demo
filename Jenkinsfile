@@ -33,7 +33,7 @@ node {
 //        milestone()
 //        sleep(time: 90, unit: 'SECONDS')
 //        echo 'Building...'
-        syncRepo()
+        checkout()
         parallel (
             "build-java" : {
                 compileApp()
@@ -73,6 +73,7 @@ node {
     }
 
     stage('Deploy') {
+        input message: "Deploy to QA environment?"
         node('win-node-1') {
             deploy('10.0.2.2')
         }
@@ -88,7 +89,7 @@ node {
     }
 }
 
-def syncRepo() {
+def checkout() {
   checkout([
     $class: 'SubversionSCM',
     locations: [[
