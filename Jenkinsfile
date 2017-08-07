@@ -26,7 +26,7 @@ dbName = env.DB_NAME ?: 'zeyt'
 dbUserName = env.DB_USER_NAME ?: 'sa'
 dbUserPass = env.DB_USER_PASS ?: 'Admin1234'
 
-node {
+node('master') {
     env.PATH = "${tool 'Ant-1.9.6'}\\bin;${tool 'NodeJS v6'};${env.PATH}"
 
     stage('Build') {
@@ -72,8 +72,10 @@ node {
         updateDB()
     }
 
+    milestone 1
     stage('Deploy') {
         input message: "Deploy to QA environment?"
+
         node('win-node-1') {
             deploy('10.0.2.2')
         }
