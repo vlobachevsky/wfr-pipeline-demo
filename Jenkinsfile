@@ -7,6 +7,7 @@ import java.text.MessageFormat
 // 2. Eclipse Compliler jar (ecj-4.4) in ANT_HOME/lib
 
 // TODO:
+// * Modify build.xml to append BUILD_ID to Zeyt.zip on PackageWeb task
 // * Fix "Could not make new DB connection" on vagrant-node-1
 // * Use custom workspace
 // * Resolve issue with coping properties files. Should be build parameters for this.
@@ -30,9 +31,8 @@ node('master') {
     env.PATH = "${tool 'Ant-1.9.6'}\\bin;${tool 'NodeJS v6'};${env.PATH}"
 
     stage('Build') {
-//        milestone()
-//        sleep(time: 90, unit: 'SECONDS')
-//        echo 'Building...'
+        echo 'Building...'
+/*
         checkout()
         parallel (
             "build-java" : {
@@ -42,52 +42,29 @@ node('master') {
                 buildJS()
             }
         )
-    }
-
-/*
-    parallel buildJava: {
-        stage('Build: Java') {
-            //syncRepo()
-            compileApp()
-        }
-    }, buildJS: {
-        stage('Build: JS') {
-            buildJS()
-        }
-    }
 */
+    }
 
     stage('Test') {
-        runJUnitTests()
+        echo 'Testing...'
+//        runJUnitTests()
         // TODO: Try use splitTest to automatically split your test suite into
         // equal running parts that it can run concurrently.
     }
 
     stage('Package') {
-        //packageZip()
-        stash name: "zeyt-web", includes: "/reports/**,/sql/**,/web/**,/config/**,/quizzes/**,/tutorials/**"
+        packageZip()
+//        stash name: "zeyt-web", includes: "/reports/**,/sql/**,/web/**,/config/**,/quizzes/**,/tutorials/**"
     }
 
-    stage('Update DB') {
-        updateDB()
-    }
-
-    milestone 1
     stage('Deploy') {
-        input message: "Deploy to QA environment?"
-
-        node('win-node-1') {
-            deploy('10.0.2.2')
-        }
         node('master') {
             deploy('localhost')
         }
+    }
 
-/*
-        node(nodeName = 'node2') {
-            deployPackage(nodeName)
-        }
-*/
+    stage('Acceptence') {
+        echo 'Running REST Tests...'
     }
 }
 
@@ -189,7 +166,9 @@ def deploy(dbHost) {
         // Stop Tomcat
         powerShell(". '.\\scripts\\stop-tomcat.ps1'")
         syncBuildScript()
-        unstash "zeyt-web"
+        updateDB()
+//        unstash "zeyt-web"
+        deployPackage()
         copySystemFiles(dbHost);
         // Start Tomcat
         powerShell(". '.\\scripts\\start-tomcat.ps1'")
