@@ -34,7 +34,7 @@ node('master') {
     stage('Build') {
         echo 'Building...'
         checkout()
-        parallel (
+/*        parallel (
             "build-java" : {
                 compileApp()
             },
@@ -42,6 +42,7 @@ node('master') {
                 buildJS()
             }
         )
+*/        
     }
 
     stage('Test') {
@@ -152,7 +153,7 @@ def packageZip() {
     bat 'ant -Dpackage.destination=D:\\Temp\\wfr-artifactory PackageWeb'
 }
 
-def deployPackage(nodeName) {
+def deployPackage() {
     //echo 'Deployed package on $nodeName'
     bat 'ant -f zeyt/build.xml -Dpackage.destination=\\\\10.0.2.2\\wfr-artifactory -Dpackage.deploy.path=. DeployWeb'
 }
