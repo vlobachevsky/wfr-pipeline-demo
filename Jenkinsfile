@@ -7,6 +7,7 @@ import java.text.MessageFormat
 // 2. Eclipse Compliler jar (ecj-4.4) in ANT_HOME/lib
 
 // TODO:
+// * First pipeline has parameter to skip/ignore REST test
 // * Modify build.xml to append BUILD_ID to Zeyt.zip on PackageWeb task
 // * Fix "Could not make new DB connection" on vagrant-node-1
 // * Use custom workspace
@@ -164,9 +165,9 @@ def deploy(dbHost) {
         // Stop Tomcat
         powerShell(". '.\\scripts\\stop-tomcat.ps1'")
         syncBuildScript()
-        updateDB()
 //        unstash "zeyt-web"
         deployPackage()
+        updateDB()
         copySystemFiles(dbHost);
         // Start Tomcat
         powerShell(". '.\\scripts\\start-tomcat.ps1'")
