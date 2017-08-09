@@ -34,7 +34,7 @@ node('master') {
     stage('Build') {
         echo 'Building...'
         checkout()
-/*        parallel (
+        parallel (
             "build-java" : {
                 compileApp()
             },
@@ -42,7 +42,6 @@ node('master') {
                 buildJS()
             }
         )
-*/        
     }
 
     stage('Test') {
