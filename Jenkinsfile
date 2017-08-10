@@ -66,6 +66,8 @@ node('master') {
             node('master') {
                 deploy('localhost')
             }
+        } else {
+            bat 'exit 1'
         }
     }
 
@@ -80,6 +82,8 @@ node('master') {
                     bat "ant -f build.xml -DBaseUrl=http://127.0.0.1:8080 -Dreport.dir=../report TestRestApi"
                 }
             }
+        } else {
+            bat 'exit 1'
         }
     }
 
