@@ -28,13 +28,15 @@ dbName = env.DB_NAME ?: 'zeyt'
 dbUserName = env.DB_USER_NAME ?: 'sa'
 dbUserPass = env.DB_USER_PASS ?: 'Admin1234'
 
+svnCredentialsId = 'vital.lobachevskij-wrf-svn'
+
 node('master') {
     env.PATH = "${tool 'Ant-1.9.6'}\\bin;${tool 'NodeJS v6'};${env.PATH}"
 
     stage('Build') {
         echo 'Building...'
-/*        checkout()
-        parallel (
+        checkoutSVN(svnCredentialsId, 'svn://kap-wfr-svn.int.kronos.com/zeyt')
+/*        parallel (
             "build-java" : {
                 compileApp()
             },
@@ -65,41 +67,11 @@ node('master') {
 
     stage('REST Automated Tests') {
         echo 'Running REST Tests...'
-
+//        checkoutSVN(svnCredentialsId, 'svn://kap-wfr-svn.int.kronos.com/zeyt/test-api')
     }
 }
 
-def checkout() {
-  checkout([
-    $class: 'SubversionSCM',
-    locations: [[
-      credentialsId: 'vital.lobachevskij-wrf-svn',
-      depthOption: 'infinity',
-      ignoreExternalsOption: true,
-      local: '.',
-      remote: 'svn://kap-wfr-svn.int.kronos.com/zeyt'
-    ]],
-    workspaceUpdater: [$class: 'UpdateWithRevertUpdater']
-  ])
-}
-
-/*
-def syncBuildScript() {
-  checkout([
-    $class: 'SubversionSCM',
-    locations: [[
-      credentialsId: 'vital.lobachevskij-wrf-svn',
-      depthOption: 'files',
-      ignoreExternalsOption: true,
-      local: '.',
-      remote: 'svn://kap-wfr-svn.int.kronos.com/zeyt'
-    ]],
-    workspaceUpdater: [$class: 'UpdateWithRevertUpdater']
-  ])
-}
-*/
-
-def syncBuildScript(credentialsId, remoteURL, depthOption) {
+def checkoutSVN(credentialsId, url, depthOption) {
   checkout([
     $class: 'SubversionSCM',
     locations: [[
@@ -107,7 +79,7 @@ def syncBuildScript(credentialsId, remoteURL, depthOption) {
       depthOption: "$depthOption" ?: 'infinity',
       ignoreExternalsOption: true,
       local: '.',
-      remote: "$remoteURL"
+      remote: "$url"
     ]],
     workspaceUpdater: [$class: 'UpdateWithRevertUpdater']
   ])
@@ -182,7 +154,7 @@ def deploy(dbHost) {
         }
         // Stop Tomcat
         powerShell(". '.\\scripts\\stop-tomcat.ps1'")
-        syncBuildScript('vital.lobachevskij-wrf-svn', 'svn://kap-wfr-svn.int.kronos.com/zeyt', 'files')
+        checkoutSVN(svnCredentialsId, 'svn://kap-wfr-svn.int.kronos.com/zeyt', 'files')
 //        unstash "zeyt-web"
         deployPackage('\\\\localhost\\wfr-artifactory')
 //        updateDB()
