@@ -45,26 +45,27 @@ node('master') {
 */
     }
 
-    stage('Test') {
+    stage('Unit Tests') {
         echo 'Testing...'
 //        runJUnitTests()
         // TODO: Try use splitTest to automatically split your test suite into
         // equal running parts that it can run concurrently.
     }
 
-    stage('Package') {
+    stage('Publish') {
         packageZip()
-//        stash name: "zeyt-web", includes: "/reports/**,/sql/**,/web/**,/config/**,/quizzes/**,/tutorials/**"
+        //        stash name: "zeyt-web", includes: "/reports/**,/sql/**,/web/**,/config/**,/quizzes/**,/tutorials/**"
     }
 
-    stage('Deploy') {
+    stage('Deploy DEV') {
         node('master') {
             deploy('localhost')
         }
     }
 
-    stage('Acceptence') {
+    stage('REST Automated Tests') {
         echo 'Running REST Tests...'
+
     }
 }
 
@@ -82,6 +83,7 @@ def checkout() {
   ])
 }
 
+/*
 def syncBuildScript() {
   checkout([
     $class: 'SubversionSCM',
@@ -91,6 +93,21 @@ def syncBuildScript() {
       ignoreExternalsOption: true,
       local: '.',
       remote: 'svn://kap-wfr-svn.int.kronos.com/zeyt'
+    ]],
+    workspaceUpdater: [$class: 'UpdateWithRevertUpdater']
+  ])
+}
+*/
+
+def syncBuildScript(credentialsId, remoteURL, depthOption) {
+  checkout([
+    $class: 'SubversionSCM',
+    locations: [[
+      credentialsId: $credentialsId,
+      depthOption: $depthOption ?: 'infinity',
+      ignoreExternalsOption: true,
+      local: '.',
+      remote: $remoteURL
     ]],
     workspaceUpdater: [$class: 'UpdateWithRevertUpdater']
   ])
@@ -165,7 +182,7 @@ def deploy(dbHost) {
         }
         // Stop Tomcat
         powerShell(". '.\\scripts\\stop-tomcat.ps1'")
-        syncBuildScript()
+        syncBuildScript('vital.lobachevskij-wrf-svn', 'svn://kap-wfr-svn.int.kronos.com/zeyt', 'files')
 //        unstash "zeyt-web"
         deployPackage('\\\\localhost\\wfr-artifactory')
 //        updateDB()
