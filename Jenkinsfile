@@ -36,7 +36,7 @@ node('master') {
 
     stage('Build') {
         echo 'Building...'
-        checkoutSVN(svnCredentialsId, svnProjectRootURL)
+        checkoutSVN(svnCredentialsId, svnProjectRootURL, 'infinity')
 /*        parallel (
             "build-java" : {
                 compileApp()
