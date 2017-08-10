@@ -73,8 +73,8 @@ node('master') {
             dir('test-api') {
                 checkoutSVN(svnCredentialsId, "$svnRootURL/zeyt/test-api")
             }
-            dir('../test-api') {
-                checkoutSVN(svnCredentialsId, "$svnRootURL/test-api")
+            dir('../test_api') {
+                checkoutSVN(svnCredentialsId, "$svnRootURL/test_api")
             }
         }
     }
