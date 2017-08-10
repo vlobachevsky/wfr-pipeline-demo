@@ -7,6 +7,8 @@ import java.text.MessageFormat
 // 2. Eclipse Compliler jar (ecj-4.4) in ANT_HOME/lib
 
 // TODO:
+// * Move Publish step to very end of pipeline
+// * Add parameters to skip Deploy and REST Tests steps
 // * First pipeline has parameter to skip/ignore REST test
 // * Modify build.xml to append BUILD_ID to Zeyt.zip on PackageWeb task
 // * Fix "Could not make new DB connection" on vagrant-node-1
@@ -54,14 +56,12 @@ node('master') {
 //        runJUnitTests()
         // TODO: Try use splitTest to automatically split your test suite into
         // equal running parts that it can run concurrently.
-    }
 
-    stage('Publish') {
-        packageZip()
-        //        stash name: "zeyt-web", includes: "/reports/**,/sql/**,/web/**,/config/**,/quizzes/**,/tutorials/**"
     }
 
     stage('Deploy DEV') {
+        //packageZip('D:\\Temp\\wfr-artifactory')
+        stash name: "zeyt-web", includes: "/reports/**,/sql/**,/web/**,/config/**,/quizzes/**,/tutorials/**"
         node('master') {
             deploy('localhost')
         }
@@ -78,6 +78,28 @@ node('master') {
                 bat "ant -f build.xml -DBaseUrl=http://127.0.0.1:8080 -Dreport.dir=../report TestRestApi"
             }
         }
+    }
+
+    stage('Publish') {
+        packageZip('D:\\Temp\\wfr-artifactory')
+    }
+
+}
+
+def deploy(dbHost) {
+    ws('C:\\TA\\zeyt') {
+        dir('scripts') {
+            syncPsScripts()
+        }
+        // Stop Tomcat
+        powerShell(". '.\\scripts\\stop-tomcat.ps1'")
+        checkoutSVN(svnCredentialsId, "$svnRootURL/zeyt", 'files')
+        //deployPackage('\\\\localhost\\wfr-artifactory')
+        unstash "zeyt-web"
+//        updateDB()
+        copySystemFiles(dbHost);
+        // Start Tomcat
+        powerShell(". '.\\scripts\\start-tomcat.ps1'")
     }
 }
 
@@ -148,8 +170,8 @@ def updateDB() {
     bat "java -showversion -Xms512m -Xmx1024m -Xss1m -classpath \".\\web\\WEB-INF\\classes;.\\web\\WEB-INF\\lib\\*; \" RunSQL delay=0 output.result=0 output.sql=0 error.handling=EXIT output.verbose=1 uri=jdbc:sqlserver://$dbServerName:$dbServerPort;DatabaseName=$dbName;encrypt=false user=$dbUserName password=$dbUserPass input.file=sql\\DBUpdate.txt  jdbc.driver=com.microsoft.sqlserver.jdbc.SQLServerDriver"
 }
 
-def packageZip() {
-    bat 'ant -Dpackage.destination=D:\\Temp\\wfr-artifactory PackageWeb'
+def packageZip(toPath) {
+    bat "ant -Dpackage.destination=$toPath PackageWeb"
 }
 
 def deployPackage(fromPath) {
@@ -157,22 +179,6 @@ def deployPackage(fromPath) {
     bat "ant -f build.xml -Dpackage.destination=$fromPath -Dpackage.deploy.path=. DeployWeb"
 }
 
-def deploy(dbHost) {
-    ws('C:\\TA\\zeyt') {
-        dir('scripts') {
-            syncPsScripts()
-        }
-        // Stop Tomcat
-        powerShell(". '.\\scripts\\stop-tomcat.ps1'")
-        checkoutSVN(svnCredentialsId, "$svnRootURL/zeyt", 'files')
-//        unstash "zeyt-web"
-        deployPackage('\\\\localhost\\wfr-artifactory')
-//        updateDB()
-        copySystemFiles(dbHost);
-        // Start Tomcat
-        powerShell(". '.\\scripts\\start-tomcat.ps1'")
-    }
-}
 
 /*
 private void setProperty(propsFile, pattern, Object... args) {
