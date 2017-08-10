@@ -31,6 +31,7 @@ dbUserPass = env.DB_USER_PASS ?: 'Admin1234'
 svnCredentialsId = 'vital.lobachevskij-wrf-svn'
 svnRootURL = 'svn://kap-wfr-svn.int.kronos.com'
 
+
 node('master') {
     env.PATH = "${tool 'Ant-1.9.6'}\\bin;${tool 'NodeJS v6'};${env.PATH}"
 
