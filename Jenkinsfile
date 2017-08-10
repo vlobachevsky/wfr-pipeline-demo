@@ -66,20 +66,25 @@ node('master') {
             //packageZip('D:\\Temp\\wfr-artifactory')
             stash name: "zeyt-web", includes: "/reports/**,/sql/**,/web/**,/config/**,/quizzes/**,/tutorials/**"
             node('master') {
+                deploy('localhost')
+            }
         }
-/*
+
         stage('REST Automated Tests') {
-            ws('C:\\TA\\zeyt') {
-                dir('test-api') {
-                    checkoutSVN(svnCredentialsId, "$svnRootURL/zeyt/test-api")
-                }
-                dir('../test_api') {
-                    checkoutSVN(svnCredentialsId, "$svnRootURL/test_api")
-                    bat "ant -f build.xml -DBaseUrl=http://127.0.0.1:8080 -Dreport.dir=../report TestRestApi"
+            if(skipAcceptanceStage) {
+                currentBuild.result = 'UNSTABLE'
+            } else {
+                ws('C:\\TA\\zeyt') {
+                    dir('test-api') {
+                        checkoutSVN(svnCredentialsId, "$svnRootURL/zeyt/test-api")
+                    }
+                    dir('../test_api') {
+                        checkoutSVN(svnCredentialsId, "$svnRootURL/test_api")
+                        bat "ant -f build.xml -DBaseUrl=http://127.0.0.1:8080 -Dreport.dir=../report TestRestApi"
+                    }
                 }
             }
         }
-*/
     }
 
     stage('Publish') {
