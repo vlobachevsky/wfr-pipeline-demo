@@ -103,11 +103,11 @@ def syncBuildScript(credentialsId, remoteURL, depthOption) {
   checkout([
     $class: 'SubversionSCM',
     locations: [[
-      credentialsId: ${credentialsId},
-      depthOption: ${depthOption} ?: 'infinity',
+      credentialsId: "$credentialsId",
+      depthOption: "$depthOption" ?: 'infinity',
       ignoreExternalsOption: true,
       local: '.',
-      remote: ${remoteURL}
+      remote: "$remoteURL"
     ]],
     workspaceUpdater: [$class: 'UpdateWithRevertUpdater']
   ])
