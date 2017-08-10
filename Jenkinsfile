@@ -59,18 +59,18 @@ node('master') {
 
     }
 
-    if(skipAcceptanceStage) {
-        currentBuild.result = 'UNSTABLE'
-    } else {
-        stage('Deploy DEV') {
+    stage('Deploy DEV') {
+        if (!skipAcceptanceStage) {
             //packageZip('D:\\Temp\\wfr-artifactory')
             stash name: "zeyt-web", includes: "/reports/**,/sql/**,/web/**,/config/**,/quizzes/**,/tutorials/**"
             node('master') {
                 deploy('localhost')
             }
         }
+    }
 
-        stage('REST Automated Tests') {
+    stage('REST Automated Tests') {
+        if(!skipAcceptanceStage) {
             ws('C:\\TA\\zeyt') {
                 dir('test-api') {
                     checkoutSVN(svnCredentialsId, "$svnRootURL/zeyt/test-api")
@@ -85,6 +85,10 @@ node('master') {
 
     stage('Publish') {
         packageZip('D:\\Temp\\wfr-artifactory')
+    }
+
+    if(skipAcceptanceStage) {
+        currentBuild.result = 'UNSTABLE'
     }
 
 }
