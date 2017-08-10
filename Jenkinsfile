@@ -61,7 +61,9 @@ node('master') {
 
     stage('Deploy DEV') {
         //packageZip('D:\\Temp\\wfr-artifactory')
-        if(!skipAcceptanceStage) {
+        if(skipAcceptanceStage) {
+            currentBuild.result = 'FAILURE'
+        } else {
             stash name: "zeyt-web", includes: "/reports/**,/sql/**,/web/**,/config/**,/quizzes/**,/tutorials/**"
             node('master') {
                 deploy('localhost')
@@ -70,7 +72,9 @@ node('master') {
     }
 
     stage('REST Automated Tests') {
-        if(!skipAcceptanceStage) {
+        if(skipAcceptanceStage) {
+            currentBuild.result = 'FAILURE'
+        } else {
             ws('C:\\TA\\zeyt') {
                 dir('test-api') {
                     checkoutSVN(svnCredentialsId, "$svnRootURL/zeyt/test-api")
