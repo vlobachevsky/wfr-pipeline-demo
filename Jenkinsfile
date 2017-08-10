@@ -77,6 +77,7 @@ node('master') {
                 checkoutSVN(svnCredentialsId, "$svnRootURL/test_api")
             }
         }
+        bat "ant -f test_api/build.xml -DBaseUrl=http://127.0.0.1:8080 -Dreport.dir=../report TestRestApi"
     }
 }
 
