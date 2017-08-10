@@ -29,7 +29,7 @@ dbServerPort = env.DB_SERVER_PORT ?: '1433'
 dbName = env.DB_NAME ?: 'zeyt'
 dbUserName = env.DB_USER_NAME ?: 'sa'
 dbUserPass = env.DB_USER_PASS ?: 'Admin1234'
-
+skipAcceptanceStage = env.SKIP_ACCEPTANCE_STAGE ? true : false
 svnCredentialsId = 'vital.lobachevskij-wrf-svn'
 svnRootURL = 'svn://kap-wfr-svn.int.kronos.com'
 
@@ -61,21 +61,24 @@ node('master') {
 
     stage('Deploy DEV') {
         //packageZip('D:\\Temp\\wfr-artifactory')
-        stash name: "zeyt-web", includes: "/reports/**,/sql/**,/web/**,/config/**,/quizzes/**,/tutorials/**"
-        node('master') {
-            deploy('localhost')
+        if(!skipAcceptanceStage) {
+            stash name: "zeyt-web", includes: "/reports/**,/sql/**,/web/**,/config/**,/quizzes/**,/tutorials/**"
+            node('master') {
+                deploy('localhost')
+            }
         }
     }
 
     stage('REST Automated Tests') {
-        echo 'Running REST Tests...'
-        ws('C:\\TA\\zeyt') {
-            dir('test-api') {
-                checkoutSVN(svnCredentialsId, "$svnRootURL/zeyt/test-api")
-            }
-            dir('../test_api') {
-                checkoutSVN(svnCredentialsId, "$svnRootURL/test_api")
-                bat "ant -f build.xml -DBaseUrl=http://127.0.0.1:8080 -Dreport.dir=../report TestRestApi"
+        if(!skipAcceptanceStage) {
+            ws('C:\\TA\\zeyt') {
+                dir('test-api') {
+                    checkoutSVN(svnCredentialsId, "$svnRootURL/zeyt/test-api")
+                }
+                dir('../test_api') {
+                    checkoutSVN(svnCredentialsId, "$svnRootURL/test_api")
+                    bat "ant -f build.xml -DBaseUrl=http://127.0.0.1:8080 -Dreport.dir=../report TestRestApi"
+                }
             }
         }
     }
