@@ -62,7 +62,7 @@ node('master') {
     stage('Deploy DEV') {
         //packageZip('D:\\Temp\\wfr-artifactory')
         if(skipAcceptanceStage) {
-            currentBuild.result = 'FAILURE'
+            currentBuild.result = 'UNSTABLE'
         } else {
             stash name: "zeyt-web", includes: "/reports/**,/sql/**,/web/**,/config/**,/quizzes/**,/tutorials/**"
             node('master') {
@@ -73,7 +73,7 @@ node('master') {
 
     stage('REST Automated Tests') {
         if(skipAcceptanceStage) {
-            currentBuild.result = 'FAILURE'
+            currentBuild.result = 'UNSTABLE'
         } else {
             ws('C:\\TA\\zeyt') {
                 dir('test-api') {
