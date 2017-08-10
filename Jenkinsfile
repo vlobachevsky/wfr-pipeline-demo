@@ -33,7 +33,7 @@ node('master') {
 
     stage('Build') {
         echo 'Building...'
-        checkout()
+/*        checkout()
         parallel (
             "build-java" : {
                 compileApp()
@@ -42,6 +42,7 @@ node('master') {
                 buildJS()
             }
         )
+*/
     }
 
     stage('Test') {
@@ -52,7 +53,7 @@ node('master') {
     }
 
     stage('Package') {
-        packageZip()
+//        packageZip()
 //        stash name: "zeyt-web", includes: "/reports/**,/sql/**,/web/**,/config/**,/quizzes/**,/tutorials/**"
     }
 
@@ -154,7 +155,7 @@ def packageZip() {
 
 def deployPackage() {
     //echo 'Deployed package on $nodeName'
-    bat 'ant -f zeyt/build.xml -Dpackage.destination=\\\\10.0.2.2\\wfr-artifactory -Dpackage.deploy.path=. DeployWeb'
+    bat 'ant -f build.xml -Dpackage.destination=\\\\10.0.2.2\\wfr-artifactory -Dpackage.deploy.path=. DeployWeb'
 }
 
 def deploy(dbHost) {
@@ -167,7 +168,7 @@ def deploy(dbHost) {
         syncBuildScript()
 //        unstash "zeyt-web"
         deployPackage()
-        updateDB()
+//        updateDB()
         copySystemFiles(dbHost);
         // Start Tomcat
         powerShell(". '.\\scripts\\start-tomcat.ps1'")
