@@ -62,7 +62,7 @@ node('master') {
     if(skipAcceptanceStage) {
         currentBuild.result = 'UNSTABLE'
     } else {
-        stage('Deploy DEV') {
+/*        stage('Deploy DEV') {
             //packageZip('D:\\Temp\\wfr-artifactory')
             stash name: "zeyt-web", includes: "/reports/**,/sql/**,/web/**,/config/**,/quizzes/**,/tutorials/**"
             node('master') {
@@ -79,6 +79,7 @@ node('master') {
                 }
             }
         }
+*/
     }
 
     stage('Publish') {
