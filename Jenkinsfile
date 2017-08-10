@@ -36,7 +36,7 @@ node('master') {
 
     stage('Build') {
         echo 'Building...'
-        checkoutSVN(svnCredentialsId, svnProjectRootURL, 'infinity')
+        checkoutSVN(svnCredentialsId, svnProjectRootURL)
 /*        parallel (
             "build-java" : {
                 compileApp()
@@ -72,12 +72,12 @@ node('master') {
     }
 }
 
-def checkoutSVN(credentialsId, url, depthOption) {
+def checkoutSVN(credentialsId, url, depthOption='infinity') {
   checkout([
     $class: 'SubversionSCM',
     locations: [[
       credentialsId: "$credentialsId",
-      depthOption: "$depthOption" ?: 'infinity',
+      depthOption: "$depthOption",
       ignoreExternalsOption: true,
       local: '.',
       remote: "$url"
