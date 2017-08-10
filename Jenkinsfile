@@ -29,14 +29,14 @@ dbUserName = env.DB_USER_NAME ?: 'sa'
 dbUserPass = env.DB_USER_PASS ?: 'Admin1234'
 
 svnCredentialsId = 'vital.lobachevskij-wrf-svn'
-svnProjectRootURL = 'svn://kap-wfr-svn.int.kronos.com/zeyt'
+svnRootURL = 'svn://kap-wfr-svn.int.kronos.com/zeyt'
 
 node('master') {
     env.PATH = "${tool 'Ant-1.9.6'}\\bin;${tool 'NodeJS v6'};${env.PATH}"
 
     stage('Build') {
         echo 'Building...'
-        checkoutSVN(svnCredentialsId, svnProjectRootURL)
+        checkoutSVN(svnCredentialsId, "$svnRootURL/zeyt")
 /*        parallel (
             "build-java" : {
                 compileApp()
@@ -68,7 +68,14 @@ node('master') {
 
     stage('REST Automated Tests') {
         echo 'Running REST Tests...'
-//        checkoutSVN(svnCredentialsId, svnProjectRootURL)
+        ws('C:\\TA\\zeyt') {
+            dir('test-api') {
+                checkoutSVN(svnCredentialsId, "$svnRootURL/zeyt/test-api")
+            }
+            dir('../test-api') {
+                checkoutSVN(svnCredentialsId, "$svnRootURL/test-api")
+            }
+        }
     }
 }
 
@@ -155,7 +162,7 @@ def deploy(dbHost) {
         }
         // Stop Tomcat
         powerShell(". '.\\scripts\\stop-tomcat.ps1'")
-        checkoutSVN(svnCredentialsId, svnProjectRootURL, 'files')
+        checkoutSVN(svnCredentialsId, "$svnRootURL/zeyt", 'files')
 //        unstash "zeyt-web"
         deployPackage('\\\\localhost\\wfr-artifactory')
 //        updateDB()
