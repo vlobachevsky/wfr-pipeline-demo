@@ -153,9 +153,9 @@ def packageZip() {
     bat 'ant -Dpackage.destination=D:\\Temp\\wfr-artifactory PackageWeb'
 }
 
-def deployPackage() {
+def deployPackage(fromPath) {
     //echo 'Deployed package on $nodeName'
-    bat 'ant -f build.xml -Dpackage.destination=\\\\10.0.2.2\\wfr-artifactory -Dpackage.deploy.path=. DeployWeb'
+    bat "ant -f build.xml -Dpackage.destination=$fromPath -Dpackage.deploy.path=. DeployWeb"
 }
 
 def deploy(dbHost) {
@@ -167,7 +167,7 @@ def deploy(dbHost) {
         powerShell(". '.\\scripts\\stop-tomcat.ps1'")
         syncBuildScript()
 //        unstash "zeyt-web"
-        deployPackage()
+        deployPackage('\\\\localhost\\wfr-artifactory')
 //        updateDB()
         copySystemFiles(dbHost);
         // Start Tomcat
