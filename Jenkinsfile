@@ -49,7 +49,6 @@ svnRootURL = 'svn://kap-wfr-svn.int.kronos.com'
 
 
 node(params.LABEL) {
-    echo "DEPLOY_ENV: $params.DEPLOY_ENV"
     env.PATH = "${tool 'Ant-1.9.6'}\\bin;${tool 'NodeJS v6'};${env.PATH}"
 
     stage('Build') {
@@ -74,6 +73,7 @@ node(params.LABEL) {
 
     }
 
+    milestone 1
     stage('Deploy DEV') {
         if (!skipAcceptanceStage) {
             //packageZip('D:\\Temp\\wfr-artifactory')
