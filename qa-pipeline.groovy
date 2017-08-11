@@ -1,11 +1,13 @@
 #!/usr/bin/env groovy
 
+import static groovy.io.FileType.FILES
 
 //def files = getAllFiles(createFilePath('D:\\Temp\\wfr-artifactory'))
 //def filePath = new File('D:\\Temp\\wfr-artifactory').eachFileMatch('Zeyt') { f ->
 //    println "Files: $f"
 //}
-println new File('D:\\Temp\\wfr-artifactory').listFiles().find{it.isFile() && it=~/.zip$/}
+//println new File('D:\\Temp\\wfr-artifactory').listFiles().find{it.isFile() && it=~/.zip$/}
+new File('D:\\Temp\\wfr-artifactory').traverse(type: FILES, nameFilter: ~/.*.zip/) { it -> println it }
 
 properties([
   parameters([
