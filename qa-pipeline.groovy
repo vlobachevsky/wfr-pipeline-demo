@@ -2,7 +2,7 @@
 
 
 //def files = getAllFiles(createFilePath('D:\\Temp\\wfr-artifactory'))
-def filePath = new File('D:\\Temp\\wfr-artifactory').eachFileMatch('Zeyt.zip') { f ->
+def filePath = new File('D:\\Temp\\wfr-artifactory').eachFileMatch('abc') { f ->
     echo "Files: $f"
 }
 
