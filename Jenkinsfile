@@ -7,9 +7,6 @@ import java.text.MessageFormat
 // 2. Eclipse Compliler jar (ecj-4.4) in ANT_HOME/lib
 
 // TODO:
-// * Move SKIP_ACCEPTANCE_STAGE param to job params
-// * Parametrize the build with Labes (set of Jenkins nodes)
-// * Move Publish step to very end of pipeline
 // * Modify build.xml to append BUILD_ID to Zeyt.zip on PackageWeb task
 // * Resolve issue with coping properties files. Should be build parameters for this.
 // * Send notification before the build
@@ -73,31 +70,33 @@ node(params.LABEL) {
 
     }
 
-    stage('Deploy DEV') {
-        milestone()
-        if (!skipAcceptanceStage) {
-            //packageZip('D:\\Temp\\wfr-artifactory')
-            stash name: "zeyt-web", includes: "/reports/**,/sql/**,/web/**,/config/**,/quizzes/**,/tutorials/**"
-            node('master') {
-                deploy('localhost')
-            }
-        }
-    }
-
-    stage('REST Automated Tests') {
-        if(!skipAcceptanceStage) {
-            ws('C:\\TA\\zeyt') {
-                dir('test-api') {
-                    checkoutSVN(svnCredentialsId, "$svnRootURL/zeyt/test-api")
-                }
-                dir('../test_api') {
-                    checkoutSVN(svnCredentialsId, "$svnRootURL/test_api")
-                    bat "ant -f build.xml -DBaseUrl=http://127.0.0.1:8080 -Dreport.dir=../report TestRestApi"
+    milestone()
+    lock('devEnv') {
+        stage('Deploy DEV') {
+            if (!skipAcceptanceStage) {
+                //packageZip('D:\\Temp\\wfr-artifactory')
+                stash name: "zeyt-web", includes: "/reports/**,/sql/**,/web/**,/config/**,/quizzes/**,/tutorials/**"
+                node('master') {
+                    deploy('localhost')
                 }
             }
         }
-    }
 
+        stage('REST Automated Tests') {
+            milestone()
+            if(!skipAcceptanceStage) {
+                ws('C:\\TA\\zeyt') {
+                    dir('test-api') {
+                        checkoutSVN(svnCredentialsId, "$svnRootURL/zeyt/test-api")
+                    }
+                    dir('../test_api') {
+                        checkoutSVN(svnCredentialsId, "$svnRootURL/test_api")
+                        bat "ant -f build.xml -DBaseUrl=http://127.0.0.1:8080 -Dreport.dir=../report TestRestApi"
+                    }
+                }
+            }
+        }
+    }
 
     stage('Publish') {
         packageZip('D:\\Temp\\wfr-artifactory')
