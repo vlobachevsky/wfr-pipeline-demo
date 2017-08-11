@@ -2,8 +2,9 @@
 
 
 //def files = getAllFiles(createFilePath('D:\\Temp\\wfr-artifactory'))
-def filePath = new File('D:\\Temp\\wfr-artifactory').listRoots()
-echo "Files: $filePath"
+def filePath = new File('D:\\Temp\\wfr-artifactory').eachFileMatch('*.zip') { f ->
+    echo "Files: $f"
+}
 
 properties([
   parameters([
