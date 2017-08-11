@@ -32,7 +32,7 @@ import java.text.MessageFormat
 
 properties([
   parameters([
-    string(name: 'DEPLOY_ENV', defaultValue: 'TESTING', description: 'The target environment', )
+    boolean(name: 'DEPLOY_ENV', defaultValue: false, description: 'The target environment', )
    ])
 ])
 
