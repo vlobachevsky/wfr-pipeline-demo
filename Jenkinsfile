@@ -7,22 +7,35 @@ import java.text.MessageFormat
 // 2. Eclipse Compliler jar (ecj-4.4) in ANT_HOME/lib
 
 // TODO:
+// * Move SKIP_ACCEPTANCE_STAGE param to job params
+// * Parametrize the build with Labes (set of Jenkins nodes)
 // * Move Publish step to very end of pipeline
-// * Add parameters to skip Deploy and REST Tests steps
-// * First pipeline has parameter to skip/ignore REST test
 // * Modify build.xml to append BUILD_ID to Zeyt.zip on PackageWeb task
-// * Fix "Could not make new DB connection" on vagrant-node-1
-// * Use custom workspace
 // * Resolve issue with coping properties files. Should be build parameters for this.
 // * Send notification before the build
-// * Parametrize build: Skip Db Update; Select servers for deploy
 // * Find a way to skip Update DB if there are no updates in db scripts
+// * This pipeline should be general for any env (MainDev, HF, ...)
 
 // BENEFITS
 // * Don't need to copy System.properties and Connection.properties on server
+// * Run several pipelines in parallel
+// * Rapid feedback
+// * QA can deploy anytime anybuild
+// * QA can deploy to particular server (AP01, MW01, MW02)
+// * Deploy in DEV env and REST tests can be skipped
 
 // REQUIREMENTS
 // * Should be possible to refresh MW02 separatelly without restarting MainDev
+
+properties([[$class: 'BuildBlockerProperty', blockLevel: <object of type hudson.plugins.buildblocker.BuildBlockerProperty.BlockLevel>, blockingJobs: '', scanQueueFor: <object of type hudson.plugins.buildblocker.BuildBlockerProperty.QueueScanScope>, useBuildBlocker: false], parameters([booleanParam(defaultValue: false, description: 'Skips Deploy DEV and REST Automated Tests stages in the pipeline. Build marked as UNSTABLE in any case.', name: 'SKIP_ACCEPTANCE_STAGE')]), pipelineTriggers([])])
+
+/*
+properties([
+  parameters([
+    string(name: 'DEPLOY_ENV', defaultValue: 'TESTING', description: 'The target environment', )
+   ])
+])
+*/
 
 dbServerName = env.DB_SERVER_NAME ?: 'localhost'
 dbServerPort = env.DB_SERVER_PORT ?: '1433'
