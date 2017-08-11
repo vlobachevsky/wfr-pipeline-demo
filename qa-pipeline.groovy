@@ -1,7 +1,10 @@
 #!/usr/bin/env groovy
 
-def files = getAllFiles(createFilePath('D:\\Temp\\wfr-artifactory'))
-echo "Files: $files"
+
+
+bat "ls *.json > listJsonFiles"
+//def files = readFile( "listJsonFiles" ).split( "\\r?\\n" );
+//sh "rm -f listJsonFiles"
 
 properties([
   parameters([
@@ -23,25 +26,4 @@ node('master') {
         echo "BUILD_TO_DEPLOY: $params.BUILD_TO_DEPLOY"
     }
 
-}
-
-@NonCPS
-def getAllFiles(rootPath) {
-    def list = []
-    for (subPath in rootPath.list()) {
-        list << subPath.getName()
-    }
-    return list
-
-}
-
-@NonCPS
-def createFilePath(def path) {
-    return new hudson.FilePath(path);
-/*    if (env['NODE_NAME'].equals("master")) {
-        return new hudson.FilePath(path);
-    } else {
-        return new hudson.FilePath(Jenkins.getInstance().getComputer(env['NODE_NAME']).getChannel(), path);
-    }
-*/
 }
