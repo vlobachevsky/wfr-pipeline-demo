@@ -27,7 +27,14 @@ import java.text.MessageFormat
 // REQUIREMENTS
 // * Should be possible to refresh MW02 separatelly without restarting MainDev
 
-properties([[$class: 'BuildBlockerProperty', blockLevel: <object of type hudson.plugins.buildblocker.BuildBlockerProperty.BlockLevel>, blockingJobs: '', scanQueueFor: <object of type hudson.plugins.buildblocker.BuildBlockerProperty.QueueScanScope>, useBuildBlocker: false], parameters([booleanParam(defaultValue: false, description: 'Skips Deploy DEV and REST Automated Tests stages in the pipeline. Build marked as UNSTABLE in any case.', name: 'SKIP_ACCEPTANCE_STAGE')]), pipelineTriggers([])])
+//properties([[$class: 'BuildBlockerProperty', blockLevel: <object of type hudson.plugins.buildblocker.BuildBlockerProperty.BlockLevel>, blockingJobs: '', scanQueueFor: <object of type hudson.plugins.buildblocker.BuildBlockerProperty.QueueScanScope>, useBuildBlocker: false], parameters([booleanParam(defaultValue: false, description: 'Skips Deploy DEV and REST Automated Tests stages in the pipeline. Build marked as UNSTABLE in any case.', name: 'SKIP_ACCEPTANCE_STAGE')]), pipelineTriggers([])])
+
+
+properties([
+  parameters([
+    string(name: 'DEPLOY_ENV', defaultValue: 'TESTING', description: 'The target environment', )
+   ])
+])
 
 
 dbServerName = env.DB_SERVER_NAME ?: 'localhost'
@@ -35,12 +42,13 @@ dbServerPort = env.DB_SERVER_PORT ?: '1433'
 dbName = env.DB_NAME ?: 'zeyt'
 dbUserName = env.DB_USER_NAME ?: 'sa'
 dbUserPass = env.DB_USER_PASS ?: 'Admin1234'
-skipAcceptanceStage = params.SKIP_ACCEPTANCE_STAGE
+skipAcceptanceStage = env.SKIP_ACCEPTANCE_STAGE ? true : false
 svnCredentialsId = 'vital.lobachevskij-wrf-svn'
 svnRootURL = 'svn://kap-wfr-svn.int.kronos.com'
 
 
 node('master') {
+    echo "DEPLOY_ENV: $params.DEPLOY_ENV"
     env.PATH = "${tool 'Ant-1.9.6'}\\bin;${tool 'NodeJS v6'};${env.PATH}"
 
     stage('Build') {
