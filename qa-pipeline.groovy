@@ -9,7 +9,7 @@ properties([
     booleanParam(name: 'DEPLOY_ON_MW02', defaultValue: true,
         description: 'Deploys selected build on MW02 node.'),
     choice(name: 'BUILD_TO_DEPLOY', choices: ['Zeyt-XXX.zip', 'Zeyt-YYY.zip', 'Zeyt-ZZZ.zip'],
-        description: 'Logical group of agent to run the job on. ', )
+        description: 'Logical group of agent to run the job on. ')
    ])
 ])
 
