@@ -34,3 +34,11 @@ def getAllPackages(rootPath) {
     return list
 
 }
+
+def createFilePath(def path) {
+    if (env['NODE_NAME'].equals("master")) {
+        return new hudson.FilePath(path);
+    } else {
+        return new hudson.FilePath(Jenkins.getInstance().getComputer(env['NODE_NAME']).getChannel(), path);
+    }
+}
