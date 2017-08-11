@@ -8,7 +8,7 @@ properties([
         description: 'Deploys selected build on MW01 node.'),
     booleanParam(name: 'DEPLOY_ON_MW02', defaultValue: true,
         description: 'Deploys selected build on MW02 node.'),
-    choices(name: 'BUILD_TO_DEPLOY', defaultValue: 'TESTING\nSTAGING\nPRODUCTION',
+    string(name: 'BUILD_TO_DEPLOY', defaultValue: '', choices: 'TESTING\nSTAGING\nPRODUCTION',
         description: 'Logical group of agent to run the job on. ', )
    ])
 ])
