@@ -26,7 +26,7 @@ node('master') {
 }
 
 @NonCPS
-def getAllPackages(rootPath) {
+def getAllFiles(rootPath) {
     def list = []
     for (subPath in rootPath.list()) {
         list << subPath.getName()
