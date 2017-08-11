@@ -73,8 +73,8 @@ node(params.LABEL) {
 
     }
 
-    milestone 1
     stage('Deploy DEV') {
+        milestone()
         if (!skipAcceptanceStage) {
             //packageZip('D:\\Temp\\wfr-artifactory')
             stash name: "zeyt-web", includes: "/reports/**,/sql/**,/web/**,/config/**,/quizzes/**,/tutorials/**"
