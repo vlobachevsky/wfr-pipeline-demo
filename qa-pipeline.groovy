@@ -35,6 +35,7 @@ def getAllPackages(rootPath) {
 
 }
 
+@NonCPS
 def createFilePath(def path) {
     if (env['NODE_NAME'].equals("master")) {
         return new hudson.FilePath(path);
