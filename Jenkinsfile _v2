@@ -7,6 +7,7 @@ import java.text.MessageFormat
 // 2. Eclipse Compliler jar (ecj-4.4) in ANT_HOME/lib
 
 // TODO:
+// * Add param (default: false) to run second pipeline automatically
 // * Modify build.xml to append BUILD_ID to Zeyt.zip on PackageWeb task
 // * Resolve issue with coping properties files. Should be build parameters for this.
 // * Send notification before the build
@@ -29,8 +30,10 @@ import java.text.MessageFormat
 
 properties([
   parameters([
-    booleanParam(name: 'SKIP_ACCEPTANCE_STAGE', defaultValue: false, description: 'Skips Deploy DEV and REST Automated Tests stages in the pipeline. Build marked as UNSTABLE in any case.', ),
-    string(name: 'LABEL', defaultValue: 'pipeline', description: 'Logical group of agent to run the job on. ', )
+    booleanParam(name: 'SKIP_ACCEPTANCE_STAGE', defaultValue: false,
+        description: 'Skips Deploy DEV and REST Automated Tests stages in the pipeline. Build marked as UNSTABLE in any case.', ),
+    string(name: 'LABEL', defaultValue: 'pipeline',
+        description: 'Logical group of agent to run the job on. ', )
    ])
 ])
 
@@ -71,7 +74,7 @@ node(params.LABEL) {
     }
 
     milestone()
-    lock('devEnv') {
+    lock(resource: 'devEnv', inversePrecedence: true) {
         stage('Deploy DEV') {
             if (!skipAcceptanceStage) {
                 //packageZip('D:\\Temp\\wfr-artifactory')
