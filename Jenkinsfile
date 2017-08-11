@@ -47,7 +47,7 @@ svnCredentialsId = 'vital.lobachevskij-wrf-svn'
 svnRootURL = 'svn://kap-wfr-svn.int.kronos.com'
 
 
-node('master&&win-node-1') {
+node('pipeline') {
     echo "DEPLOY_ENV: $params.DEPLOY_ENV"
     env.PATH = "${tool 'Ant-1.9.6'}\\bin;${tool 'NodeJS v6'};${env.PATH}"
 
