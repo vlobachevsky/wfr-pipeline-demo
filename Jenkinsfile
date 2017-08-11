@@ -32,7 +32,7 @@ import java.text.MessageFormat
 
 properties([
   parameters([
-    booleanParam(name: 'DEPLOY_ENV', defaultValue: false, description: 'The target environment', )
+    booleanParam(name: 'SKIP_ACCEPTANCE_STAGE', defaultValue: false, description: 'Skips Deploy DEV and REST Automated Tests stages in the pipeline. Build marked as UNSTABLE in any case.', )
    ])
 ])
 
@@ -42,7 +42,7 @@ dbServerPort = env.DB_SERVER_PORT ?: '1433'
 dbName = env.DB_NAME ?: 'zeyt'
 dbUserName = env.DB_USER_NAME ?: 'sa'
 dbUserPass = env.DB_USER_PASS ?: 'Admin1234'
-skipAcceptanceStage = env.SKIP_ACCEPTANCE_STAGE ? true : false
+skipAcceptanceStage = params.SKIP_ACCEPTANCE_STAGE
 svnCredentialsId = 'vital.lobachevskij-wrf-svn'
 svnRootURL = 'svn://kap-wfr-svn.int.kronos.com'
 
