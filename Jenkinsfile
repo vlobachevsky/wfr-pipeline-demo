@@ -32,7 +32,8 @@ import java.text.MessageFormat
 
 properties([
   parameters([
-    booleanParam(name: 'SKIP_ACCEPTANCE_STAGE', defaultValue: false, description: 'Skips Deploy DEV and REST Automated Tests stages in the pipeline. Build marked as UNSTABLE in any case.', )
+    booleanParam(name: 'SKIP_ACCEPTANCE_STAGE', defaultValue: false, description: 'Skips Deploy DEV and REST Automated Tests stages in the pipeline. Build marked as UNSTABLE in any case.', ),
+    string(name: 'LABEL', defaultValue: 'pipeline', description: 'Logical group of agent to run the job on. ', )
    ])
 ])
 
@@ -47,7 +48,7 @@ svnCredentialsId = 'vital.lobachevskij-wrf-svn'
 svnRootURL = 'svn://kap-wfr-svn.int.kronos.com'
 
 
-node('pipeline') {
+node(params.LABEL) {
     echo "DEPLOY_ENV: $params.DEPLOY_ENV"
     env.PATH = "${tool 'Ant-1.9.6'}\\bin;${tool 'NodeJS v6'};${env.PATH}"
 
