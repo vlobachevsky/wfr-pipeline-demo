@@ -4,13 +4,6 @@ import static groovy.io.FileType.FILES
 import com.cloudbees.groovy.cps.NonCPS
 
 
-//def files = getAllFiles(createFilePath('D:\\Temp\\wfr-artifactory'))
-//def filePath = new File('D:\\Temp\\wfr-artifactory').eachFileMatch('Zeyt') { f ->
-//    println "Files: $f"
-//}
-//println new File('D:\\Temp\\wfr-artifactory').listFiles().find{it.isFile() && it=~/.zip$/}
-// new File('D:\\Temp\\wfr-artifactory').traverse(type: FILES, nameFilter: ~/.*.txt/) { it -> println it }
-
 @NonCPS
 def getAllFiles() {
     def result = ''
@@ -20,7 +13,7 @@ def getAllFiles() {
     return result
 }
 
-println getAllFiles()
+def fileList = getAllFiles()
 
 properties([
   parameters([
@@ -30,7 +23,7 @@ properties([
         description: 'Deploys selected build on MW01 node.'),
     booleanParam(name: 'DEPLOY_ON_MW02', defaultValue: true,
         description: 'Deploys selected build on MW02 node.'),
-    choice(name: 'BUILD_TO_DEPLOY', defaultValue: '', choices: 'Zeyt-XXX.zip\nZeyt-YYY.zip\nZeyt-ZZZ.zip',
+    choice(name: 'BUILD_TO_DEPLOY', defaultValue: '', choices: "$fileList",
         description: 'Logical group of agent to run the job on. ')
    ])
 ])
