@@ -8,7 +8,11 @@ import static groovy.io.FileType.FILES
 //}
 //println new File('D:\\Temp\\wfr-artifactory').listFiles().find{it.isFile() && it=~/.zip$/}
 // new File('D:\\Temp\\wfr-artifactory').traverse(type: FILES, nameFilter: ~/.*.txt/) { it -> println it }
-new File('D:\\Temp\\wfr-artifactory').traverse(type: FILES) { it -> println it }
+def result
+new File('D:\\Temp\\wfr-artifactory').traverse(type: FILES) { file ->
+    result += "${file.absolutePath}\n"
+}
+println result
 
 properties([
   parameters([
