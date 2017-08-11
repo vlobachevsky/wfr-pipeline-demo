@@ -1,6 +1,8 @@
 #!/usr/bin/env groovy
 
 import static groovy.io.FileType.FILES
+import com.cloudbees.groovy.cps.NonCPS
+
 
 //def files = getAllFiles(createFilePath('D:\\Temp\\wfr-artifactory'))
 //def filePath = new File('D:\\Temp\\wfr-artifactory').eachFileMatch('Zeyt') { f ->
@@ -8,11 +10,17 @@ import static groovy.io.FileType.FILES
 //}
 //println new File('D:\\Temp\\wfr-artifactory').listFiles().find{it.isFile() && it=~/.zip$/}
 // new File('D:\\Temp\\wfr-artifactory').traverse(type: FILES, nameFilter: ~/.*.txt/) { it -> println it }
-def result
-new File('D:\\Temp\\wfr-artifactory').traverse(type: FILES) { file ->
-    result += "${file.absolutePath}\n"
+
+@NonCPS
+def getAllFiles() {
+    def result = ''
+    new File('D:\\Temp\\wfr-artifactory').traverse(type: FILES) { file ->
+        result += "${file.absolutePath}\n"
+    }
+    return result
 }
-println result
+
+println getAllFiles
 
 properties([
   parameters([
