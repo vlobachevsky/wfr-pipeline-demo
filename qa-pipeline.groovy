@@ -14,7 +14,7 @@ import com.cloudbees.groovy.cps.NonCPS
 @NonCPS
 def getAllFiles() {
     def result = ''
-    new File('D:\\Temp\\wfr-artifactory').traverse(type: FILES) { file ->
+    new File('D:\\Temp\\wfr-artifactory').traverse(type: FILES, nameFilter: ~/.*.zip/) { file ->
         result += "${file.name}\n"
     }
     return result
