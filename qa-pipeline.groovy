@@ -2,9 +2,10 @@
 
 
 //def files = getAllFiles(createFilePath('D:\\Temp\\wfr-artifactory'))
-def filePath = new File('D:\\Temp\\wfr-artifactory').eachFileMatch('Zeyt*.') { f ->
-    println "Files: $f"
-}
+//def filePath = new File('D:\\Temp\\wfr-artifactory').eachFileMatch('Zeyt') { f ->
+//    println "Files: $f"
+//}
+println new File('D:\\Temp\\wfr-artifactory').listFiles().find{it.isFile() && it=~/.zip$/}
 
 properties([
   parameters([
