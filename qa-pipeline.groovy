@@ -1,8 +1,9 @@
 #!/usr/bin/env groovy
 
 
-def files = getAllFiles(createFilePath('D:\\Temp\\wfr-artifactory'))
-echo "Files: $files"
+//def files = getAllFiles(createFilePath('D:\\Temp\\wfr-artifactory'))
+def filePath createFilePath('D:\\Temp\\wfr-artifactory')
+echo "Files: $filePath"
 
 properties([
   parameters([
