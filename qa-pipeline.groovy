@@ -1,5 +1,8 @@
 #!/usr/bin/env groovy
 
+def files = getAllFiles(createFilePath('D:\\Temp\\wfr-artifactory'))
+echo "Files: $files"
+
 properties([
   parameters([
     booleanParam(name: 'DEPLOY_ON_AP01', defaultValue: true,
@@ -19,5 +22,15 @@ node() {
     stage('Deploy') {
         echo "BUILD_TO_DEPLOY: $params.BUILD_TO_DEPLOY"
     }
+
+}
+
+@NonCPS
+def getAllPackages(rootPath) {
+    def list = []
+    for (subPath in rootPath.list()) {
+        list << subPath.getName()
+    }
+    return list
 
 }
