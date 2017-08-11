@@ -17,7 +17,7 @@ properties([
 ])
 
 
-node() {
+node('master') {
 
     stage('Deploy') {
         echo "BUILD_TO_DEPLOY: $params.BUILD_TO_DEPLOY"
