@@ -37,9 +37,11 @@ def getAllFiles(rootPath) {
 
 @NonCPS
 def createFilePath(def path) {
-    if (env['NODE_NAME'].equals("master")) {
+    return new hudson.FilePath(path);
+/*    if (env['NODE_NAME'].equals("master")) {
         return new hudson.FilePath(path);
     } else {
-        //return new hudson.FilePath(Jenkins.getInstance().getComputer(env['NODE_NAME']).getChannel(), path);
+        return new hudson.FilePath(Jenkins.getInstance().getComputer(env['NODE_NAME']).getChannel(), path);
     }
+*/
 }
