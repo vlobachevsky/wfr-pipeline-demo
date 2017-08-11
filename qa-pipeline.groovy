@@ -20,7 +20,7 @@ def getAllFiles() {
     return result
 }
 
-println getAllFiles
+println getAllFiles()
 
 properties([
   parameters([
