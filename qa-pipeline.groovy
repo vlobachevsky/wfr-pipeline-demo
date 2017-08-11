@@ -15,7 +15,7 @@ import com.cloudbees.groovy.cps.NonCPS
 def getAllFiles() {
     def result = ''
     new File('D:\\Temp\\wfr-artifactory').traverse(type: FILES) { file ->
-        result += "${file.absolutePath}\n"
+        result += "${file.name}\n"
     }
     return result
 }
