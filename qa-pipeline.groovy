@@ -2,7 +2,7 @@
 
 
 //def files = getAllFiles(createFilePath('D:\\Temp\\wfr-artifactory'))
-def filePath createFilePath('D:\\Temp\\wfr-artifactory')
+def filePath = createFilePath('D:\\Temp\\wfr-artifactory')
 echo "Files: $filePath"
 
 properties([
