@@ -63,7 +63,7 @@ node('master') {
             echo ("Deploying selected Package ${userInput.PACKAGE_TO_DEPLOY} on MW01")
         }
     }
-    stage('Deploy AP01') {
+    stage('Deploy MW02') {
         if (userInput.DEPLOY_ON_MW02) {
             echo ("Deploying selected Package ${userInput.PACKAGE_TO_DEPLOY} on MW02")
         }
