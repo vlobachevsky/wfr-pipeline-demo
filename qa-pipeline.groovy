@@ -53,6 +53,10 @@ node('master') {
         )
     }
 
+    stage('Update DB') {
+        echo "Updating DB"
+    }
+
     parallel firstBranch: {
         stage('Deploy AP01') {
             if (userInput.DEPLOY_ON_AP01) {
