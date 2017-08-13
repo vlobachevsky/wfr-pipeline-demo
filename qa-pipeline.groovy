@@ -22,7 +22,7 @@ def userInput
 
 node('master') {
 
-    stage('Select Package') {
+    stage('Input Parameters') {
         userInput = input(
             id: 'userInput', message: '', parameters: [
                 [
