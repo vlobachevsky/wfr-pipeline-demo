@@ -54,10 +54,9 @@ node('master') {
     }
 
     stage('Deploy AP01') {
-        // echo "PACKAGE_TO_DEPLOY: $PACKAGE_TO_DEPLOY"
-        //echo "env.PACKAGE_TO_DEPLOY: $env.PACKAGE_TO_DEPLOY"
-        //echo "params.PACKAGE_TO_DEPLOY: $params.PACKAGE_TO_DEPLOY"
-        echo ("Selected Package :: "+userInput.PACKAGE_TO_DEPLOY)
+        if (userInput.DEPLOY_ON_AP01) {
+            echo ("Selected Package :: "+userInput.PACKAGE_TO_DEPLOY)
+        }
     }
 
 }
