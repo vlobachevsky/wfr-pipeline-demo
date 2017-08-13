@@ -22,7 +22,7 @@ def userInput
 
 node('master') {
 
-    stage('Input Parameters') {
+    stage('Approve') {
         userInput = input(
             id: 'userInput', message: '', parameters: [
                 [
@@ -60,21 +60,21 @@ node('master') {
     parallel firstBranch: {
         stage('Deploy AP01') {
             if (userInput.DEPLOY_ON_AP01) {
-                sleep 300
+                sleep 90
                 echo ("Deploying selected Package ${userInput.PACKAGE_TO_DEPLOY} on AP01")
             }
         }
     }, secondBranch: {
         stage('Deploy MW01') {
             if (userInput.DEPLOY_ON_MW01) {
-                sleep 400
+                sleep 120
                 echo ("Deploying selected Package ${userInput.PACKAGE_TO_DEPLOY} on MW01")
             }
         }
     }, thirdBranch: {
         stage('Deploy MW02') {
             if (userInput.DEPLOY_ON_MW02) {
-                sleep 500
+                sleep 100
                 echo ("Deploying selected Package ${userInput.PACKAGE_TO_DEPLOY} on MW02")
             }
         }
