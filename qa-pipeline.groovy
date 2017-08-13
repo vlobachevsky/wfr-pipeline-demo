@@ -20,18 +20,25 @@ properties([
 
 node('master') {
 
-    stage('Deploy') {
+    stage('Select Package') {
         def userInput = input(
-            id: 'userInput', message: 'Build to deploy', parameters: [
+            id: 'userInput', message: 'Package to deploy:', parameters: [
                 [
                     $class: 'ChoiceParameterDefinition',
-                    name: 'ami',
+                    name: 'PACKAGE_TO_DEPLOY',
                     choices: getAllFiles(),
-                    description: 'Builds',
+                    description: '',
                 ],
             ]
         )
         echo ("Selected Package :: "+userInput)
+    }
+
+    stage('Deploy AP01') {
+        echo "PACKAGE_TO_DEPLOY: $PACKAGE_TO_DEPLOY"
+        echo "env.PACKAGE_TO_DEPLOY: $env.PACKAGE_TO_DEPLOY"
+        echo "params.PACKAGE_TO_DEPLOY: $params.PACKAGE_TO_DEPLOY"
+
     }
 
 }
