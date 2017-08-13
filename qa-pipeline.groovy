@@ -3,7 +3,7 @@
 import static groovy.io.FileType.FILES
 import com.cloudbees.groovy.cps.NonCPS
 
-
+/*
 properties([
   parameters([
     booleanParam(name: 'DEPLOY_ON_AP01', defaultValue: true,
@@ -16,6 +16,7 @@ properties([
     //     description: 'Logical group of agent to run the job on. ')
    ])
 ])
+*/
 
 def userInput
 
@@ -24,6 +25,12 @@ node('master') {
     stage('Select Package') {
         userInput = input(
             id: 'userInput', message: 'Package to deploy:', parameters: [
+                [
+                    $class: 'BooleanParameterDefinition',
+                    name: 'DEPLOY_ON_AP01',
+                    defaultValue: true,
+                    description: '',
+                ],
                 [
                     $class: 'ChoiceParameterDefinition',
                     name: 'PACKAGE_TO_DEPLOY',
