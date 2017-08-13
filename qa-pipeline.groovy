@@ -55,7 +55,17 @@ node('master') {
 
     stage('Deploy AP01') {
         if (userInput.DEPLOY_ON_AP01) {
-            echo ("Selected Package :: "+userInput.PACKAGE_TO_DEPLOY)
+            echo ("Deploying selected Package ${userInput.PACKAGE_TO_DEPLOY} on AP01")
+        }
+    }
+    stage('Deploy MW01') {
+        if (userInput.DEPLOY_ON_MW01) {
+            echo ("Deploying selected Package ${userInput.PACKAGE_TO_DEPLOY} on MW01")
+        }
+    }
+    stage('Deploy AP01') {
+        if (userInput.DEPLOY_ON_MW02) {
+            echo ("Deploying selected Package ${userInput.PACKAGE_TO_DEPLOY} on MW02")
         }
     }
 
