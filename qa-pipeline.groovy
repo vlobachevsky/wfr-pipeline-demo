@@ -45,7 +45,7 @@ node('master') {
         // echo "PACKAGE_TO_DEPLOY: $PACKAGE_TO_DEPLOY"
         //echo "env.PACKAGE_TO_DEPLOY: $env.PACKAGE_TO_DEPLOY"
         //echo "params.PACKAGE_TO_DEPLOY: $params.PACKAGE_TO_DEPLOY"
-        echo ("Selected Package :: "+userInput['PACKAGE_TO_DEPLOY'])
+        echo ("Selected Package :: "+userInput.PACKAGE_TO_DEPLOY)
     }
 
 }
