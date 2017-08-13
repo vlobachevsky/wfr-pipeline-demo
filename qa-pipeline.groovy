@@ -35,7 +35,7 @@ node('master') {
     }
 
     stage('Deploy AP01') {
-        echo "PACKAGE_TO_DEPLOY: $PACKAGE_TO_DEPLOY"
+        // echo "PACKAGE_TO_DEPLOY: $PACKAGE_TO_DEPLOY"
         echo "env.PACKAGE_TO_DEPLOY: $env.PACKAGE_TO_DEPLOY"
         echo "params.PACKAGE_TO_DEPLOY: $params.PACKAGE_TO_DEPLOY"
 
