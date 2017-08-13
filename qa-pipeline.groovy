@@ -17,11 +17,12 @@ properties([
    ])
 ])
 
+def userInput
 
 node('master') {
 
     stage('Select Package') {
-        def userInput = input(
+        userInput = input(
             id: 'userInput', message: 'Package to deploy:', parameters: [
                 [
                     $class: 'ChoiceParameterDefinition',
@@ -31,14 +32,13 @@ node('master') {
                 ],
             ]
         )
-        echo ("Selected Package :: "+userInput)
     }
 
     stage('Deploy AP01') {
         // echo "PACKAGE_TO_DEPLOY: $PACKAGE_TO_DEPLOY"
-        echo "env.PACKAGE_TO_DEPLOY: $env.PACKAGE_TO_DEPLOY"
-        echo "params.PACKAGE_TO_DEPLOY: $params.PACKAGE_TO_DEPLOY"
-
+        //echo "env.PACKAGE_TO_DEPLOY: $env.PACKAGE_TO_DEPLOY"
+        //echo "params.PACKAGE_TO_DEPLOY: $params.PACKAGE_TO_DEPLOY"
+        echo ("Selected Package :: "+userInput)
     }
 
 }
