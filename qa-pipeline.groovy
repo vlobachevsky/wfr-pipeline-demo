@@ -53,21 +53,26 @@ node('master') {
         )
     }
 
-    stage('Deploy AP01') {
-        if (userInput.DEPLOY_ON_AP01) {
-            echo ("Deploying selected Package ${userInput.PACKAGE_TO_DEPLOY} on AP01")
+    parallel firstBranch: {
+        stage('Deploy AP01') {
+            if (userInput.DEPLOY_ON_AP01) {
+                echo ("Deploying selected Package ${userInput.PACKAGE_TO_DEPLOY} on AP01")
+            }
+        }
+    }, secondBranch: {
+        stage('Deploy MW01') {
+            if (userInput.DEPLOY_ON_MW01) {
+                echo ("Deploying selected Package ${userInput.PACKAGE_TO_DEPLOY} on MW01")
+            }
+        }
+    }, thirdBranch: {
+        stage('Deploy MW02') {
+            if (userInput.DEPLOY_ON_MW02) {
+                echo ("Deploying selected Package ${userInput.PACKAGE_TO_DEPLOY} on MW02")
+            }
         }
     }
-    stage('Deploy MW01') {
-        if (userInput.DEPLOY_ON_MW01) {
-            echo ("Deploying selected Package ${userInput.PACKAGE_TO_DEPLOY} on MW01")
-        }
-    }
-    stage('Deploy MW02') {
-        if (userInput.DEPLOY_ON_MW02) {
-            echo ("Deploying selected Package ${userInput.PACKAGE_TO_DEPLOY} on MW02")
-        }
-    }
+
 
 }
 
