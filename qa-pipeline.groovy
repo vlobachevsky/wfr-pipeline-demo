@@ -24,10 +24,22 @@ node('master') {
 
     stage('Select Package') {
         userInput = input(
-            id: 'userInput', message: 'Package to deploy:', parameters: [
+            id: 'userInput', message: '', parameters: [
                 [
                     $class: 'BooleanParameterDefinition',
                     name: 'DEPLOY_ON_AP01',
+                    defaultValue: true,
+                    description: '',
+                ],
+                [
+                    $class: 'BooleanParameterDefinition',
+                    name: 'DEPLOY_ON_MW01',
+                    defaultValue: true,
+                    description: '',
+                ],
+                [
+                    $class: 'BooleanParameterDefinition',
+                    name: 'DEPLOY_ON_MW02',
                     defaultValue: true,
                     description: '',
                 ],
