@@ -1,4 +1,6 @@
-#!/usr/bin/env groovy
+#!groovy
+
+@Library('wfr-pipeline-shared') _
 
 pipeline {
     agent {
@@ -7,7 +9,6 @@ pipeline {
     options {
         buildDiscarder(logRotator(numToKeepStr: '5'))
     }
-
     environment {
         svnCredentialsId = 'vital.lobachevskij-wrf-svn'
     }
@@ -16,7 +17,7 @@ pipeline {
         stage('Build') {
             steps {
                 echo "Step: Build"
-                echo "svnCredentialsId: $svnCredentialsId"
+                checkoutSVN 'Vital'
             }
         }
         stage('Test') {
