@@ -1,17 +1,23 @@
 #!/usr/bin/env groovy
 
 pipeline {
-    agent any 
+    agent 'pipeline'
+
+/*
+    environment {
+
+    }
+*/    
 
     stages {
-        stage('Check Out') {
-            steps {
-                echo "Step: Check Out"
-            }
-        }
         stage('Build') {
             steps {
                 echo "Step: Build"
+            }
+        }
+        stage('Test') {
+            steps {
+                echo "Step: Test"
             }
         }
 
