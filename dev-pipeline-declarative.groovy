@@ -2,9 +2,7 @@
 
 pipeline {
     agent {
-        node {
-            label: 'master'
-        }
+        label: 'master'
     }
 
 /*
