@@ -2,7 +2,9 @@
 
 pipeline {
     agent {
-        label: 'pipeline'
+        node {
+            label: 'pipeline'
+        }
     }
 
 /*
