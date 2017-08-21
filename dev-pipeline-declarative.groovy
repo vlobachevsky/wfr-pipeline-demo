@@ -17,7 +17,7 @@ pipeline {
         stage('Build') {
             steps {
                 echo "Step: Build"
-                checkoutSVN 'Vital'
+                checkoutSVN(svnCredentialsId, 'svn://kap-wfr-svn.int.kronos.com/zeyt')
             }
         }
         stage('Test') {
