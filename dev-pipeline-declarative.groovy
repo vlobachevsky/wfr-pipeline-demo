@@ -1,13 +1,15 @@
 #!/usr/bin/env groovy
 
 pipeline {
-    agent 'pipeline'
+    agent {
+        label: 'pipeline'
+    }
 
 /*
     environment {
 
     }
-*/    
+*/
 
     stages {
         stage('Build') {
