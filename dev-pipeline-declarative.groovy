@@ -16,11 +16,8 @@ pipeline {
     stages {
         stage('Build') {
             steps {
-                //echo "Step: Build"
-                checkoutSVN (
-                    credentialsId: svnCredentialsId,
-                    url: 'svn://kap-wfr-svn.int.kronos.com/PunchMW'
-                )
+                echo "Step: Build"
+                checkoutSVN(svnCredentialsId, 'svn://kap-wfr-svn.int.kronos.com/zeyt')
             }
         }
         stage('Test') {
