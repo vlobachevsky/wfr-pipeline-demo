@@ -8,16 +8,15 @@ pipeline {
         buildDiscarder(logRotator(numToKeepStr: '5'))
     }
 
-/*
     environment {
-
+        svnCredentialsId = 'vital.lobachevskij-wrf-svn'
     }
-*/
 
     stages {
         stage('Build') {
             steps {
                 echo "Step: Build"
+                echo "svnCredentialsId: $svnCredentialsId"
             }
         }
         stage('Test') {
