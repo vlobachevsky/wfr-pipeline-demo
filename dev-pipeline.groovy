@@ -1,6 +1,6 @@
 #!/usr/bin/env groovy
 
-import java.text.MessageFormat
+//import java.text.MessageFormat
 
 // Prerequisites:
 // 1. Tomcat 7.0.7 installed at C:\Tomcat\apache-tomcat
@@ -86,7 +86,7 @@ node(params.LABEL) {
         }
 
         stage('REST Automated Tests') {
-            milestone()
+            //milestone()
             if(!skipAcceptanceStage) {
                 ws('C:\\TA\\zeyt') {
                     dir('test-api') {
@@ -202,6 +202,15 @@ def packageZip(toPath) {
 def deployPackage(fromPath) {
     //echo 'Deployed package on $nodeName'
     bat "ant -f build.xml -Dpackage.destination=$fromPath -Dpackage.deploy.path=. DeployWeb"
+}
+
+def setEnvProperties() {
+    def properties = ''
+    file = readFile('System.properties')
+    for (line in file.readLines()) {
+        properties += "-D$line "
+    }
+    bat "ant -f build.xml $properties SetProperties"
 }
 
 
