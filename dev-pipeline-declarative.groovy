@@ -24,7 +24,7 @@ pipeline {
         stage('Build') {
             steps {
                 checkoutSVN(svnCredentialsId, "$svnRootURL/zeyt")
-                buildZeyt
+                buildZeyt()
             }
         }
         stage('Unit Tests') {
