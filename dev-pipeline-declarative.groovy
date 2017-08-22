@@ -11,13 +11,13 @@ pipeline {
     }
     environment {
         svnCredentialsId = 'vital.lobachevskij-wrf-svn'
+        svnRootURL = 'svn://kap-wfr-svn.int.kronos.com'
     }
 
     stages {
         stage('Build') {
             steps {
-                echo "Step: Build"
-                checkoutSVN(svnCredentialsId, 'svn://kap-wfr-svn.int.kronos.com/zeyt')
+                checkoutSVN(svnCredentialsId, "$svnRootURL/zeyt")
             }
         }
         stage('Test') {
