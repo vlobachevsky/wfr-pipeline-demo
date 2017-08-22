@@ -16,16 +16,16 @@ pipeline {
 
     stages {
         stage('Build') {
-            steps {
-                checkoutSVN(svnCredentialsId, "$svnRootURL/zeyt")
-                parallel (
-                    "Step 1": {
-                        echo "Build Java"
+            parallel (
+                "Step 1": {
+                    echo "Build Java"
                     },
                     "Step 2": {
                         echo "Build JS"
                     }
-                )
+                    )
+            steps {
+                checkoutSVN(svnCredentialsId, "$svnRootURL/zeyt")
             }
         }
         stage('Unit Tests') {
