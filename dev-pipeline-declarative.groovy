@@ -6,9 +6,15 @@ pipeline {
     agent {
         label 'pipeline'
     }
+
+    tools {
+       ant 'Ant-1.9.6'
+    }
+
     options {
         buildDiscarder(logRotator(numToKeepStr: '5'))
     }
+
     environment {
         svnCredentialsId = 'vital.lobachevskij-wrf-svn'
         svnRootURL = 'svn://kap-wfr-svn.int.kronos.com'
@@ -17,15 +23,8 @@ pipeline {
     stages {
         stage('Build') {
             steps {
-//                checkoutSVN(svnCredentialsId, "$svnRootURL/zeyt")
-                parallel (
-                    "Step 1": {
-                        echo "Build Java"
-                    },
-                    "Step 2": {
-                        echo "Build JS"
-                    }
-                )
+                checkoutSVN(svnCredentialsId, "$svnRootURL/zeyt")
+                buildZeyt
             }
         }
         stage('Unit Tests') {
