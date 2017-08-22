@@ -18,9 +18,17 @@ pipeline {
         stage('Build') {
             steps {
                 checkoutSVN(svnCredentialsId, "$svnRootURL/zeyt")
+                parallel (
+                    "Step 1": {
+                        echo "Build Java"
+                    },
+                    "Step 2": {
+                        echo "Build JS"
+                    }
+                )
             }
         }
-        stage('Test') {
+        stage('Unit Tests') {
             steps {
                 echo "Step: Test"
             }
