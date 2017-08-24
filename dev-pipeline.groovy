@@ -121,7 +121,7 @@ def deploy(dbHost) {
         checkoutSVN(svnCredentialsId, "$svnRootURL/zeyt", 'files')
         //deployPackage('\\\\localhost\\wfr-artifactory')
         unstash "zeyt-web"
-//        updateDB()
+        updateDB()
         copySystemFiles(dbHost);
         // Start Tomcat
         powerShell(". '.\\scripts\\start-tomcat.ps1'")
