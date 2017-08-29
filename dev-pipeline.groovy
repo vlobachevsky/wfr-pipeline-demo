@@ -99,8 +99,8 @@ node(params.LABEL) {
                 }
             }
         }
+*/        
     }
-*/
 
     stage('Publish') {
         packageZip('D:\\Temp\\wfr-artifactory')
