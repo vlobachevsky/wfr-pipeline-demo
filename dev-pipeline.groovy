@@ -54,7 +54,7 @@ node(params.LABEL) {
     stage('Build') {
         echo 'Building...'
         checkoutSVN(svnCredentialsId, "$svnRootURL/zeyt")
-/*        parallel (
+        parallel (
             "build-java" : {
                 compileApp()
             },
@@ -62,7 +62,6 @@ node(params.LABEL) {
                 buildJS()
             }
         )
-*/
     }
 
     stage('Unit Tests') {
@@ -85,6 +84,7 @@ node(params.LABEL) {
             }
         }
 
+/*
         stage('REST Automated Tests') {
             //milestone()
             if(!skipAcceptanceStage) {
@@ -94,12 +94,13 @@ node(params.LABEL) {
                     }
                     dir('../test_api') {
                         checkoutSVN(svnCredentialsId, "$svnRootURL/test_api")
-//                        bat "ant -f build.xml -DBaseUrl=http://127.0.0.1:8080 -Dreport.dir=../report TestRestApi"
+                        bat "ant -f build.xml -DBaseUrl=http://127.0.0.1:8080 -Dreport.dir=../report TestRestApi"
                     }
                 }
             }
         }
     }
+*/
 
     stage('Publish') {
         packageZip('D:\\Temp\\wfr-artifactory')
