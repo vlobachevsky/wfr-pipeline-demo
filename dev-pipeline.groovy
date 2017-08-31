@@ -66,7 +66,7 @@ node(params.LABEL) {
 
     stage('Unit Tests') {
         echo 'Testing...'
-//        runJUnitTests()
+        runJUnitTests()
         // TODO: Try use splitTest to automatically split your test suite into
         // equal running parts that it can run concurrently.
 
@@ -99,7 +99,7 @@ node(params.LABEL) {
                 }
             }
         }
-*/        
+*/
     }
 
     stage('Publish') {
