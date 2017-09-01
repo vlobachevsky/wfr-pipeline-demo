@@ -53,6 +53,7 @@ node(params.LABEL) {
 
     stage('Build') {
         echo 'Building...'
+/*
         checkoutSVN(svnCredentialsId, "$svnRootURL/zeyt")
         parallel (
             "build-java" : {
@@ -62,11 +63,12 @@ node(params.LABEL) {
                 buildJS()
             }
         )
+*/
     }
 
     stage('Unit Tests') {
         echo 'Testing...'
-        runJUnitTests()
+//        runJUnitTests()
         // TODO: Try use splitTest to automatically split your test suite into
         // equal running parts that it can run concurrently.
 
@@ -103,7 +105,7 @@ node(params.LABEL) {
     }
 
     stage('Publish') {
-        packageZip('D:\\Temp\\wfr-artifactory')
+//        packageZip('D:\\Temp\\wfr-artifactory')
     }
 
     if(skipAcceptanceStage) {
@@ -114,6 +116,7 @@ node(params.LABEL) {
 
 def deploy(dbHost) {
     ws('C:\\TA\\zeyt') {
+/*
         dir('scripts') {
             syncPsScripts()
         }
@@ -122,10 +125,13 @@ def deploy(dbHost) {
         checkoutSVN(svnCredentialsId, "$svnRootURL/zeyt", 'files')
         //deployPackage('\\\\localhost\\wfr-artifactory')
         unstash "zeyt-web"
+*/
         updateDB()
+/*
         copySystemFiles(dbHost);
         // Start Tomcat
         powerShell(". '.\\scripts\\start-tomcat.ps1'")
+*/        
     }
 }
 
