@@ -25,7 +25,7 @@ pipeline {
                 checkoutSVN(svnCredentialsId, "$svnRootURL/Documents/DevOps/Scripts/Env_Configs/$envId", 'env')
                 buildMW()
                 // Build Access Control
-                powershell(script: 'Write-Host aaa')
+                powershell 'Write-Output "Hello, World!"'
             }
         }
 
