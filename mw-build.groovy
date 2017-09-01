@@ -22,10 +22,10 @@ pipeline {
         stage('Build') {
             steps {
                 checkoutSVN(svnCredentialsId, "$svnRootURL/PunchMW")
-                checkoutSVN(svnCredentialsId, "$svnRootURL/Documents/DevOps/Scripts/Env_Configs/$envId", 'env')
-                buildMW()
+//                checkoutSVN(svnCredentialsId, "$svnRootURL/Documents/DevOps/Scripts/Env_Configs/$envId", 'env')
+//                buildMW()
                 // Build Access Control
-                powershell 'Write-Output "Hello, World!"'
+//                powershell 'Write-Output "Hello, World!"'
             }
         }
 
