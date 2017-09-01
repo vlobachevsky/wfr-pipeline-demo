@@ -23,7 +23,7 @@ pipeline {
             steps {
                 // Checkout PunchMW repo
 //                checkoutSVN(svnCredentialsId, "$svnRootURL/PunchMW")
-                checkoutSVN(svnCredentialsId, "svn://kap-wfr-svn.int.kronos.com/PunchMW")
+                checkoutSVN(svnCredentialsId, "svn://kap-wfr-svn.int.kronos.com/PunchMW@HEAD")
                 // Checkout environment config files
 //                checkoutSVN(svnCredentialsId, "$svnRootURL/Documents/DevOps/Scripts/Env_Configs/$envId", 'env')
 //                buildMW()
