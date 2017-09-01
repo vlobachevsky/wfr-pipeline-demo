@@ -12,14 +12,14 @@ pipeline {
     environment {
         svnCredentialsId = 'vital.lobachevskij-wrf-svn'
         svnRootURL = 'svn://kap-wfr-svn.int.kronos.com'
-        env = 'maindev'
+        envId = 'maindev'
     }
 
     stages {
         stage('Build') {
             steps {
                 checkoutSVN(svnCredentialsId, "$svnRootURL/PunchMW")
-                checkoutSVN(svnCredentialsId, "$svnRootURL/Documents/DevOps/Scripts/Env_Configs/$env")
+                checkoutSVN(svnCredentialsId, "$svnRootURL/Documents/DevOps/Scripts/Env_Configs/$envId")
                 buildMW()
             }
         }
