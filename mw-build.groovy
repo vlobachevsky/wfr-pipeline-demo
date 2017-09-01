@@ -19,7 +19,7 @@ pipeline {
         stage('Build') {
             steps {
                 checkoutSVN(svnCredentialsId, "$svnRootURL/PunchMW")
-                checkoutSVN(svnCredentialsId, "$svnRootURL/Documents/DevOps/Scripts/Env_Configs/$envId")
+                checkoutSVN(svnCredentialsId, "$svnRootURL/Documents/DevOps/Scripts/Env_Configs/$envId", 'env')
                 buildMW()
             }
         }
