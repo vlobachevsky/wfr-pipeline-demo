@@ -53,7 +53,6 @@ node(params.LABEL) {
 
     stage('Build') {
         echo 'Building...'
-/*
         checkoutSVN(svnCredentialsId, "$svnRootURL/zeyt")
         parallel (
             "build-java" : {
@@ -63,12 +62,11 @@ node(params.LABEL) {
                 buildJS()
             }
         )
-*/
     }
 
     stage('Unit Tests') {
         echo 'Testing...'
-//        runJUnitTests()
+        runJUnitTests()
         // TODO: Try use splitTest to automatically split your test suite into
         // equal running parts that it can run concurrently.
 
@@ -105,7 +103,7 @@ node(params.LABEL) {
     }
 
     stage('Publish') {
-//        packageZip('D:\\Temp\\wfr-artifactory')
+        packageZip('D:\\Temp\\wfr-artifactory')
     }
 
     if(skipAcceptanceStage) {
@@ -116,7 +114,6 @@ node(params.LABEL) {
 
 def deploy(dbHost) {
     ws('C:\\TA\\zeyt') {
-/*
         dir('scripts') {
             syncPsScripts()
         }
@@ -125,13 +122,10 @@ def deploy(dbHost) {
         checkoutSVN(svnCredentialsId, "$svnRootURL/zeyt", 'files')
         //deployPackage('\\\\localhost\\wfr-artifactory')
         unstash "zeyt-web"
-*/
         updateDB()
-/*
         copySystemFiles(dbHost);
         // Start Tomcat
         powerShell(". '.\\scripts\\start-tomcat.ps1'")
-*/
     }
 }
 
@@ -198,10 +192,8 @@ def updateDB() {
     //bat './updateDB_Sprint.bat localhost sa Admin1234' //TODO: move to global vars
     //bat './updateDB.bat zeyt sa silver1i'
     //bat './runZeytSQL.bat localhost sa Admin1234 sql\\DBUpdateCurrentSprint.txt'
-//    bat "java -showversion -Xms512m -Xmx1024m -Xss1m -classpath \".\\web\\WEB-INF\\classes;.\\web\\WEB-INF\\lib\\*; \" RunSQL delay=0 output.result=0 output.sql=0 error.handling=EXIT output.verbose=1 uri=jdbc:sqlserver://$dbServerName:$dbServerPort;DatabaseName=$dbName;encrypt=false user=$dbUserName password=$dbUserPass input.file=sql\\DBUpdateCurrentSprint.txt  jdbc.driver=com.microsoft.sqlserver.jdbc.SQLServerDriver"
-//    bat "java -showversion -Xms512m -Xmx1024m -Xss1m -classpath \".\\web\\WEB-INF\\classes;.\\web\\WEB-INF\\lib\\*; \" RunSQL delay=0 output.result=0 output.sql=0 error.handling=EXIT output.verbose=1 uri=jdbc:sqlserver://$dbServerName:$dbServerPort;DatabaseName=$dbName;encrypt=false user=$dbUserName password=$dbUserPass input.file=sql\\DBUpdate.txt  jdbc.driver=com.microsoft.sqlserver.jdbc.SQLServerDriver"
-    bat "java -showversion -Xms512m -Xmx1024m -Xss1m -classpath \".\\web\\WEB-INF\\classes;.\\web\\WEB-INF\\lib\\*; \" RunSQL delay=0 output.result=1 output.sql=1 error.handling=EXIT output.verbose=1 uri=jdbc:sqlserver://$dbServerName:$dbServerPort;DatabaseName=$dbName;encrypt=false user=$dbUserName password=$dbUserPass input.file=sql\\DBUpdateCurrentSprint.txt  jdbc.driver=com.microsoft.sqlserver.jdbc.SQLServerDriver"
-    bat "java -showversion -Xms512m -Xmx1024m -Xss1m -classpath \".\\web\\WEB-INF\\classes;.\\web\\WEB-INF\\lib\\*; \" RunSQL delay=0 output.result=1 output.sql=1 error.handling=EXIT output.verbose=1 uri=jdbc:sqlserver://$dbServerName:$dbServerPort;DatabaseName=$dbName;encrypt=false user=$dbUserName password=$dbUserPass input.file=sql\\DBUpdate.txt  jdbc.driver=com.microsoft.sqlserver.jdbc.SQLServerDriver"
+    bat "java -showversion -Xms512m -Xmx1024m -Xss1m -classpath \".\\web\\WEB-INF\\classes;.\\web\\WEB-INF\\lib\\*; \" RunSQL delay=0 output.result=0 output.sql=0 error.handling=EXIT output.verbose=1 uri=jdbc:sqlserver://$dbServerName:$dbServerPort;DatabaseName=$dbName;encrypt=false user=$dbUserName password=$dbUserPass input.file=sql\\DBUpdateCurrentSprint.txt  jdbc.driver=com.microsoft.sqlserver.jdbc.SQLServerDriver"
+    bat "java -showversion -Xms512m -Xmx1024m -Xss1m -classpath \".\\web\\WEB-INF\\classes;.\\web\\WEB-INF\\lib\\*; \" RunSQL delay=0 output.result=0 output.sql=0 error.handling=EXIT output.verbose=1 uri=jdbc:sqlserver://$dbServerName:$dbServerPort;DatabaseName=$dbName;encrypt=false user=$dbUserName password=$dbUserPass input.file=sql\\DBUpdate.txt  jdbc.driver=com.microsoft.sqlserver.jdbc.SQLServerDriver"
 }
 
 def packageZip(toPath) {
