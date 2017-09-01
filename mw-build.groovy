@@ -30,7 +30,9 @@ pipeline {
         }
 
         stage('Publish') {
-            echo 'Publish...'
+            steps {
+                echo 'Publish...'
+            }
         }
 
     }
