@@ -24,7 +24,21 @@ pipeline {
                 // Checkout PunchMW repo
 //                checkoutSVN(svnCredentialsId, "$svnRootURL/PunchMW")
 //                checkoutSVN(svnCredentialsId, "svn://kap-wfr-svn.int.kronos.com/PunchMW@HEAD")
-                svn url: svn://kap-wfr-svn.int.kronos.com/PunchMW
+checkout([$class: 'SubversionSCM',
+          additionalCredentials: [],
+          excludedCommitMessages: '',
+          excludedRegions: '',
+          excludedRevprop: '',
+          excludedUsers: '',
+          filterChangelog: false,
+          ignoreDirPropChanges: false,
+          includedRegions: '',
+          locations: [[credentialsId: "$svnCredentialsId",
+                       depthOption: 'infinity',
+                       ignoreExternalsOption: true,
+                       local: '.',
+                       remote: "svn://kap-wfr-svn.int.kronos.com/PunchMW"]], 
+          workspaceUpdater: [$class: 'UpdateUpdater']])
 
                 // Checkout environment config files
 //                checkoutSVN(svnCredentialsId, "$svnRootURL/Documents/DevOps/Scripts/Env_Configs/$envId", 'env')
