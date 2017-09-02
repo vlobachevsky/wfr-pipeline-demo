@@ -8,9 +8,9 @@ pipeline {
         label 'pipeline'
     }
 
-    // options {
-    //     buildDiscarder(logRotator(numToKeepStr: '5'))
-    // }
+    options {
+         buildDiscarder(logRotator(numToKeepStr: '5'))
+    }
 
     environment {
         svnCredentialsId = 'vital.lobachevskij-wrf-svn'
