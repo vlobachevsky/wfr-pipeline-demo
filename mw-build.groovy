@@ -10,7 +10,7 @@ pipeline {
 
     tools {
        ant 'Ant-1.9.6'
-       MSBuild 'MSBuild-Default'
+       msbuild 'MSBuild-Default'
     }
 
     options {
