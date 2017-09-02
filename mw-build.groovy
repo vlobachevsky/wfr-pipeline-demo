@@ -28,8 +28,6 @@ pipeline {
                 checkoutSVN(svnCredentialsId, "$svnRootURL/Documents/DevOps/Scripts/Env_Configs/$envId", 'env')
                 // Compile PunchMW
                 buildMW()
-                // Build Access Control
-//                powershell 'Write-Output "Hello, World!"'
             }
         }
 
