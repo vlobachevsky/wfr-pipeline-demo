@@ -8,6 +8,11 @@ pipeline {
         label 'pipeline'
     }
 
+    tools {
+       ant 'Ant-1.9.6'
+       MSBuild 'MSBuild-Default'
+    }
+
     options {
          buildDiscarder(logRotator(numToKeepStr: '5'))
          skipDefaultCheckout(true)
