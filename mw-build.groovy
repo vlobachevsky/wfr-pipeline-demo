@@ -23,9 +23,10 @@ pipeline {
         stage('Build') {
             steps {
                 // Checkout PunchMW repo
-                checkoutSVN(svnCredentialsId, "svn://kap-wfr-svn.int.kronos.com/PunchMW")
+                checkoutSVN(svnCredentialsId, "$svnRootURL/PunchMW")
                 // Checkout environment config files
                 checkoutSVN(svnCredentialsId, "$svnRootURL/Documents/DevOps/Scripts/Env_Configs/$envId", 'env')
+                // Compile PunchMW
                 buildMW()
                 // Build Access Control
 //                powershell 'Write-Output "Hello, World!"'
