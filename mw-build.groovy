@@ -31,10 +31,10 @@ pipeline {
                     credentialsId: svnCredentialsId,
                     url: "$svnRootURL/PunchMW"
                 )
-                // checkoutSVN {
-                //     credentialsId = 'vital.lobachevskij-wrf-svn'
-                //     url = "svn://kap-wfr-svn.int.kronos.com/PunchMW"
-                // }
+                checkoutSVN (
+                    credentialsId: svnCredentialsId
+                    url: "$svnRootURL/PunchMW"
+                )
 
                 // Checkout environment config files
 //                checkoutSVN(svnCredentialsId, "$svnRootURL/Documents/DevOps/Scripts/Env_Configs/$envId", 'env')
