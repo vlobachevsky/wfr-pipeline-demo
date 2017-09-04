@@ -28,10 +28,10 @@ pipeline {
         stage('Build') {
             steps {
                 // Checkout PunchMW repo
-                checkoutSVN(
+                checkoutSVN([
                     credentialsId: svnCredentialsId,
                     url: "$svnRootURL/PunchMW"
-                )
+                ])
                 // Checkout environment config files
                 // checkoutSVN (
                 //     credentialsId: svnCredentialsId,
