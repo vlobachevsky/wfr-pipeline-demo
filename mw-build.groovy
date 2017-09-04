@@ -28,12 +28,12 @@ pipeline {
         stage('Build') {
             steps {
                 // Checkout PunchMW repo
-                checkoutSVN(
+                checkoutSVN (
                     credentialsId: svnCredentialsId,
                     url: "$svnRootURL/PunchMW"
                 )
                 // Checkout environment config files
-                checkoutSVN(
+                checkoutSVN (
                     credentialsId: svnCredentialsId,
                     url: "$svnRootURL/Documents/DevOps/Scripts/Env_Configs/$envId",
                     localDir: 'env'
@@ -46,7 +46,7 @@ pipeline {
         stage('Publish') {
             steps {
                 echo 'Publish...'
-                publishMW(
+                publishMW (
 //                    repo: '\\\\kap-wfr-fs01\\Build Server Data\\kap-wfr-ap01\\SharedFiles\\hardware\\'
                     repo: '\\\\epbyminw1044\\wfr-artifactory'
                 )
