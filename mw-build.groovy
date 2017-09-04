@@ -27,9 +27,18 @@ pipeline {
         stage('Build') {
             steps {
                 // Checkout PunchMW repo
-                checkoutSVN(svnCredentialsId, "$svnRootURL/PunchMW")
+//                checkoutSVN(svnCredentialsId, "$svnRootURL/PunchMW")
+                checkoutSVN {
+                    credentialsId = "$svnCredentialsId"
+                    url = "$svnRootURL/PunchMW"
+                }
                 // Checkout environment config files
-                checkoutSVN(svnCredentialsId, "$svnRootURL/Documents/DevOps/Scripts/Env_Configs/$envId", 'env')
+//                checkoutSVN(svnCredentialsId, "$svnRootURL/Documents/DevOps/Scripts/Env_Configs/$envId", 'env')
+                checkoutSVN {
+                    credentialsId = "$svnCredentialsId"
+                    url = "$svnRootURL/Documents/DevOps/Scripts/Env_Configs/$envId"
+                    localDir = 'env'
+                }
                 // Compile PunchMW
                 buildMW()
             }
