@@ -32,7 +32,7 @@ pipeline {
                     url: "$svnRootURL/PunchMW"
                 )
                 checkoutSVN (
-                    credentialsId: svnCredentialsId
+                    credentialsId: svnCredentialsId,
                     url: "$svnRootURL/PunchMW"
                 )
 
