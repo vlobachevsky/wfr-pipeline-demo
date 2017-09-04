@@ -28,8 +28,10 @@ pipeline {
             steps {
                 // Checkout PunchMW repo
 //                checkoutSVN(svnCredentialsId, "$svnRootURL/PunchMW")
-                buildPlugin {
-                    name = 'git'
+                script {
+                    buildPlugin {
+                        name = 'git'
+                    }
                 }
                 // checkoutSVN {
                 //     credentialsId = 'vital.lobachevskij-wrf-svn'
