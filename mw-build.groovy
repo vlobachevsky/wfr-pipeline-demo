@@ -31,20 +31,12 @@ pipeline {
                     credentialsId: svnCredentialsId,
                     url: "$svnRootURL/PunchMW"
                 )
+                // Checkout environment config files
                 checkoutSVN (
                     credentialsId: svnCredentialsId,
-                    url: "$svnRootURL/PunchMW"
+                    url: "$svnRootURL/Documents/DevOps/Scripts/Env_Configs/$envId"
+                    localDir: 'env'
                 )
-
-                // Checkout environment config files
-//                checkoutSVN(svnCredentialsId, "$svnRootURL/Documents/DevOps/Scripts/Env_Configs/$envId", 'env')
-
-                // checkoutSVN {
-                //     credentialsId = "$svnCredentialsId"
-                //     url = "$svnRootURL/Documents/DevOps/Scripts/Env_Configs/$envId"
-                //     localDir = 'env'
-                // }
-
                 // Compile PunchMW
                 buildMW()
             }
