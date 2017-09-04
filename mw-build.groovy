@@ -27,7 +27,7 @@ pipeline {
         stage('Build') {
             steps {
                 // Checkout PunchMW repo
-                checkoutSVN(credentialsId = svnCredentialsId, "$svnRootURL/PunchMW")
+                checkoutSVN(credentialsId: svnCredentialsId, "$svnRootURL/PunchMW")
                 // checkoutSVN {
                 //     credentialsId = 'vital.lobachevskij-wrf-svn'
                 //     url = "svn://kap-wfr-svn.int.kronos.com/PunchMW"
