@@ -28,17 +28,23 @@ pipeline {
             steps {
                 // Checkout PunchMW repo
 //                checkoutSVN(svnCredentialsId, "$svnRootURL/PunchMW")
-                checkoutSVN {
-                    credentialsId = 'vital.lobachevskij-wrf-svn'
-                    url = "svn://kap-wfr-svn.int.kronos.com/PunchMW"
+                buildPlugin {
+                    name = 'git'
                 }
+                // checkoutSVN {
+                //     credentialsId = 'vital.lobachevskij-wrf-svn'
+                //     url = "svn://kap-wfr-svn.int.kronos.com/PunchMW"
+                // }
+
                 // Checkout environment config files
 //                checkoutSVN(svnCredentialsId, "$svnRootURL/Documents/DevOps/Scripts/Env_Configs/$envId", 'env')
+
                 // checkoutSVN {
                 //     credentialsId = "$svnCredentialsId"
                 //     url = "$svnRootURL/Documents/DevOps/Scripts/Env_Configs/$envId"
                 //     localDir = 'env'
                 // }
+
                 // Compile PunchMW
                 buildMW()
             }
