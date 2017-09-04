@@ -34,7 +34,7 @@ pipeline {
                 // Checkout environment config files
                 checkoutSVN (
                     credentialsId: svnCredentialsId,
-                    url: "$svnRootURL/Documents/DevOps/Scripts/Env_Configs/$envId"
+                    url: "$svnRootURL/Documents/DevOps/Scripts/Env_Configs/$envId",
                     localDir: 'env'
                 )
                 // Compile PunchMW
