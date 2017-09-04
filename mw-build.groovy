@@ -45,11 +45,13 @@ pipeline {
 
         stage('Publish') {
             steps {
-                // echo 'Publish...'
+                echo 'Publish...'
+/*
                 publishMW (
 //                    repo: '\\\\kap-wfr-fs01\\Build Server Data\\kap-wfr-ap01\\SharedFiles\\hardware\\'
                     repo: '\\\\epbyminw1044\\wfr-artifactory'
                 )
+*/                
             }
         }
 
