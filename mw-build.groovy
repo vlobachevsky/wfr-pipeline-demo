@@ -18,7 +18,7 @@ pipeline {
     }
 
     environment {
-        svnCredentialsId = 'vital.lobachevskij-wrf-svn'
+        SVN_CREDENTIALS_ID = 'vital.lobachevskij-wrf-svn'
         svnRootURL = 'svn://kap-wfr-svn.int.kronos.com'
         envId = 'maindev'
         repo = '\\\\epbyminw1044.minsk.epam.com\\wfr-artifactory\\'
@@ -29,12 +29,12 @@ pipeline {
             steps {
                 // Checkout PunchMW repo
                 checkoutSVN (
-                    credentialsId: svnCredentialsId,
+                    credentialsId: SVN_CREDENTIALS_ID,
                     url: "$env.svnRootURL/PunchMW"
                 )
                 // Checkout environment config files
                 checkoutSVN (
-                    credentialsId: svnCredentialsId,
+                    credentialsId: SVN_CREDENTIALS_ID,
                     url: "$svnRootURL/Documents/DevOps/Scripts/Env_Configs/$envId",
                     localDir: 'env'
                 )
