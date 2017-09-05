@@ -12,7 +12,7 @@ Params:
 pipeline {
     agent {
         node {
-            label 'pipeline'
+            label "$params.LABEL"
             customWorkspace 'C:\\TA2'
         }
     }
