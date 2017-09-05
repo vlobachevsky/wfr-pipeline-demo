@@ -3,6 +3,12 @@
 // Build PunchMW application
 // Requires MS Build Tools installed on slave (for Access Control)
 
+/*
+Params:
+-- Node
+-- Shared Folder URI
+*/
+
 pipeline {
     agent {
         label 'pipeline'
@@ -25,6 +31,11 @@ pipeline {
     }
 
     stages {
+        // TODO: Temporary. Remove when KAP-WFR-MW0* jobs are migrated
+        stage('Stop MW') {
+            stopMW()
+        }
+
         stage('Build') {
             steps {
                 // Checkout PunchMW repo
@@ -43,6 +54,10 @@ pipeline {
             }
         }
 
+        stage('Start MW') {
+            startMW()
+        }
+
         stage('Publish') {
             steps {
                 // Zip MW and copy to shared folder
@@ -51,6 +66,8 @@ pipeline {
                 )
             }
         }
+
+
 
     }
 
