@@ -11,13 +11,14 @@ Params:
 
 pipeline {
     parameters {
-        string(name: 'LABEL', defaultValue: 'pipeline', description: 'Where to run the pipeline?')
+        string(name: 'LABEL', defaultValue: 'pipeline', description: 'Restrict where this project can be run (node name or lable).')
+        string(name: 'WORKSPACE', defaultValue: 'C:\\TA2', description: 'Custom workspace for the project.')
     }
 
     agent {
         node {
             label "$params.LABEL"
-            customWorkspace 'C:\\TA2'
+            customWorkspace "$params.WORKSPACE"
         }
     }
 
