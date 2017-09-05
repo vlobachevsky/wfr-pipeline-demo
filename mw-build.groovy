@@ -12,7 +12,7 @@ Params:
 pipeline {
     parameters {
         string(name: 'LABEL', defaultValue: 'pipeline', description: 'Restrict where this project can be run (node name or lable).')
-        string(name: 'WORKSPACE', defaultValue: 'C:\\TA2', description: 'Custom workspace for the project.')
+        string(name: 'WORKSPACE', defaultValue: 'D:\\TA', description: 'Custom workspace for the project.')
         string(name: 'SHARED_FOLDER_URI', defaultValue: '\\\\epbyminw1044.minsk.epam.com\\wfr-artifactory\\', description: 'Where to publish the project artifacts?')
     }
 
@@ -48,19 +48,21 @@ pipeline {
 
         stage('Build') {
             steps {
-                // Checkout PunchMW repo
-                checkoutSVN (
-                    credentialsId: "$SVN_CREDENTIALS_ID",
-                    url: "$SVN_ROOT_URL/PunchMW"
-                )
-                // Checkout environment config files
-                checkoutSVN (
-                    credentialsId: SVN_CREDENTIALS_ID,
-                    url: "$SVN_ROOT_URL/Documents/DevOps/Scripts/Env_Configs/$ENV_ID",
-                    localDir: 'env'
-                )
-                // Compile PunchMW
-                buildMW()
+                dir('PunchMW') {
+                    // Checkout PunchMW repo
+                    checkoutSVN (
+                        credentialsId: "$SVN_CREDENTIALS_ID",
+                        url: "$SVN_ROOT_URL/PunchMW"
+                    )
+                    // Checkout environment config files
+                    checkoutSVN (
+                        credentialsId: SVN_CREDENTIALS_ID,
+                        url: "$SVN_ROOT_URL/Documents/DevOps/Scripts/Env_Configs/$ENV_ID",
+                        localDir: 'env'
+                    )
+                    // Compile PunchMW
+                    buildMW()
+                }
             }
         }
 
