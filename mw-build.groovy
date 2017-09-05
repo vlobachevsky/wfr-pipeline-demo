@@ -10,15 +10,15 @@ Params:
 */
 
 pipeline {
+    parameters {
+        string(name: 'LABEL', defaultValue: 'pipeline', description: 'Where to run the pipeline?')
+    }
+
     agent {
         node {
             label "$params.LABEL"
             customWorkspace 'C:\\TA2'
         }
-    }
-
-    parameters {
-        string(name: 'LABEL', defaultValue: 'pipeline', description: 'Where to run the pipeline?')
     }
 
     tools {
