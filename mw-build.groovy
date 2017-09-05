@@ -11,12 +11,19 @@ Params:
 
 pipeline {
     agent {
-        label 'pipeline'
+        node {
+            label 'pipeline'
+            customWorkspace 'C:\\TA2'
+        }
     }
 
-     tools {
+    parameters {
+        string(name: 'LABEL', defaultValue: 'pipeline', description: 'Where to run the pipeline?')
+    }
+
+    tools {
         ant "Ant-1.9.6"
-     }
+    }
 
     options {
          buildDiscarder(logRotator(numToKeepStr: '5'))
