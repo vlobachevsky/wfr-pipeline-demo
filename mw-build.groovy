@@ -30,7 +30,7 @@ pipeline {
                 // Checkout PunchMW repo
                 checkoutSVN (
                     credentialsId: svnCredentialsId,
-                    url: "$svnRootURL/PunchMW"
+                    url: "$env.svnRootURL/PunchMW"
                 )
                 // Checkout environment config files
                 checkoutSVN (
