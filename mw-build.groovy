@@ -33,7 +33,9 @@ pipeline {
     stages {
         // TODO: Temporary. Remove when KAP-WFR-MW0* jobs are migrated
         stage('Stop MW') {
-            stopMW()
+            steps {
+                stopMW()
+            }
         }
 
         stage('Build') {
@@ -55,7 +57,9 @@ pipeline {
         }
 
         stage('Start MW') {
-            startMW()
+            steps {
+                startMW()
+            }
         }
 
         stage('Publish') {
