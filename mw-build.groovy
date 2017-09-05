@@ -20,8 +20,8 @@ pipeline {
     environment {
         SVN_CREDENTIALS_ID = 'vital.lobachevskij-wrf-svn'
         SVN_ROOT_URL = 'svn://kap-wfr-svn.int.kronos.com'
-        envId = 'maindev'
-        repo = '\\\\epbyminw1044.minsk.epam.com\\wfr-artifactory\\'
+        ENV_ID = 'maindev'
+        SHARED_FOLDER_URI = '\\\\epbyminw1044.minsk.epam.com\\wfr-artifactory\\'
     }
 
     stages {
@@ -35,7 +35,7 @@ pipeline {
                 // Checkout environment config files
                 checkoutSVN (
                     credentialsId: SVN_CREDENTIALS_ID,
-                    url: "$SVN_ROOT_URL/Documents/DevOps/Scripts/Env_Configs/$envId",
+                    url: "$SVN_ROOT_URL/Documents/DevOps/Scripts/Env_Configs/$ENV_ID",
                     localDir: 'env'
                 )
                 // Compile PunchMW
@@ -47,7 +47,7 @@ pipeline {
             steps {
                 // Zip MW and copy to shared folder
                 publishMW (
-                    repo: "$repo"
+                    repo: SHARED_FOLDER_URI
                 )
             }
         }
