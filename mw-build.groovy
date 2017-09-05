@@ -21,7 +21,7 @@ pipeline {
         svnCredentialsId = 'vital.lobachevskij-wrf-svn'
         svnRootURL = 'svn://kap-wfr-svn.int.kronos.com'
         envId = 'maindev'
-        MiddlewarePath = '\\\\epbyminw1044\\wfr-artifactory'
+//        MiddlewarePath = '\\\\epbyminw1044\\wfr-artifactory'
     }
 
     stages {
@@ -48,7 +48,7 @@ pipeline {
                 echo 'Publish...'
                 publishMW (
 //                    repo: '\\\\kap-wfr-fs01\\Build Server Data\\kap-wfr-ap01\\SharedFiles\\hardware\\'
-                    repo: '\\\\epbyminw1044\\wfr-artifactory'
+                    repo: '\\\\epbyminw1044.minsk.epam.com\\wfr-artifactory\\'
                 )
             }
         }
