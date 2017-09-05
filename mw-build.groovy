@@ -13,6 +13,7 @@ pipeline {
     parameters {
         string(name: 'LABEL', defaultValue: 'pipeline', description: 'Restrict where this project can be run (node name or lable).')
         string(name: 'WORKSPACE', defaultValue: 'C:\\TA2', description: 'Custom workspace for the project.')
+        string(name: 'SHARED_FOLDER_URI', defaultValue: '\\\\epbyminw1044.minsk.epam.com\\wfr-artifactory\\', description: 'Where to publish the project artifacts?')
     }
 
     agent {
@@ -35,7 +36,6 @@ pipeline {
         SVN_CREDENTIALS_ID = 'vital.lobachevskij-wrf-svn'
         SVN_ROOT_URL = 'svn://kap-wfr-svn.int.kronos.com'
         ENV_ID = 'maindev'
-        SHARED_FOLDER_URI = '\\\\epbyminw1044.minsk.epam.com\\wfr-artifactory\\'
     }
 
     stages {
@@ -50,7 +50,7 @@ pipeline {
             steps {
                 // Checkout PunchMW repo
                 checkoutSVN (
-                    credentialsId: SVN_CREDENTIALS_ID,
+                    credentialsId: "$SVN_CREDENTIALS_ID",
                     url: "$SVN_ROOT_URL/PunchMW"
                 )
                 // Checkout environment config files
@@ -74,7 +74,7 @@ pipeline {
             steps {
                 // Zip MW and copy to shared folder
                 publishMW (
-                    repo: SHARED_FOLDER_URI
+                    repo: "$params.SHARED_FOLDER_URI"
                 )
             }
         }
