@@ -25,7 +25,7 @@ pipeline {
     }
 
     tools {
-        ant "Ant-1.9.6"
+        ant "Ant 1.9.6"
     }
 
     options {
