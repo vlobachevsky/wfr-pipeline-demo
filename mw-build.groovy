@@ -14,6 +14,7 @@ pipeline {
         string(name: 'LABEL', defaultValue: 'pipeline', description: 'Restrict where this project can be run (node name or lable).')
         string(name: 'WORKSPACE', defaultValue: 'D:\\TA', description: 'Custom workspace for the project.')
         string(name: 'SHARED_FOLDER_URI', defaultValue: '\\\\epbyminw1044.minsk.epam.com\\wfr-artifactory\\', description: 'Where to publish the project artifacts?')
+        // TODO: Add SKIP_PUBLISH param
     }
 
     agent {
@@ -33,7 +34,8 @@ pipeline {
     }
 
     environment {
-        SVN_CREDENTIALS_ID = 'vital.lobachevskij-wrf-svn'
+        //SVN_CREDENTIALS_ID = 'vital.lobachevskij-wrf-svn'
+        SVN_CREDENTIALS_ID = '43ed3d48-46af-4df6-95b0-5649347e603f'
         SVN_ROOT_URL = 'svn://kap-wfr-svn.int.kronos.com'
         ENV_ID = 'maindev'
     }
