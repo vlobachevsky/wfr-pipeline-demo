@@ -35,7 +35,7 @@ pipeline {
 
     environment {
         //SVN_CREDENTIALS_ID = 'vital.lobachevskij-wrf-svn'
-        SVN_CREDENTIALS_ID = '43ed3d48-46af-4df6-95b0-5649347e603f'
+        SVN_CREDENTIALS_ID = 'Build_Maestro'
         SVN_ROOT_URL = 'svn://kap-wfr-svn.int.kronos.com'
         ENV_ID = 'maindev'
     }
