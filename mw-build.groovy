@@ -11,8 +11,8 @@ Params:
 
 pipeline {
     parameters {
-        string(name: 'LABEL', defaultValue: 'pipeline', description: 'Restrict where this project can be run (node name or lable).')
-        string(name: 'WORKSPACE', defaultValue: 'D:\\TA', description: 'Custom workspace for the project.')
+        string(name: 'LABEL', defaultValue: 'MSBuild', description: 'Restrict where this project can be run (node name or lable).')
+        string(name: 'WORKSPACE', defaultValue: 'D:\\TA2', description: 'Custom workspace for the project.')
         string(name: 'SHARED_FOLDER_URI', defaultValue: '\\\\epbyminw1044.minsk.epam.com\\wfr-artifactory\\', description: 'Where to publish the project artifacts?')
         // TODO: Add SKIP_PUBLISH param
     }
