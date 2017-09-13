@@ -9,6 +9,8 @@ Params:
 -- Shared Folder URI
 */
 
+// TODO: Send notifications
+
 pipeline {
     parameters {
         string(name: 'LABEL', defaultValue: 'MSBuild', description: 'Restrict where this project can be run (node name or lable).')
@@ -78,6 +80,14 @@ pipeline {
                 // Zip MW and copy to shared folder
                 publishMW (
                     repo: "$params.SHARED_FOLDER_URI"
+                )
+            }
+        }
+
+        post {
+            always {
+                sendNotifications (
+                    to: ['Vital.Lobachevskij@Kronos.com']
                 )
             }
         }
