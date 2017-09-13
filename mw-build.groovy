@@ -34,7 +34,7 @@ pipeline {
     }
 
     environment {
-        SVN_CREDENTIALS_ID = getSVNCredentialsId()
+        SVN_CREDENTIALS_ID = infra.getSVNCredentialsId()
         SVN_ROOT_URL = infra.getSVNRootURL()
         ENV_ID = 'maindev'
     }
