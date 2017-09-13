@@ -84,13 +84,13 @@ pipeline {
             }
         }
 
-        post {
-            always {
-                sendNotifications (
-                    to: ['Vital.Lobachevskij@Kronos.com']
-                )
-            }
+    post {
+        always {
+            sendNotifications (
+                to: ['Vital.Lobachevskij@Kronos.com']
+            )
         }
+    }
 
 
 
