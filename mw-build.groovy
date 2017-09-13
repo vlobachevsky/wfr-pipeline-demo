@@ -88,7 +88,7 @@ pipeline {
     post {
         always {
             sendNotifications (
-                to: ['Vital.Lobachevskij@Kronos.com']
+                to: 'Vital.Lobachevskij@Kronos.com'
             )
         }
     }
