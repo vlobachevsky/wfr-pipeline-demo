@@ -53,15 +53,15 @@ pipeline {
             steps {
                 dir('PunchMW') {
                     // Checkout PunchMW repo
-                    checkoutSVN (
-                        credentialsId: "$SVN_CREDENTIALS_ID",
-                        url: "$SVN_ROOT_URL/PunchMW"
+                    checkoutSVN(
+                            credentialsId: "$SVN_CREDENTIALS_ID",
+                            url: "$SVN_ROOT_URL/PunchMW"
                     )
                     // Checkout environment config files
-                    checkoutSVN (
-                        credentialsId: SVN_CREDENTIALS_ID,
-                        url: "$SVN_ROOT_URL/Documents/DevOps/Scripts/Env_Configs/$ENV_ID",
-                        localDir: 'env'
+                    checkoutSVN(
+                            credentialsId: SVN_CREDENTIALS_ID,
+                            url: "$SVN_ROOT_URL/Documents/DevOps/Scripts/Env_Configs/$ENV_ID",
+                            localDir: 'env'
                     )
                     // Compile PunchMW
                     buildMW()
@@ -78,11 +78,12 @@ pipeline {
         stage('Publish') {
             steps {
                 // Zip MW and copy to shared folder
-                publishMW (
-                    repo: "$params.SHARED_FOLDER_URI"
+                publishMW(
+                        repo: "$params.SHARED_FOLDER_URI"
                 )
             }
         }
+    }
 
     post {
         always {
@@ -90,10 +91,6 @@ pipeline {
                 to: ['Vital.Lobachevskij@Kronos.com']
             )
         }
-    }
-
-
-
     }
 
 }
