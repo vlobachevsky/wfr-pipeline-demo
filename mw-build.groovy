@@ -88,12 +88,15 @@ pipeline {
     }
 
     post {
-//        success {
-//            sendMail(
-//                to: 'Vital.Lobachevskij@Kronos.com'
-//            )
-//        }
         success {
+            when {
+                expression { true }
+            }
+            sendMail(
+                to: 'Vital.Lobachevskij@Kronos.com'
+            )
+        }
+        failure {
             sendMail(
                 to: 'Vital.Lobachevskij@Kronos.com',
                 body: '''<strong>KAP-WFR-MW01 is unavailable</strong><br>
