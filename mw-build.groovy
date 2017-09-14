@@ -89,12 +89,11 @@ pipeline {
 
     post {
         success {
-            when {
-                expression { true }
+            script {
+                sendMail(
+                        to: 'Vital.Lobachevskij@Kronos.com'
+                )
             }
-            sendMail(
-                to: 'Vital.Lobachevskij@Kronos.com'
-            )
         }
         failure {
             sendMail(
