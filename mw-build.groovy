@@ -91,7 +91,7 @@ pipeline {
         success {
             script {
                 echo "Prev. build result: " + currentBuild.previousBuild.result
-                if (currentBuild.previousBuild.result == "FAILURE" || currentBuild.previousBuild.result == "UNSTABLE") {
+                if (currentBuild.previousBuild.result in ['FAILURE', 'UNSTABLE']) {
                     sendMail(
                         to: 'Vital.Lobachevskij@Kronos.com',
                         body: 'Oops!'
