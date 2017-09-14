@@ -51,7 +51,9 @@ pipeline {
             steps {
                 dir('PunchMW') {
                     // Checkout PunchMW repo
-                    checkoutSVN()
+                    checkoutSVN(
+                        url: 'PunchMW'
+                    )
                     // Checkout environment config files
                     checkoutSVN(
                         url: "Documents/DevOps/Scripts/Env_Configs/$ENV_ID",
