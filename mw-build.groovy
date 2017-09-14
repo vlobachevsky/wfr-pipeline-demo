@@ -97,7 +97,7 @@ pipeline {
 */
 //            echo "DEBUG: " + currentBuild.currentResult
             sendMail(
-                buildStatus: currentBuild.result
+                to: 'Vital.Lobachevskij@Kronos.com'
             )
         }
     }
