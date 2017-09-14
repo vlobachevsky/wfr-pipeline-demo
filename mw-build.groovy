@@ -94,9 +94,11 @@ pipeline {
                 if (isFixed) {
                     sendMail(
                         to: 'Vital.Lobachevskij@Kronos.com',
-                        body: 'Oops!'
+                        body: '''<p><strong>KAP-WFR-MW01 is up</strong></p>
+                            <p>${JELLY_SCRIPT,template="html"}</p>'''
                     )
                 } else {
+                    // Successful build
                     sendMail(
                         to: 'Vital.Lobachevskij@Kronos.com'
                     )
@@ -106,8 +108,17 @@ pipeline {
         failure {
             sendMail(
                 to: 'Vital.Lobachevskij@Kronos.com',
-                body: '''<strong>KAP-WFR-MW01 is unavailable</strong><br>
-                    ${JELLY_SCRIPT,template="html"}'''
+                body: '''<p><strong>KAP-WFR-MW01 is unavailable</strong></p>
+                    <p>${JELLY_SCRIPT,template="html"}</p>'''
+            )
+        }
+        unstable {
+            sendMail(
+                    to: 'Vital.Lobachevskij@Kronos.com',
+                    body: '''<p><strong>KAP-WFR-MW01 is up</strong></p>
+                        <p>${JELLY_SCRIPT,template="html"}</p>
+                        <p>${FAILED_TESTS}</p>''',
+                    attachLog: false
             )
         }
 
