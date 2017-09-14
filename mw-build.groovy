@@ -87,8 +87,8 @@ pipeline {
                 def isFixed = currentBuild.previousBuild.result in ['FAILURE', 'UNSTABLE']
                 if (isFixed) {
                     sendMail(
-                        body: """<p><strong>KAP-WFR-MW01 is up</strong></p>
-                            <p>${JELLY_SCRIPT,template='html'}</p>"""
+                        body: '''<p><strong>${ENV,var="NODE_NAME"} is up</strong></p>
+                            <p>${JELLY_SCRIPT,template='html'}</p>'''
                     )
                 } else {
                     // Successful build
@@ -98,15 +98,15 @@ pipeline {
         }
         failure {
             sendMail(
-                body: """<p><strong>KAP-WFR-MW01 is unavailable</strong></p>
-                    <p>${JELLY_SCRIPT,template='html'}</p>"""
+                body: '''<p><strong>${ENV,var="NODE_NAME"} is unavailable</strong></p>
+                    <p>${JELLY_SCRIPT,template="html"}</p>'''
             )
         }
         unstable {
             sendMail(
-                    body: """<p><strong>KAP-WFR-MW01 is up</strong></p>
-                        <p>${JELLY_SCRIPT,template='html'}</p>
-                        <p>${FAILED_TESTS}</p>""",
+                    body: '''<p><strong>${ENV,var="NODE_NAME"} is up</strong></p>
+                        <p>${JELLY_SCRIPT,template="html"}</p>
+                        <p>${FAILED_TESTS}</p>''',
                     attachLog: false
             )
         }
