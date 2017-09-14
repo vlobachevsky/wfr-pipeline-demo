@@ -47,7 +47,7 @@ pipeline {
             steps {
                 stopMW()
                 echo bat(returnStdout: true, script: 'set')
-            }
+                currentBuild.result = 'UNSTABLE'
         }
 /*
         stage('Build') {
