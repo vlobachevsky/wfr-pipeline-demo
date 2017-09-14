@@ -47,6 +47,7 @@ pipeline {
                 stopMW()
             }
         }
+/*
         stage('Build') {
             steps {
                 dir('PunchMW') {
@@ -79,6 +80,7 @@ pipeline {
                 )
             }
         }
+*/
     }
 
     post {
@@ -92,6 +94,7 @@ pipeline {
                     )
                 } else {
                     // Successful build
+                    echo bat(returnStdout: true, script: 'set')
                     sendMail(
                         body: '''<p><strong>${ENV,var="BUILD_ID"} is up</strong></p>
                         <p>${JELLY_SCRIPT,template="html"}</p>'''
