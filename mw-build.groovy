@@ -95,7 +95,7 @@ pipeline {
                 subject: "${env.JOB_NAME} - Build # ${env.BUILD_NUMBER} - ${env.BUILD_STATUS}!"
             )
 */
-            echo "DEBUG: " + currentBuild.result
+            echo "DEBUG: " + currentBuild.currentResult
             sendMail(
                 buildStatus: currentBuild.result
             )
