@@ -95,9 +95,7 @@ pipeline {
                 subject: "${env.JOB_NAME} - Build # ${env.BUILD_NUMBER} - ${env.BUILD_STATUS}!"
             )
 */
-            sendMail2 (
-
-            )
+            sendMail2()
         }
     }
 
