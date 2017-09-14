@@ -52,11 +52,11 @@ pipeline {
                 dir('PunchMW') {
                     // Checkout PunchMW repo
                     checkoutSVN(
-                        url: 'PunchMW'
+                        url: infra.getSVNRootURL() + '/PunchMW'
                     )
                     // Checkout environment config files
                     checkoutSVN(
-                        url: "Documents/DevOps/Scripts/Env_Configs/$ENV_ID",
+                        url: infra.getSVNRootURL() + "/Documents/DevOps/Scripts/Env_Configs/$ENV_ID",
                         localDir: 'env'
                     )
                     // Compile PunchMW
@@ -87,8 +87,8 @@ pipeline {
                 def isFixed = currentBuild.previousBuild.result in ['FAILURE', 'UNSTABLE']
                 if (isFixed) {
                     sendMail(
-                        body: '''<p><strong>KAP-WFR-MW01 is up</strong></p>
-                            <p>${JELLY_SCRIPT,template="html"}</p>'''
+                        body: """<p><strong>KAP-WFR-MW01 is up</strong></p>
+                            <p>${JELLY_SCRIPT,template='html'}</p>"""
                     )
                 } else {
                     // Successful build
@@ -98,15 +98,15 @@ pipeline {
         }
         failure {
             sendMail(
-                body: '''<p><strong>KAP-WFR-MW01 is unavailable</strong></p>
-                    <p>${JELLY_SCRIPT,template="html"}</p>'''
+                body: """<p><strong>KAP-WFR-MW01 is unavailable</strong></p>
+                    <p>${JELLY_SCRIPT,template='html'}</p>"""
             )
         }
         unstable {
             sendMail(
-                    body: '''<p><strong>KAP-WFR-MW01 is up</strong></p>
-                        <p>${JELLY_SCRIPT,template="html"}</p>
-                        <p>${FAILED_TESTS}</p>''',
+                    body: """<p><strong>KAP-WFR-MW01 is up</strong></p>
+                        <p>${JELLY_SCRIPT,template='html'}</p>
+                        <p>${FAILED_TESTS}</p>""",
                     attachLog: false
             )
         }
