@@ -96,7 +96,7 @@ pipeline {
             )
 */
             sendMail {
-                subject 'Test'
+                subject = 'Test'
             }
         }
     }
