@@ -90,8 +90,8 @@ pipeline {
     post {
         success {
             script {
-                echo "Prev. build result: " + currentBuild.previousBuild.result
-                if (currentBuild.previousBuild.result in ['FAILURE', 'UNSTABLE']) {
+                def isFixed = currentBuild.previousBuild.result in ['FAILURE', 'UNSTABLE']
+                if (isFixed) {
                     sendMail(
                         to: 'Vital.Lobachevskij@Kronos.com',
                         body: 'Oops!'
