@@ -89,7 +89,7 @@ pipeline {
 
     post {
         success {
-            script {
+            xscript {
                 if (currentBuild.previousBuild == "FAILURE" || currentBuild.previousBuild == "UNSTABLE") {
                     sendMail(
                         to: 'Vital.Lobachevskij@Kronos.com',
