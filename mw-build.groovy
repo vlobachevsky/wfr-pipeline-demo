@@ -42,14 +42,13 @@ pipeline {
     }
 
     stages {
-/*
         // TODO: Temporary. Remove when KAP-WFR-MW0* jobs are migrated
         stage('Stop MW') {
             steps {
                 stopMW()
             }
         }
-
+/*
         stage('Build') {
             steps {
                 dir('PunchMW') {
