@@ -96,7 +96,8 @@ pipeline {
         success {
             sendMail(
                 to: 'Vital.Lobachevskij@Kronos.com',
-                body: '''<strong>KAP-WFR-MW01 is unavailable</strong><br>${JELLY_SCRIPT,template="html"}'''
+                body: '''<strong>KAP-WFR-MW01 is unavailable</strong><br>
+                    ${JELLY_SCRIPT,template="html"}'''
             )
         }
 
