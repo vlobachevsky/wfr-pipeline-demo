@@ -46,6 +46,7 @@ pipeline {
         stage('Stop MW') {
             steps {
                 stopMW()
+                echo bat(returnStdout: true, script: 'set')
             }
         }
 /*
@@ -90,7 +91,7 @@ pipeline {
         always {
             sendNotifications (
                 to: 'Vital.Lobachevskij@Kronos.com',
-                subject: "${PROJECT_NAME} - Build # ${env.BUILD_NUMBER} - ${env.BUILD_STATUS}!"
+                subject: "${env.JOB_NAME} - Build # ${env.BUILD_NUMBER} - ${env.BUILD_STATUS}!"
             )
         }
     }
