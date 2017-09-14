@@ -47,7 +47,6 @@ pipeline {
                 stopMW()
             }
         }
-/*
         stage('Build') {
             steps {
                 dir('PunchMW') {
@@ -73,6 +72,10 @@ pipeline {
         }
 
         stage('Publish') {
+            // TODO: Temporary don't run this step twice
+            when {
+                expression { env.LABEL == "KAP-WFR-MW01" }
+            }
             steps {
                 // Zip MW and copy to shared folder
                 publishMW(
@@ -80,7 +83,6 @@ pipeline {
                 )
             }
         }
-*/
     }
 
     post {
