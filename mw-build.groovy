@@ -89,7 +89,7 @@ pipeline {
 
     post {
         success {
-            xscript {
+            script {
                 echo "Prev. build result: " + currentBuild.previousBuild.result
                 if (currentBuild.previousBuild.result in ['FAILURE', 'UNSTABLE']) {
                     sendMail(
