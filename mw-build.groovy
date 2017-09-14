@@ -88,18 +88,18 @@ pipeline {
     }
 
     post {
-        always {
-/*
-            sendNotifications (
-                to: 'Vital.Lobachevskij@Kronos.com',
-                subject: "${env.JOB_NAME} - Build # ${env.BUILD_NUMBER} - ${env.BUILD_STATUS}!"
-            )
-*/
-//            echo "DEBUG: " + currentBuild.currentResult
+//        success {
+//            sendMail(
+//                to: 'Vital.Lobachevskij@Kronos.com'
+//            )
+//        }
+        success {
             sendMail(
-                to: 'Vital.Lobachevskij@Kronos.com'
+                to: 'Vital.Lobachevskij@Kronos.com',
+                body: '''<strong>KAP-WFR-MW01 is unavailable</strong><br>${JELLY_SCRIPT,template="html"}'''
             )
         }
+
     }
 
 }
