@@ -92,7 +92,10 @@ pipeline {
                     )
                 } else {
                     // Successful build
-                    sendMail()
+                    sendMail(
+                        body: '''<p><strong>${ENV,var="NODE_NAME"} is up</strong></p>
+                        <p>${JELLY_SCRIPT,template="html"}</p>'''
+                    )
                 }
             }
         }
