@@ -52,12 +52,12 @@ pipeline {
                 dir('PunchMW') {
                     // Checkout PunchMW repo
                     checkoutSVN(
-                            url: 'PunchMW'
+                        url: 'PunchMW'
                     )
                     // Checkout environment config files
                     checkoutSVN(
-                            url: "Documents/DevOps/Scripts/Env_Configs/$ENV_ID",
-                            localDir: 'env'
+                        url: "Documents/DevOps/Scripts/Env_Configs/$ENV_ID",
+                        localDir: 'env'
                     )
                     // Compile PunchMW
                     buildMW()
