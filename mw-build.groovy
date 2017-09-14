@@ -90,9 +90,16 @@ pipeline {
     post {
         success {
             script {
-                sendMail(
+                if (true) {
+                    sendMail(
+                        to: 'Vital.Lobachevskij@Kronos.com',
+                        body 'Oops!'
+                    )
+                } else {
+                    sendMail(
                         to: 'Vital.Lobachevskij@Kronos.com'
-                )
+                    )
+                }
             }
         }
         failure {
