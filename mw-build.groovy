@@ -74,7 +74,7 @@ pipeline {
         stage('Publish') {
             // TODO: Temporary don't run this step twice
             when {
-                expression { env.LABEL == "KAP-WFR-MW01" }
+                expression { env.LABEL == "KAP-WFR-MW02" }
             }
             steps {
                 // Zip MW and copy to shared folder
@@ -96,7 +96,6 @@ pipeline {
                     )
                 } else {
                     // Successful build
-                    echo bat(returnStdout: true, script: 'set')
                     sendMail(
                         body: '''<p><strong>${ENV,var="LABEL"} is up</strong></p>
                         <p>${JELLY_SCRIPT,template="html"}</p>'''
