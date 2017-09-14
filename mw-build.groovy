@@ -90,7 +90,7 @@ pipeline {
     post {
         success {
             script {
-                if (true) {
+                if (currentBuild.previousBuild == "FAILURE" || currentBuild.previousBuild == "UNSTABLE") {
                     sendMail(
                         to: 'Vital.Lobachevskij@Kronos.com',
                         body: 'Oops!'
