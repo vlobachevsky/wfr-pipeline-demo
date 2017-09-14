@@ -90,7 +90,7 @@ pipeline {
         always {
             sendNotifications (
                 to: 'Vital.Lobachevskij@Kronos.com',
-                subject: "${env.PROJECT_NAME} - Build # ${env.BUILD_NUMBER} - ${env.BUILD_STATUS}!"
+                subject: "${PROJECT_NAME} - Build # ${env.BUILD_NUMBER} - ${env.BUILD_STATUS}!"
             )
         }
     }
