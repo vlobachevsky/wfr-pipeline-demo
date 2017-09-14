@@ -36,7 +36,6 @@ pipeline {
     }
 
     environment {
-        SVN_ROOT_URL = infra.getSVNRootURL()
         PROJECT_RECIPIENT_LIST = 'Vital.Lobachevskij@Kronos.com'
         ENV_ID = 'maindev'
     }
@@ -53,11 +52,11 @@ pipeline {
                 dir('PunchMW') {
                     // Checkout PunchMW repo
                     checkoutSVN(
-                            url: "$SVN_ROOT_URL/PunchMW"
+                            url: 'PunchMW'
                     )
                     // Checkout environment config files
                     checkoutSVN(
-                            url: "$SVN_ROOT_URL/Documents/DevOps/Scripts/Env_Configs/$ENV_ID",
+                            url: "Documents/DevOps/Scripts/Env_Configs/$ENV_ID",
                             localDir: 'env'
                     )
                     // Compile PunchMW
