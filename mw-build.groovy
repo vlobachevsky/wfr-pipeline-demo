@@ -93,7 +93,7 @@ pipeline {
                 if (true) {
                     sendMail(
                         to: 'Vital.Lobachevskij@Kronos.com',
-                        body 'Oops!'
+                        body: 'Oops!'
                     )
                 } else {
                     sendMail(
