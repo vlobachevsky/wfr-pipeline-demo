@@ -42,6 +42,7 @@ pipeline {
     }
 
     stages {
+/*
         // TODO: Temporary. Remove when KAP-WFR-MW0* jobs are migrated
         stage('Stop MW') {
             steps {
@@ -83,12 +84,14 @@ pipeline {
                 )
             }
         }
+*/
     }
 
     post {
         always {
             sendNotifications (
-                to: 'Vital.Lobachevskij@Kronos.com'
+                to: 'Vital.Lobachevskij@Kronos.com',
+                subject: "${env.PROJECT_NAME} - Build # ${env.BUILD_NUMBER} - ${env.BUILD_STATUS}!"
             )
         }
     }
