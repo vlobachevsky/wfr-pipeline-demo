@@ -38,6 +38,7 @@ pipeline {
     environment {
         SVN_CREDENTIALS_ID = infra.getSVNCredentialsId()
         SVN_ROOT_URL = infra.getSVNRootURL()
+        PROJECT_RECIPIENT_LIST = 'Vital.Lobachevskij@Kronos.com'
         ENV_ID = 'maindev'
     }
 
@@ -96,35 +97,29 @@ pipeline {
                 def isFixed = currentBuild.previousBuild.result in ['FAILURE', 'UNSTABLE']
                 if (isFixed) {
                     sendMail(
-                        to: 'Vital.Lobachevskij@Kronos.com',
                         body: '''<p><strong>KAP-WFR-MW01 is up</strong></p>
                             <p>${JELLY_SCRIPT,template="html"}</p>'''
                     )
                 } else {
                     // Successful build
-                    sendMail(
-                        to: 'Vital.Lobachevskij@Kronos.com'
-                    )
+                    sendMail()
                 }
             }
         }
         failure {
             sendMail(
-                to: 'Vital.Lobachevskij@Kronos.com',
                 body: '''<p><strong>KAP-WFR-MW01 is unavailable</strong></p>
                     <p>${JELLY_SCRIPT,template="html"}</p>'''
             )
         }
         unstable {
             sendMail(
-                    to: 'Vital.Lobachevskij@Kronos.com',
                     body: '''<p><strong>KAP-WFR-MW01 is up</strong></p>
                         <p>${JELLY_SCRIPT,template="html"}</p>
                         <p>${FAILED_TESTS}</p>''',
                     attachLog: false
             )
         }
-
     }
 
 }
