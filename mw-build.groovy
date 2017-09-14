@@ -47,13 +47,8 @@ pipeline {
         stage('Stop MW') {
             steps {
                 stopMW()
-                echo bat(returnStdout: true, script: 'set')
-                script {
-                    currentBuild.result = 'UNSTABLE'
-                }
             }
         }
-/*
         stage('Build') {
             steps {
                 dir('PunchMW') {
@@ -88,7 +83,6 @@ pipeline {
                 )
             }
         }
-*/
     }
 
     post {
