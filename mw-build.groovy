@@ -96,7 +96,7 @@ pipeline {
                     // Successful build
                     echo bat(returnStdout: true, script: 'set')
                     sendMail(
-                        body: '''<p><strong>${ENV,var="BUILD_ID"} is up</strong></p>
+                        body: '''<p><strong>${ENV,var="LABEL"} is up</strong></p>
                         <p>${JELLY_SCRIPT,template="html"}</p>'''
                     )
                 }
