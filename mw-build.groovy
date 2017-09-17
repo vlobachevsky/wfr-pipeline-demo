@@ -82,7 +82,7 @@ pipeline {
 //                    repo: "$params.SHARED_FOLDER_URI"
 //                )
                 publishClientMW(
-                    repo: "$params.SHARED_FOLDER_URI"
+                    repo: "\\\\kap-wfr-fs01\\Build Server Data\\kap-wfr-ap01\\SharedFiles\\test\\"
                 )
             }
         }
