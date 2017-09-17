@@ -78,8 +78,11 @@ pipeline {
             }
             steps {
                 // Zip MW and copy to shared folder
-                publishMW(
-                        repo: "$params.SHARED_FOLDER_URI"
+//                publishMW(
+//                    repo: "$params.SHARED_FOLDER_URI"
+//                )
+                publishClientMW(
+                    repo: "$params.SHARED_FOLDER_URI"
                 )
             }
         }
