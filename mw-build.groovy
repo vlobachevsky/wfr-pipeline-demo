@@ -15,7 +15,7 @@ pipeline {
     parameters {
         string(name: 'LABEL', defaultValue: 'MSBuild', description: 'Restrict where this project can be run (node name or lable).')
         string(name: 'WORKSPACE', defaultValue: 'D:\\TA2', description: 'Custom workspace for the project.')
-        string(name: 'SHARED_FOLDER_URI', defaultValue: '\\\\epbyminw1044.minsk.epam.com\\wfr-artifactory\\', description: 'Where to publish the project artifacts?')
+        string(name: 'SHARED_FOLDER_URI', defaultValue: '\\\\kap-wfr-fs01\\Build Server Data\\kap-wfr-ap01\\SharedFiles\\test', description: 'Where to publish the project artifacts?')
         // TODO: Add SKIP_PUBLISH param
     }
 
@@ -82,7 +82,7 @@ pipeline {
 //                    repo: "$params.SHARED_FOLDER_URI"
 //                )
                 publishClientMW(
-                    repo: "\\\\kap-wfr-fs01\\Build Server Data\\kap-wfr-ap01\\SharedFiles\\test\\"
+                    repo: "\\\\kap-wfr-fs01\\Build Server Data\\kap-wfr-ap01\\SharedFiles\\test"
                 )
             }
         }
